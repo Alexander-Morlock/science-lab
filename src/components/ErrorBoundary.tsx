@@ -1,4 +1,4 @@
-import React, { Component, ErrorInfo, JSX, PropsWithChildren } from "react"
+import { Component, ErrorInfo, JSX, PropsWithChildren } from "react"
 
 type Props = PropsWithChildren<{ fallback: JSX.Element }>
 
@@ -12,7 +12,6 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   public static getDerivedStateFromError(_: Error): State {
-    // Update state so the next render will show the fallback UI.
     return { hasError: true }
   }
 
