@@ -1,8 +1,8 @@
-import React, { PropsWithChildren } from "react"
+import React from "react"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router"
-import { ApplicationLayout } from "../components/ApplicationLayout"
+import { ApplicationLayout } from "./ApplicationLayout"
 import { useUserInfo } from "../hooks/useUserInfo"
-import { applicationRoutes, PageNames } from "./routes"
+import { applicationRoutes, PageNames } from "../router/routes"
 
 export function ApplicationRoutes() {
   const {
