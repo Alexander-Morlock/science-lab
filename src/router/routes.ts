@@ -11,7 +11,7 @@ export enum PageNames {
 }
 
 export const applicationRoutes: ApplicationRoute<PageNames> = {
-  ...createRoute(PageNames.HOMEPAGE, "/", HomePage),
+  ...createRoute(PageNames.HOMEPAGE, "/", HomePage, true),
   ...createRoute(PageNames.LOGIN_PAGE, "/login", LoginPage, false),
   ...createRoute(
     PageNames.PAGE_FOR_EVERYONE,
