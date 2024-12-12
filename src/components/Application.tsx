@@ -1,7 +1,7 @@
 import React from "react"
-import { UserContextProvider } from "./context/UserContextProvider"
-import { ApplicationRoutes } from "./components/ApplicationRoutes"
-import ErrorBoundary from "./components/ErrorBoundary"
+import { UserContextProvider } from "./UserContextProvider"
+import { ApplicationRoutes } from "./ApplicationRoutes"
+import ErrorBoundary from "./ErrorBoundary"
 
 export default function Application() {
   return (
