@@ -4,7 +4,7 @@ import { ApplicationLayout } from "../components/ApplicationLayout"
 import { useUserInfo } from "../hooks/useUserInfo"
 import { applicationRoutes, PageNames } from "./routes"
 
-export function ApplicationRoutes({ children }: PropsWithChildren<{}>) {
+export function ApplicationRoutes() {
   const {
     userInfo: { isLoggedIn },
   } = useUserInfo()
@@ -28,7 +28,6 @@ export function ApplicationRoutes({ children }: PropsWithChildren<{}>) {
   return (
     <BrowserRouter>
       <ApplicationLayout>
-        {children}
         <Routes>
           {Object.entries(applicationRoutes).map(
             ([pageName, { path, element, forLoggedUserOnly }]) => (

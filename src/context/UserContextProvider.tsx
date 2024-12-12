@@ -2,7 +2,7 @@ import React, { useState, PropsWithChildren } from "react"
 import { UserInfo } from "../utils/types"
 import { defaultUserContext, UserContext } from "./userContext"
 
-export function UserContextProvider({ children }: PropsWithChildren<{}>) {
+export function UserContextProvider({ children }: PropsWithChildren) {
   const [userInfo, setUserInfo] = useState<UserInfo>(
     defaultUserContext.userInfo
   )
