@@ -1,22 +1,10 @@
-import HomePage from "../pages/HomePage"
-import LoginPage from "../pages/LoginPage"
-import PageForEveryone from "../pages/PageForEveryone"
-import { ApplicationRoute } from "./types"
-import { createRoute } from "./utils"
+import { RouteDetail } from "./types"
+import { ClientPageNames, clientRoutes } from "./clientRoutes"
+import { ExperimentPageNames, experimentsRoutes } from "./experimentsRoutes"
 
-export enum PageNames {
-  HOMEPAGE = "HOMEPAGE",
-  LOGIN_PAGE = "LOGIN_PAGE",
-  PAGE_FOR_EVERYONE = "PAGE_FOR_EVERYONE",
-}
+type PageNames = ClientPageNames | ExperimentPageNames
 
-export const applicationRoutes: ApplicationRoute<PageNames> = {
-  ...createRoute(PageNames.HOMEPAGE, "/", HomePage, true),
-  ...createRoute(PageNames.LOGIN_PAGE, "/login", LoginPage, false),
-  ...createRoute(
-    PageNames.PAGE_FOR_EVERYONE,
-    "/everyone",
-    PageForEveryone,
-    false
-  ),
+export const applicationRoutes: Record<PageNames, RouteDetail> = {
+  ...clientRoutes,
+  ...experimentsRoutes,
 }
