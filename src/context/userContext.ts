@@ -1,7 +1,7 @@
 import { createContext } from "react"
 import { UserInfo } from "../utils/types"
 
-export type UserContextType = {
+type UserContextType = {
   userInfo: UserInfo
   setUserInfo: (info: UserInfo) => void
 }

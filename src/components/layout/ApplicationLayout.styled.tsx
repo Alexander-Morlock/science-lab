@@ -59,4 +59,18 @@ export const Footer = styled.footer`
 export const PageContentContainer = styled.div`
   padding: 1rem;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`
+
+export const Snackbar = styled.div`
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  border-radius: 0.5rem;
+  background-color: rgb(98 124 147 / 80%);
+  padding: 1rem;
+  color: white;
+  max-width: calc(100vw - 2rem);
 `
