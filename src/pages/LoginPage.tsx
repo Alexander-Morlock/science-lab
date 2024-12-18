@@ -7,13 +7,19 @@ export default function LoginPage() {
   const { showMessage } = useSnackbar()
   const [login, setLogin] = useState("")
   const [password, setPassword] = useState("")
+
+  const isDataIncorrect = !login.length || !password.length
+  const isSubmitButtonDisabled = !login.length && !password.length
+
   return (
     <Container>
       <p>Please log in</p>
       <Form
         onSubmit={() =>
           showMessage(
-            `Login [${login}] and password [${password}] are submitted!`
+            isDataIncorrect
+              ? "Data is incorrect"
+              : `Login [${login}] and password [${password}] are submitted!`
           )
         }
       >
@@ -29,7 +35,9 @@ export default function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.currentTarget.value)}
         />
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={isSubmitButtonDisabled}>
+          Submit
+        </button>
       </Form>
     </Container>
   )
