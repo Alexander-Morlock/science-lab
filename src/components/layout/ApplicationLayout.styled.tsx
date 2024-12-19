@@ -25,10 +25,8 @@ export const Header = styled.header`
 
     &.active {
       text-decoration: none;
+      color: black;
       cursor: default;
-      &:hover {
-        color: gray;
-      }
     }
   }
 `
@@ -36,13 +34,13 @@ export const Header = styled.header`
 export const HeaderNavigationList = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
   list-style: none;
   padding: 0;
   margin: 0;
 
   li {
     position: relative;
+    margin-right: 1rem;
 
     &:not(:last-child)::before {
       position: absolute;
