@@ -1,16 +1,15 @@
 import React from "react"
 import { NavLink } from "react-router"
 import { applicationRoutes } from "../../router/routes"
-import { ClientPageNames } from "../../router/clientRoutes"
-import { ExperimentPageNames } from "../../router/experimentsRoutes"
 import * as Styled from "./ApplicationLayout.styled"
+import { PageNames } from "../../router/types"
 
-const headerNavigationPagenames: (ClientPageNames | ExperimentPageNames)[] = [
-  ClientPageNames.HOMEPAGE,
-  ClientPageNames.LOGIN_PAGE,
-  ClientPageNames.PUBLIC_EXPERIMENTS,
-  ClientPageNames.DASHBOARD,
-  ExperimentPageNames.CREATE_NEW_EXPERIMENT,
+const headerNavigationPagenames = [
+  PageNames.HOMEPAGE,
+  PageNames.LOGIN_PAGE,
+  PageNames.PUBLIC_EXPERIMENTS,
+  PageNames.DASHBOARD,
+  PageNames.CREATE_NEW_EXPERIMENT,
 ]
 
 export function ApplicationHeader() {

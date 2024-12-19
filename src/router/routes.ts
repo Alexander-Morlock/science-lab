@@ -1,8 +1,6 @@
-import { RouteDetail } from "./types"
-import { ClientPageNames, clientRoutes } from "./clientRoutes"
-import { ExperimentPageNames, experimentsRoutes } from "./experimentsRoutes"
-
-type PageNames = ClientPageNames | ExperimentPageNames
+import { PageNames, RouteDetail } from "./types"
+import { clientRoutes } from "./clientRoutes"
+import { experimentsRoutes } from "./experimentsRoutes"
 
 export const applicationRoutes: Record<PageNames, RouteDetail> = {
   ...clientRoutes,

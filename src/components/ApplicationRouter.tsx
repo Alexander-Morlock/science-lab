@@ -4,7 +4,7 @@ import { ApplicationLayout } from "./layout/ApplicationLayout"
 import { useUserInfo } from "../hooks/useUserInfo"
 import { applicationRoutes } from "../router/routes"
 import PageNotFound from "../pages/PageNotFound"
-import { ClientPageNames } from "../router/clientRoutes"
+import { PageNames } from "../router/types"
 
 export function ApplicationRouter() {
   const {
@@ -16,18 +16,12 @@ export function ApplicationRouter() {
     Element: () => React.JSX.Element,
     forLoggedUserOnly: boolean
   ) => {
-    if (
-      forLoggedUserOnly &&
-      !isLoggedIn &&
-      pageName !== ClientPageNames.LOGIN_PAGE
-    ) {
-      return (
-        <Navigate to={applicationRoutes[ClientPageNames.LOGIN_PAGE].path} />
-      )
+    if (forLoggedUserOnly && !isLoggedIn && pageName !== PageNames.LOGIN_PAGE) {
+      return <Navigate to={applicationRoutes[PageNames.LOGIN_PAGE].path} />
     }
 
-    if (pageName === ClientPageNames.LOGIN_PAGE && isLoggedIn) {
-      return <Navigate to={applicationRoutes[ClientPageNames.HOMEPAGE].path} />
+    if (pageName === PageNames.LOGIN_PAGE && isLoggedIn) {
+      return <Navigate to={applicationRoutes[PageNames.HOMEPAGE].path} />
     }
 
     return <Element />

@@ -2,35 +2,34 @@ import HomePage from "../pages/HomePage"
 import LoginPage from "../pages/LoginPage"
 import PublicExperiments from "../pages/PublicExperiments"
 import Dashboard from "../pages/Dashboard"
-import { RouteDetail } from "./types"
+import { PageNames, RouteDetail } from "./types"
 
-export enum ClientPageNames {
-  HOMEPAGE = "HOMEPAGE",
-  LOGIN_PAGE = "LOGIN_PAGE",
-  PUBLIC_EXPERIMENTS = "PUBLIC_EXPERIMENTS",
-  DASHBOARD = "DASHBOARD",
-}
+type ClientPageNames =
+  | PageNames.HOMEPAGE
+  | PageNames.LOGIN_PAGE
+  | PageNames.PUBLIC_EXPERIMENTS
+  | PageNames.DASHBOARD
 
 export const clientRoutes: Record<ClientPageNames, RouteDetail> = {
-  [ClientPageNames.HOMEPAGE]: {
+  [PageNames.HOMEPAGE]: {
     path: "/",
     title: "Homepage",
     element: HomePage,
     forLoggedUserOnly: false,
   },
-  [ClientPageNames.LOGIN_PAGE]: {
+  [PageNames.LOGIN_PAGE]: {
     path: "/login",
     title: "Login",
     element: LoginPage,
     forLoggedUserOnly: false,
   },
-  [ClientPageNames.PUBLIC_EXPERIMENTS]: {
+  [PageNames.PUBLIC_EXPERIMENTS]: {
     path: "/experiments/public",
     title: "Public experiments",
     element: PublicExperiments,
     forLoggedUserOnly: false,
   },
-  [ClientPageNames.DASHBOARD]: {
+  [PageNames.DASHBOARD]: {
     path: "/dashboard",
     title: "Dashboard",
     element: Dashboard,
