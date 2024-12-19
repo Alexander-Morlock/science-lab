@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components"
+import { SnackbarMessageType } from "../../utils/types"
 
 export const Layout = styled.div`
   display: flex;
@@ -64,12 +65,15 @@ export const PageContentContainer = styled.div`
   position: relative;
 `
 
-export const Snackbar = styled.div`
+export const Snackbar = styled.div<{ $type?: SnackbarMessageType }>`
   position: absolute;
   left: 1rem;
   top: 1rem;
   border-radius: 0.5rem;
-  background-color: rgb(98 124 147 / 80%);
+  background-color: ${({ $type }) =>
+    $type === SnackbarMessageType.ERROR
+      ? "rgb(153 0 0 / 80%)"
+      : "rgb(98 124 147 / 80%)"};
   padding: 1rem;
   color: white;
   max-width: calc(100vw - 2rem);

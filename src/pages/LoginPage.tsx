@@ -2,9 +2,10 @@ import React, { useState } from "react"
 import { Form } from "../components/Form"
 import { Container } from "../components/basic/Container"
 import { useSnackbar } from "../hooks/useSnackbar"
+import { SnackbarMessageType } from "../utils/types"
 
 export default function LoginPage() {
-  const { showMessage } = useSnackbar()
+  const { showSnackbar } = useSnackbar()
   const [login, setLogin] = useState("")
   const [password, setPassword] = useState("")
 
@@ -16,10 +17,15 @@ export default function LoginPage() {
       <p>Please log in</p>
       <Form
         onSubmit={() =>
-          showMessage(
+          showSnackbar(
             isDataIncorrect
-              ? "Data is incorrect"
-              : `Login [${login}] and password [${password}] are submitted!`
+              ? {
+                  message: "Data is incorrect",
+                  type: SnackbarMessageType.ERROR,
+                }
+              : {
+                  message: `Login [${login}] and password [${password}] are submitted!`,
+                }
           )
         }
       >

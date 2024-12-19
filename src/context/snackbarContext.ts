@@ -1,12 +1,13 @@
 import { createContext } from "react"
+import { SnackBarType } from "../utils/types"
 
 type SnackbarContextType = {
-  message?: string
-  showMessage: (message: string, milliseconds?: number) => void
+  snackbar?: SnackBarType
+  showSnackbar: (snackbar?: SnackBarType) => void
 }
 
 export const defaultUserContext: SnackbarContextType = {
-  showMessage: () => null,
+  showSnackbar: () => null,
 }
 
 export const SnackbarContext = createContext<SnackbarContextType | null>(null)

@@ -5,14 +5,18 @@ import * as Styled from "./ApplicationLayout.styled"
 import { useSnackbar } from "../../hooks/useSnackbar"
 
 export function ApplicationLayout({ children }: PropsWithChildren) {
-  const { message } = useSnackbar()
+  const { snackbar } = useSnackbar()
 
   return (
     <Styled.Layout>
       <ApplicationHeader />
       <Styled.PageContentContainer>
         <>
-          {!!message && <Styled.Snackbar>{message}</Styled.Snackbar>}
+          {!!snackbar?.message && (
+            <Styled.Snackbar $type={snackbar.type}>
+              {snackbar.message}
+            </Styled.Snackbar>
+          )}
           {children}
         </>
       </Styled.PageContentContainer>
