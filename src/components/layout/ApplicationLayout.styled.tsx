@@ -30,7 +30,6 @@ export const Header = styled.header`
     }
   }
 `
-// test
 
 export const HeaderNavigationList = styled.ul`
   display: flex;
