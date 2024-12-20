@@ -1,14 +1,13 @@
 import { createContext } from "react"
-import { UserInfo } from "../utils/types"
+import { User } from "../api/types"
 
 type UserContextType = {
-  userInfo: UserInfo
-  setUserInfo: (info: UserInfo) => void
+  user?: User
+  setUser: (user: User) => void
 }
 
 export const defaultUserContext: UserContextType = {
-  userInfo: { isLoggedIn: false },
-  setUserInfo: () => null,
+  setUser: () => null,
 }
 
 export const UserContext = createContext<UserContextType | null>(null)
