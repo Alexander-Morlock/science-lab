@@ -17,11 +17,15 @@
     "build": "react-scripts build",
     "mockserver": "node src/express/mockserver.js"
   },
+  "proxy": "http://localhost:3001",
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
-    ]
+      "eslint:recommended"
+    ],
+    "rules": {
+      "no-unused-vars": "warn"
+    }
   },
   "browserslist": {
     "production": [
