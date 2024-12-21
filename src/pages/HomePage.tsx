@@ -25,12 +25,13 @@ export default function HomePage() {
   return (
     <>
       <h1>HomePage</h1>
+
       <Styled.ExperimentsSection>
         {experiments.map(
           ({ id, title, startDate, endDate, state, responsiblePersonId }) => (
             <ExperimentPreviewCard
               key={id}
-              {...{ title, startDate, endDate, state }}
+              {...{ id, title, startDate, endDate, state }}
               responsiblePersonName={getReponsiblePersonName(
                 responsiblePersonId
               )}
