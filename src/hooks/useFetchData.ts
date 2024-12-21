@@ -6,7 +6,8 @@ export function useFetchData<T>(
   apiCallFn: () => Promise<T | undefined>,
   options?: {
     onSuccess?: (response: T | undefined) => void
-    onError: (error: unknown) => void
+    onError?: (error: unknown) => void
+    enable?: boolean
   }
 ) {
   const [isLoading, setIsLoading] = useState(false)
@@ -27,6 +28,10 @@ export function useFetchData<T>(
   )
 
   useEffect(() => {
+    if (options?.enable === false || isLoading) {
+      return
+    }
+
     try {
       setIsLoading(true)
 
