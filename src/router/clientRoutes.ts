@@ -12,26 +12,30 @@ type ClientPageNames =
 
 export const clientRoutes: Record<ClientPageNames, RouteDetail> = {
   [PageNames.HOMEPAGE]: {
-    path: "/",
-    title: "Homepage",
+    route: `/`,
+    getPath: () => `/`,
+    title: `Homepage`,
     element: HomePage,
     forLoggedUserOnly: false,
   },
   [PageNames.LOGIN_PAGE]: {
-    path: "/login",
-    title: "Login",
+    route: `/login`,
+    getPath: () => `/login`,
+    title: `Login`,
     element: LoginPage,
     forLoggedUserOnly: false,
   },
   [PageNames.PUBLIC_EXPERIMENTS]: {
-    path: "/experiments/public",
-    title: "Public experiments",
+    route: `/experiments/public`,
+    getPath: () => `/experiments/public`,
+    title: `Public experiments`,
     element: PublicExperimentsPage,
     forLoggedUserOnly: false,
   },
   [PageNames.DASHBOARD]: {
-    path: "/dashboard",
-    title: "Dashboard",
+    route: `/dashboard`,
+    getPath: () => `/dashboard`,
+    title: `Dashboard`,
     element: DashboardPage,
     forLoggedUserOnly: false,
   },

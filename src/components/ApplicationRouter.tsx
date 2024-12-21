@@ -15,11 +15,11 @@ export function ApplicationRouter() {
     forLoggedUserOnly: boolean
   ) => {
     if (forLoggedUserOnly && !user && pageName !== PageNames.LOGIN_PAGE) {
-      return <Navigate to={applicationRoutes[PageNames.LOGIN_PAGE].path} />
+      return <Navigate to={applicationRoutes[PageNames.LOGIN_PAGE].route} />
     }
 
     if (pageName === PageNames.LOGIN_PAGE && user) {
-      return <Navigate to={applicationRoutes[PageNames.HOMEPAGE].path} />
+      return <Navigate to={applicationRoutes[PageNames.HOMEPAGE].route} />
     }
 
     return Element
@@ -30,11 +30,11 @@ export function ApplicationRouter() {
       <ApplicationLayout>
         <Routes>
           {Object.entries(applicationRoutes).map(
-            ([pageName, { path, element: Element, forLoggedUserOnly }]) => {
+            ([pageName, { route, element: Element, forLoggedUserOnly }]) => {
               return (
                 <Route
                   key={pageName}
-                  path={path}
+                  path={route}
                   element={getElement(pageName, <Element />, forLoggedUserOnly)}
                 />
               )

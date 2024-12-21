@@ -18,10 +18,10 @@ export function ApplicationHeader() {
       <nav>
         <Styled.HeaderNavigationList>
           {headerNavigationPagenames.map((pageName) => {
-            const { path, title } = applicationRoutes[pageName]
+            const { route, title } = applicationRoutes[pageName]
             return (
               <li key={pageName}>
-                <NavLink to={path}>{title}</NavLink>
+                <NavLink to={route}>{title}</NavLink>
               </li>
             )
           })}

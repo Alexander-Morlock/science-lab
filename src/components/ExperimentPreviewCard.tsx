@@ -2,6 +2,8 @@ import React from "react"
 import { Experiment } from "../api/types"
 import { Container } from "./basic/Container"
 import { useNavigate } from "react-router"
+import { PageNames } from "../router/types"
+import { applicationRoutes } from "../router/routes"
 
 type Props = Pick<
   Experiment,
@@ -23,7 +25,9 @@ export function ExperimentPreviewCard({
   return (
     <Container
       colorizeBackgroundColorOnHover
-      onClick={() => navigate(`experiments/${id}`)}
+      onClick={() =>
+        navigate(applicationRoutes[PageNames.EXPERIMENT_DETAIL].getPath(id))
+      }
     >
       <h3>{title}</h3>
       <ul>
