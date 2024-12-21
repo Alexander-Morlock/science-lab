@@ -7,12 +7,16 @@ import * as Styled from "./HomePage.styled"
 import { ExperimentPreviewCard } from "../components/ExperimentPreviewCard"
 
 export default function HomePage() {
-  const { data: experiments, isLoading } = useFetchData(
+  const { data: users, isLoading: isLoadingUsers } = useFetchData(
+    apiClient.user.getAll
+  )
+
+  const { data: experiments, isLoading: isLoadingExperiments } = useFetchData(
     apiClient.experiments.getAll
   )
 
   if (!experiments) {
-    return isLoading ? <Loader /> : <NoContent />
+    return isLoadingUsers || isLoadingExperiments ? <Loader /> : <NoContent />
   }
 
   return (

@@ -12,6 +12,7 @@ export function useFetchData<T>(
   }
 ) {
   const [isLoading, setIsLoading] = useState(false)
+  const [isFetched, setIsFetched] = useState(false)
   const [data, setData] = useState<T | undefined>()
 
   const { showSnackbar } = useSnackbar()
@@ -20,8 +21,9 @@ export function useFetchData<T>(
     (error: unknown) => {
       options?.onError?.(error)
       setIsLoading(false)
+      setIsFetched(true)
       showSnackbar({
-        message: "XHR ERROR OCCURED",
+        message: "Unknown API error",
         type: SnackbarMessageType.ERROR,
       })
     },
@@ -33,6 +35,7 @@ export function useFetchData<T>(
       apiCallFn()
         .then((response) => {
           setData(response.data)
+          setIsFetched(true)
           options?.onSuccess?.(response.data)
         })
         .catch(handleXhrError)
@@ -42,11 +45,12 @@ export function useFetchData<T>(
 
   const refetch = useCallback(() => {
     setData(undefined)
+    setIsFetched(false)
     fetch()
   }, [fetch])
 
   useEffect(() => {
-    if (options?.enable === false || isLoading || data) {
+    if (options?.enable === false || isLoading || data || isFetched) {
       return
     }
 
@@ -56,7 +60,7 @@ export function useFetchData<T>(
     } catch (error) {
       handleXhrError(error)
     }
-  }, [apiCallFn, data, handleXhrError, isLoading, options, fetch])
+  }, [apiCallFn, data, handleXhrError, isLoading, options, fetch, isFetched])
 
   return { data, isLoading, refetch }
 }
