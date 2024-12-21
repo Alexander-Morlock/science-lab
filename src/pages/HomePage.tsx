@@ -5,8 +5,13 @@ import { Loader } from "../components/Loader"
 import { NoContent } from "../components/NoContent"
 import * as Styled from "./HomePage.styled"
 import { ExperimentPreviewCard } from "../components/ExperimentPreviewCard"
+import { useNavigate } from "react-router"
+import { applicationRoutes } from "../router/routes"
+import { PageNames } from "../router/types"
 
 export default function HomePage() {
+  const navigate = useNavigate()
+
   const { data: users, isLoading: isLoadingUsers } = useFetchData(() =>
     apiClient.user.getAll()
   )
@@ -31,6 +36,11 @@ export default function HomePage() {
           ({ id, title, startDate, endDate, state, responsiblePersonId }) => (
             <ExperimentPreviewCard
               key={id}
+              onClick={() =>
+                navigate(
+                  applicationRoutes[PageNames.EXPERIMENT_DETAIL].getPath(id)
+                )
+              }
               {...{ id, title, startDate, endDate, state }}
               responsiblePersonName={getReponsiblePersonName(
                 responsiblePersonId

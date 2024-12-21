@@ -13,7 +13,7 @@ export default function LoginPage() {
   const isSubmitButtonDisabled = !login.length && !password.length
 
   return (
-    <Container>
+    <Container centered>
       <p>Please log in</p>
       <Form
         onSubmit={() =>
