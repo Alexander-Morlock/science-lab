@@ -28,10 +28,23 @@ app.get("/api/experiments", (req, res) =>
         title: `test experiment (id: ${id})`,
         startDate: "2024-11-01",
         endDate: "2024-12-01",
-        responsiblePersonId: 11,
+        responsiblePersonId: 1,
         areasOfExpertiseIds: [1, 2, 3],
         visibility: "PRIVATE",
         state: "PLANNED",
+      }))
+    )
+  )
+)
+
+app.get("/api/users", (req, res) =>
+  res.send(
+    JSON.stringify(
+      [1, 2, 3].map((id) => ({
+        id,
+        name: `User id${id}`,
+        email: `email-${id}@email.cz`,
+        role: "GUEST",
       }))
     )
   )

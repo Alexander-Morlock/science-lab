@@ -15,17 +15,28 @@ export default function HomePage() {
     apiClient.experiments.getAll
   )
 
-  if (!experiments) {
+  if (!experiments || !users) {
     return isLoadingUsers || isLoadingExperiments ? <Loader /> : <NoContent />
   }
+
+  const getReponsiblePersonName = (id: number) =>
+    users.find((user) => user.id === id)?.name
 
   return (
     <>
       <h1>HomePage</h1>
       <Styled.ExperimentsSection>
-        {experiments.map((experiment) => (
-          <ExperimentPreviewCard key={experiment.id} {...experiment} />
-        ))}
+        {experiments.map(
+          ({ id, title, startDate, endDate, state, responsiblePersonId }) => (
+            <ExperimentPreviewCard
+              key={id}
+              {...{ title, startDate, endDate, state }}
+              responsiblePersonName={getReponsiblePersonName(
+                responsiblePersonId
+              )}
+            />
+          )
+        )}
       </Styled.ExperimentsSection>
     </>
   )
