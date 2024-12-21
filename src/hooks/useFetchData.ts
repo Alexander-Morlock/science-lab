@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from "react"
 import { useSnackbar } from "./useSnackbar"
 import { SnackbarMessageType } from "../utils/types"
+import { AxiosResponse } from "axios"
 
 export function useFetchData<T>(
-  apiCallFn: () => Promise<T | undefined>,
+  apiCallFn: () => Promise<AxiosResponse<T | undefined>>,
   options?: {
     onSuccess?: (response: T | undefined) => void
     onError?: (error: unknown) => void
@@ -27,25 +28,35 @@ export function useFetchData<T>(
     [options, showSnackbar]
   )
 
+  const fetch = useCallback(
+    () =>
+      apiCallFn()
+        .then((response) => {
+          setData(response.data)
+          options?.onSuccess?.(response.data)
+        })
+        .catch(handleXhrError)
+        .finally(() => setIsLoading(false)),
+    [apiCallFn, handleXhrError, options]
+  )
+
+  const refetch = useCallback(() => {
+    setData(undefined)
+    fetch()
+  }, [fetch])
+
   useEffect(() => {
-    if (options?.enable === false || isLoading) {
+    if (options?.enable === false || isLoading || data) {
       return
     }
 
     try {
       setIsLoading(true)
-
-      apiCallFn()
-        .then((response) => {
-          setData(response)
-          options?.onSuccess?.(response)
-        })
-        .catch(handleXhrError)
-        .finally(() => setIsLoading(false))
+      fetch()
     } catch (error) {
       handleXhrError(error)
     }
-  }, [apiCallFn, handleXhrError, options])
+  }, [apiCallFn, data, handleXhrError, isLoading, options, fetch])
 
-  return { data, isLoading }
+  return { data, isLoading, refetch }
 }

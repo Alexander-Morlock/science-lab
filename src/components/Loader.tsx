@@ -1,7 +1,7 @@
 import React from "react"
-import * as Styled from "./FullscreenLoaderOverlay.styled"
+import * as Styled from "./Loader.styled"
 
-export function FullscreenLoaderOverlay() {
+export function Loader() {
   return (
     <Styled.Overlay>
       <Styled.Loader>...Loading</Styled.Loader>
