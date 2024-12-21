@@ -1,5 +1,5 @@
 import React from "react"
 
-export default function CreateNewExperiment() {
+export default function CreateNewExperimentPage() {
   return <h1>CreateNewExperiment</h1>
 }

@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router"
 import { ApplicationLayout } from "./layout/ApplicationLayout"
 import { useUser } from "../hooks/useUser"
 import { applicationRoutes } from "../router/routes"
-import PageNotFound from "../pages/PageNotFound"
+import PageNotFound from "../pages/NotFoundPage"
 import { PageNames } from "../router/types"
 
 export function ApplicationRouter() {

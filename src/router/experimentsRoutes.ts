@@ -1,6 +1,6 @@
-import CreateNewExperiment from "../pages/CreateNewExperiment"
-import EditExperiment from "../pages/EditExperiment"
-import ExperimentDetail from "../pages/ExperimentDetail"
+import CreateNewExperimentPage from "../pages/CreateNewExperimentPage"
+import EditExperimentPage from "../pages/EditExperimentPage"
+import ExperimentDetailPage from "../pages/ExperimentDetailPage"
 import { PageNames, RouteDetail } from "./types"
 
 type ExperimentsPageNames =
@@ -12,19 +12,19 @@ export const experimentsRoutes: Record<ExperimentsPageNames, RouteDetail> = {
   [PageNames.CREATE_NEW_EXPERIMENT]: {
     path: "/experiments/create",
     title: "Create new experiment",
-    element: CreateNewExperiment,
+    element: CreateNewExperimentPage,
     forLoggedUserOnly: false,
   },
   [PageNames.EDIT_EXPERIMENT]: {
     path: "/experiments/edit/:id",
     title: "Edit experiment",
-    element: EditExperiment,
+    element: EditExperimentPage,
     forLoggedUserOnly: false,
   },
   [PageNames.EXPERIMENT_DETAIL]: {
     path: "/experiments/:id",
     title: "Detail of experiment",
-    element: ExperimentDetail,
+    element: ExperimentDetailPage,
     forLoggedUserOnly: false,
   },
 }

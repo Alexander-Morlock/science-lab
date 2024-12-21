@@ -1,7 +1,7 @@
 import HomePage from "../pages/HomePage"
 import LoginPage from "../pages/LoginPage"
-import PublicExperiments from "../pages/PublicExperiments"
-import Dashboard from "../pages/Dashboard"
+import PublicExperimentsPage from "../pages/PublicExperimentsPage"
+import DashboardPage from "../pages/DashboardPage"
 import { PageNames, RouteDetail } from "./types"
 
 type ClientPageNames =
@@ -26,13 +26,13 @@ export const clientRoutes: Record<ClientPageNames, RouteDetail> = {
   [PageNames.PUBLIC_EXPERIMENTS]: {
     path: "/experiments/public",
     title: "Public experiments",
-    element: PublicExperiments,
+    element: PublicExperimentsPage,
     forLoggedUserOnly: false,
   },
   [PageNames.DASHBOARD]: {
     path: "/dashboard",
     title: "Dashboard",
-    element: Dashboard,
+    element: DashboardPage,
     forLoggedUserOnly: false,
   },
 }
