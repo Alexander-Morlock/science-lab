@@ -11,7 +11,7 @@ export function ApplicationRouter() {
 
   const getElement = (
     pageName: string,
-    Element: () => React.JSX.Element,
+    Element: React.JSX.Element,
     forLoggedUserOnly: boolean
   ) => {
     if (forLoggedUserOnly && !user && pageName !== PageNames.LOGIN_PAGE) {
@@ -22,7 +22,7 @@ export function ApplicationRouter() {
       return <Navigate to={applicationRoutes[PageNames.HOMEPAGE].path} />
     }
 
-    return <Element />
+    return Element
   }
 
   return (
@@ -30,13 +30,15 @@ export function ApplicationRouter() {
       <ApplicationLayout>
         <Routes>
           {Object.entries(applicationRoutes).map(
-            ([pageName, { path, element, forLoggedUserOnly }]) => (
-              <Route
-                key={pageName}
-                path={path}
-                element={getElement(pageName, element, forLoggedUserOnly)}
-              />
-            )
+            ([pageName, { path, element: Element, forLoggedUserOnly }]) => {
+              return (
+                <Route
+                  key={pageName}
+                  path={path}
+                  element={getElement(pageName, <Element />, forLoggedUserOnly)}
+                />
+              )
+            }
           )}
           <Route path="*" element={<PageNotFound />} />
         </Routes>
