@@ -9,24 +9,36 @@ type Props<T extends FieldValues = FieldValues> = DetailedHTMLProps<
   errors: FieldErrors<T>
   options: { key: string; value: string }[]
   required?: boolean
+  placeholder?: string
 }
 
 export function Select<T extends FieldValues = FieldValues>({
   errors,
   options,
+  placeholder,
   ...props
 }: Props<T>) {
   return (
     <FormFieldWrapper
       name={props.name}
       errors={errors}
+      placeholder={placeholder}
       required={props.required}
     >
-      <select {...props}>
-        {options.map(({ key, value }) => (
-          <option value={value}>{key}</option>
-        ))}
-      </select>
+      {(setIsPlaceholderMessage) => (
+        <select
+          {...props}
+          ref={(ref) => {
+            ref && setIsPlaceholderMessage(true)
+          }}
+        >
+          {options.map(({ key, value }) => (
+            <option key={key} value={value}>
+              {key}
+            </option>
+          ))}
+        </select>
+      )}
     </FormFieldWrapper>
   )
 }

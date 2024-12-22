@@ -1,7 +1,7 @@
 import React from "react"
 import { Container } from "../components/basic/Container"
 import { Section } from "../components/basic/Section"
-import { ExperimentForm } from "./ExperimentForm"
+import { ExperimentForm } from "../components/ExperimentForm"
 import { ExperimentTitle } from "../components/ExperimentTitle"
 import { useExperimentForm } from "../hooks/useExperimentForm"
 import { useFetchData } from "../hooks/useFetchData"
@@ -24,10 +24,17 @@ export default function CreateNewExperimentPage() {
       navigate(getPageRouteDetails(PageNames.EXPERIMENT_DETAIL).getPath(res.id))
   }
 
-  const { onSubmit, register, errors, isLoading, users, areasOfExpertise } =
-    useExperimentForm(onValid)
+  const {
+    onSubmit,
+    register,
+    errors,
+    isLoading,
+    users,
+    areasOfExpertise,
+    equipment,
+  } = useExperimentForm(onValid)
 
-  if (!users || !areasOfExpertise) {
+  if (!users || !areasOfExpertise || !equipment) {
     return isLoading ? <Loader /> : <NoContent />
   }
 
@@ -38,6 +45,7 @@ export default function CreateNewExperimentPage() {
       <Section>
         <ExperimentForm
           users={users}
+          equipment={equipment}
           areasOfExpertise={areasOfExpertise}
           onSubmit={onSubmit}
           register={register}

@@ -4,7 +4,7 @@ import { NoContent } from "../components/NoContent"
 import { ExperimentFormData } from "../api/types"
 import { Container } from "../components/basic/Container"
 import { Section } from "../components/basic/Section"
-import { ExperimentForm } from "./ExperimentForm"
+import { ExperimentForm } from "../components/ExperimentForm"
 import { ExperimentTitle } from "../components/ExperimentTitle"
 import { useExperimentForm } from "../hooks/useExperimentForm"
 import { useNavigate } from "react-router"
@@ -28,6 +28,7 @@ export default function EditExperimentPage() {
   const {
     users,
     areasOfExpertise,
+    equipment,
     experiment,
     isInitialized,
     setValue,
@@ -47,7 +48,7 @@ export default function EditExperimentPage() {
   }
 
   useEffect(() => {
-    if (!experiment || !areasOfExpertise || isInitialized) {
+    if (!experiment || !areasOfExpertise || isInitialized || !equipment) {
       return
     }
     // fill form with a data from API once
@@ -56,9 +57,16 @@ export default function EditExperimentPage() {
     )
 
     setIsInitialized(true)
-  }, [areasOfExpertise, experiment, isInitialized, setIsInitialized, setValue])
+  }, [
+    areasOfExpertise,
+    equipment,
+    experiment,
+    isInitialized,
+    setIsInitialized,
+    setValue,
+  ])
 
-  if (!experiment || !users || !areasOfExpertise) {
+  if (!experiment || !users || !areasOfExpertise || !equipment) {
     return isLoading ? <Loader /> : <NoContent />
   }
 
@@ -74,6 +82,7 @@ export default function EditExperimentPage() {
       <Section>
         <ExperimentForm
           users={users}
+          equipment={equipment}
           areasOfExpertise={areasOfExpertise}
           onSubmit={onSubmit}
           register={register}

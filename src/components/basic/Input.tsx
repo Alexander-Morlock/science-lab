@@ -19,8 +19,16 @@ export function Input<T extends FieldValues = FieldValues>({
       name={props.name}
       errors={errors}
       required={props.required}
+      placeholder={props.placeholder}
     >
-      <input {...props} />
+      {(setIsPlaceholderMessage) => (
+        <input
+          {...props}
+          onInput={(event) =>
+            setIsPlaceholderMessage(!!event.currentTarget.value.length)
+          }
+        />
+      )}
     </FormFieldWrapper>
   )
 }

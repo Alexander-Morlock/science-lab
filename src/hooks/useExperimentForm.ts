@@ -26,6 +26,11 @@ export function useExperimentForm(
   const { data: areasOfExpertise, isLoading: isLoadingAreasOfExpertise } =
     useFetchData(apiClient.areasOfExpertise.getAll, { autofetch: true })
 
+  const { data: equipment, isLoading: isLoadingEquipment } = useFetchData(
+    apiClient.equipment.getAll,
+    { autofetch: true }
+  )
+
   const { showSnackbarMessageOnInvalid } =
     useShowSnackbarMessageOnInvalidFormSubmit()
 
@@ -48,8 +53,12 @@ export function useExperimentForm(
     users,
     experiment,
     areasOfExpertise,
+    equipment,
     isLoading:
-      isLoadingExperiment || isLoadingUsers || isLoadingAreasOfExpertise,
+      isLoadingExperiment ||
+      isLoadingUsers ||
+      isLoadingAreasOfExpertise ||
+      isLoadingEquipment,
     isInitialized,
     setIsInitialized,
   }
