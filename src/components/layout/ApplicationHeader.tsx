@@ -1,8 +1,8 @@
 import React from "react"
 import { NavLink } from "react-router"
-import { applicationRoutes } from "../../router/routes"
 import * as Styled from "./ApplicationLayout.styled"
 import { PageNames } from "../../router/types"
+import { getPageRouteDetails } from "../../router/utils"
 
 const headerNavigationPagenames = [
   PageNames.HOMEPAGE,
@@ -18,7 +18,7 @@ export function ApplicationHeader() {
       <nav>
         <Styled.HeaderNavigationList>
           {headerNavigationPagenames.map((pageName) => {
-            const { route, title } = applicationRoutes[pageName]
+            const { route, title } = getPageRouteDetails(pageName)
             return (
               <li key={pageName}>
                 <NavLink to={route}>{title}</NavLink>

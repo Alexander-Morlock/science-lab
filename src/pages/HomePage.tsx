@@ -3,11 +3,12 @@ import { useFetchData } from "../hooks/useFetchData"
 import { apiClient } from "../api/apiClient"
 import { Loader } from "../components/Loader"
 import { NoContent } from "../components/NoContent"
-import * as Styled from "./HomePage.styled"
 import { ExperimentPreviewCard } from "../components/ExperimentPreviewCard"
 import { useNavigate } from "react-router"
-import { applicationRoutes } from "../router/routes"
 import { PageNames } from "../router/types"
+import { getPageRouteDetails } from "../router/utils"
+import { Section } from "../components/basic/Section"
+import { Container } from "../components/basic/Container"
 
 export default function HomePage() {
   const navigate = useNavigate()
@@ -31,24 +32,26 @@ export default function HomePage() {
     <>
       <h1>HomePage</h1>
 
-      <Styled.ExperimentsSection>
-        {experiments.map(
-          ({ id, title, startDate, endDate, state, responsiblePersonId }) => (
-            <ExperimentPreviewCard
-              key={id}
-              onClick={() =>
-                navigate(
-                  applicationRoutes[PageNames.EXPERIMENT_DETAIL].getPath(id)
-                )
-              }
-              {...{ id, title, startDate, endDate, state }}
-              responsiblePersonName={getReponsiblePersonName(
-                responsiblePersonId
-              )}
-            />
-          )
-        )}
-      </Styled.ExperimentsSection>
+      <Section>
+        <Container noPadding autoColumns>
+          {experiments.map(
+            ({ id, title, startDate, endDate, state, responsiblePersonId }) => (
+              <ExperimentPreviewCard
+                key={id}
+                onClick={() =>
+                  navigate(
+                    getPageRouteDetails(PageNames.EXPERIMENT_DETAIL).getPath(id)
+                  )
+                }
+                {...{ id, title, startDate, endDate, state }}
+                responsiblePersonName={getReponsiblePersonName(
+                  responsiblePersonId
+                )}
+              />
+            )
+          )}
+        </Container>
+      </Section>
     </>
   )
 }

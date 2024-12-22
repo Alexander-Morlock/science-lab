@@ -1,12 +1,23 @@
 import styled, { css } from "styled-components"
 
-export const Container = styled.div<{
+export const Wrapper = styled.div<{
   $colorizeBackgroundColorOnHover?: boolean
   $centered?: boolean
+  $noPadding?: boolean
   $columns?: number
 }>`
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
+
+  ${({ $noPadding }) =>
+    !$noPadding &&
+    css`
+      padding: 1rem;
+      border-radius: 0.5rem;
+      border: 1px solid aliceblue;
+    `}
+
   ${({ $columns }) =>
     $columns &&
     css`
@@ -15,19 +26,17 @@ export const Container = styled.div<{
       grid-column-gap: 1rem;
       grid-row-gap: 1rem;
     `}
+
   ${({ $centered }) =>
     $centered
       ? css`
           margin: auto;
         `
       : css`
-          margin: 1rem 0 0 0;
+          margin: 0;
           flex-grow: 1;
         `};
-  gap: 0.5rem;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid aliceblue;
+
   ${({ $colorizeBackgroundColorOnHover }) =>
     $colorizeBackgroundColorOnHover &&
     css`
@@ -36,9 +45,4 @@ export const Container = styled.div<{
         background-color: aliceblue;
       }
     `}
-
-  & > *:first-child {
-    margin-top: 0;
-    padding-top: 0;
-  }
 `

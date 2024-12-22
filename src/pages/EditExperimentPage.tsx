@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useParams } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import { apiClient } from "../api/apiClient"
 import { Loader } from "../components/Loader.styled"
 import { NoContent } from "../components/NoContent"
@@ -10,11 +10,15 @@ import { Container } from "../components/basic/Container"
 import { useSnackbar } from "../hooks/useSnackbar"
 import { SnackbarMessageType } from "../utils/types"
 import { Input } from "../components/basic/Input"
-import { useDeviceType } from "../hooks/useDeviceType"
+import { Section } from "../components/basic/Section"
+import { getPageRouteDetails } from "../router/utils"
+import { PageNames } from "../router/types"
+import { EditExperimentPageForm } from "./EditExperimentPageForm"
 
 export default function EditExperimentPage() {
   const { id } = useParams()
-  const { isMobile, isTablet } = useDeviceType()
+  const navigate = useNavigate()
+
   const { showSnackbar } = useSnackbar()
   const [isInitialized, setIsInitialized] = useState(false)
 
@@ -41,16 +45,6 @@ export default function EditExperimentPage() {
     setIsInitialized(true)
   }, [experiment, isInitialized, setValue])
 
-  const getColumns = () => {
-    if (isMobile) {
-      return 1
-    }
-    if (isTablet) {
-      return 2
-    }
-    return 3
-  }
-
   if (!experiment) {
     return isLoading ? <Loader /> : <NoContent />
   }
@@ -68,121 +62,26 @@ export default function EditExperimentPage() {
 
   return (
     <>
-      <h1>{`EditExperimentPage id:${id}`}</h1>
-
-      <form onSubmit={handleSubmit(onSubmit, onError)}>
-        <Container columns={getColumns()}>
-          <Input
-            type="text"
-            errors={errors}
-            placeholder="Author Id"
-            {...register("authorId", { required: true })}
-            required
-          />
-          <Input
-            type="text"
-            errors={errors}
-            placeholder="Title"
-            {...register("title", { required: true })}
-            required
-          />
-          <Input
-            type="text"
-            errors={errors}
-            placeholder="Start date"
-            {...register("startDate", { required: true })}
-            required
-          />
-          <Input
-            type="text"
-            errors={errors}
-            placeholder="End date"
-            {...register("endDate", { required: true })}
-            required
-          />
-          <Input
-            type="text"
-            errors={errors}
-            placeholder="Responsible Person Id"
-            {...register("responsiblePersonId", { required: true })}
-            required
-          />
-          <Input
-            type="text"
-            errors={errors}
-            placeholder="Areas Of Expertise Ids"
-            {...register("areasOfExpertiseIds", { required: true })}
-            required
-          />
-          <Input
-            type="text"
-            errors={errors}
-            placeholder="Visibility"
-            {...register("visibility", { required: true })}
-            required
-          />
-          <Input
-            type="text"
-            errors={errors}
-            placeholder="State"
-            {...register("state", { required: true })}
-            required
-          />
-          <Input
-            type="text"
-            errors={errors}
-            placeholder="State mark"
-            {...register("stateMark")}
-          />
-          <Input
-            type="text"
-            errors={errors}
-            placeholder="Description"
-            {...register("description")}
-          />
-          <Input
-            type="text"
-            errors={errors}
-            placeholder="Purpose"
-            {...register("purpose")}
-          />
-          <Input
-            type="text"
-            errors={errors}
-            placeholder="Expected Results"
-            {...register("expectedResults")}
-          />
-          <Input
-            type="text"
-            errors={errors}
-            placeholder="Actual Results"
-            {...register("actualResults")}
-          />
-          <Input
-            type="text"
-            errors={errors}
-            placeholder="Conclusion"
-            {...register("conclusion")}
-          />
-          <Input
-            type="text"
-            errors={errors}
-            placeholder="EquipmentIds"
-            {...register("equipmentIds")}
-          />
-          <Input
-            type="text"
-            errors={errors}
-            placeholder="Participant Ids"
-            {...register("participantIds")}
-          />
-        </Container>
+      <h1>{`Experiment "${experiment.title}"`}</h1>
+      <Section>
+        <EditExperimentPageForm
+          onSubmit={handleSubmit(onSubmit, onError)}
+          errors={errors}
+          register={register}
+        />
         <Container>
-          <button type="submit">Submit</button>
           <button
-            type="reset"
+            onClick={() =>
+              navigate(
+                getPageRouteDetails(PageNames.EXPERIMENT_DETAIL).getPath(id)
+              )
+            }
+          >
+            Back to details
+          </button>
+          <button onClick={handleSubmit(onSubmit, onError)}>Submit</button>
+          <button
             onClick={(e) => {
-              e.preventDefault()
               setIsInitialized(false)
               clearErrors()
             }}
@@ -190,7 +89,7 @@ export default function EditExperimentPage() {
             Reset
           </button>
         </Container>
-      </form>
+      </Section>
     </>
   )
 }

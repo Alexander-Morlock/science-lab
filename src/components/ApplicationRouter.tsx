@@ -5,6 +5,7 @@ import { useUser } from "../hooks/useUser"
 import { applicationRoutes } from "../router/routes"
 import PageNotFound from "../pages/NotFoundPage"
 import { PageNames } from "../router/types"
+import { getPageRouteDetails } from "../router/utils"
 
 export function ApplicationRouter() {
   const { user } = useUser()
@@ -15,11 +16,11 @@ export function ApplicationRouter() {
     forLoggedUserOnly: boolean
   ) => {
     if (forLoggedUserOnly && !user && pageName !== PageNames.LOGIN_PAGE) {
-      return <Navigate to={applicationRoutes[PageNames.LOGIN_PAGE].route} />
+      return <Navigate to={getPageRouteDetails(PageNames.LOGIN_PAGE).route} />
     }
 
     if (pageName === PageNames.LOGIN_PAGE && user) {
-      return <Navigate to={applicationRoutes[PageNames.HOMEPAGE].route} />
+      return <Navigate to={getPageRouteDetails(PageNames.HOMEPAGE).route} />
     }
 
     return Element

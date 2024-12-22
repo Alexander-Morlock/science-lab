@@ -4,8 +4,9 @@ import { useFetchData } from "../hooks/useFetchData"
 import { apiClient } from "../api/apiClient"
 import { Loader } from "../components/Loader.styled"
 import { NoContent } from "../components/NoContent"
-import { ExperimentPreviewCard } from "../components/ExperimentPreviewCard"
-import { applicationRoutes } from "../router/routes"
+import { Section } from "../components/basic/Section"
+import { Container } from "../components/basic/Container"
+import { getPageRouteDetails } from "../router/utils"
 import { PageNames } from "../router/types"
 
 export default function ExperimentDetailPage() {
@@ -22,13 +23,23 @@ export default function ExperimentDetailPage() {
 
   return (
     <>
-      <h1>{`ExperimentDetail id:${id}`}</h1>
-      <ExperimentPreviewCard
-        {...experiment}
-        onClick={() =>
-          navigate(applicationRoutes[PageNames.EDIT_EXPERIMENT].getPath(id))
-        }
-      />
+      <h1>{`Experiment "${experiment.title}"`}</h1>
+      <Section>
+        <Container>
+          <ul>
+            {Object.entries(experiment).map(([key, value]) => (
+              <li key={key}>{`${key} - ${value}`}</li>
+            ))}
+          </ul>
+        </Container>
+        <button
+          onClick={() =>
+            navigate(getPageRouteDetails(PageNames.EDIT_EXPERIMENT).getPath(id))
+          }
+        >
+          Edit
+        </button>
+      </Section>
     </>
   )
 }
