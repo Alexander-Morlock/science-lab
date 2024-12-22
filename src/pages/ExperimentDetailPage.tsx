@@ -15,8 +15,9 @@ export default function ExperimentDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const { data: experiment, isLoading } = useFetchData(() =>
-    apiClient.experiments.get(Number(id))
+  const { data: experiment, isLoading } = useFetchData(
+    () => apiClient.experiments.get(Number(id)),
+    { autofetch: true }
   )
 
   if (!experiment) {

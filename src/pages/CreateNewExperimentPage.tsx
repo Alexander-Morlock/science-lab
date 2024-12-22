@@ -14,10 +14,7 @@ import { getPageRouteDetails } from "../router/utils"
 
 export default function CreateNewExperimentPage() {
   const navigate = useNavigate()
-  const { fetch: updateExperiment } = useFetchData(
-    apiClient.experiments.create,
-    { autofetch: false }
-  )
+  const { fetch: updateExperiment } = useFetchData(apiClient.experiments.create)
 
   const onValid = async (data: Experiment) => {
     const res = await updateExperiment(data)

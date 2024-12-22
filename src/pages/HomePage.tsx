@@ -14,11 +14,13 @@ export default function HomePage() {
   const navigate = useNavigate()
 
   const { data: users, isLoading: isLoadingUsers } = useFetchData(
-    apiClient.user.getAll
+    apiClient.user.getAll,
+    { autofetch: true }
   )
 
   const { data: experiments, isLoading: isLoadingExperiments } = useFetchData(
-    () => apiClient.experiments.getAll()
+    () => apiClient.experiments.getAll(),
+    { autofetch: true }
   )
 
   if (!experiments || !users) {

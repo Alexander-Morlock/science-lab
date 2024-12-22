@@ -13,8 +13,9 @@ export function useExperimentForm(
 
   const [isInitialized, setIsInitialized] = useState(false)
 
-  const { data: experiment, isLoading } = useFetchData(() =>
-    apiClient.experiments.get(Number(id))
+  const { data: experiment, isLoading } = useFetchData(
+    () => apiClient.experiments.get(Number(id)),
+    { autofetch: true }
   )
 
   const { showSnackbarMessageOnInvalid } =

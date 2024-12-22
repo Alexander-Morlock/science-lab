@@ -14,10 +14,7 @@ import { apiClient } from "../api/apiClient"
 import { useFetchData } from "../hooks/useFetchData"
 
 export default function EditExperimentPage() {
-  const { fetch: updateExperiment } = useFetchData(
-    apiClient.experiments.update,
-    { autofetch: false }
-  )
+  const { fetch: updateExperiment } = useFetchData(apiClient.experiments.update)
 
   const onValid = async (data: Experiment) => {
     await updateExperiment(data)

@@ -64,7 +64,7 @@ export function useFetchData<T, A>(
   )
 
   useEffect(() => {
-    if (options?.autofetch === false || isLoading || data || isFetched) {
+    if (options?.autofetch !== true || isLoading || data || isFetched) {
       return
     }
 
