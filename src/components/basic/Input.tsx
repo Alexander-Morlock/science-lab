@@ -1,6 +1,6 @@
 import React, { DetailedHTMLProps, InputHTMLAttributes } from "react"
-import * as Styled from "./Input.styled"
 import { FieldErrors, FieldValues } from "react-hook-form"
+import { FormFieldWrapper } from "./FormFieldWrapper"
 
 type Props<T extends FieldValues = FieldValues> = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
@@ -12,18 +12,23 @@ type Props<T extends FieldValues = FieldValues> = DetailedHTMLProps<
 
 export function Input<T extends FieldValues = FieldValues>({
   errors,
-  required,
   ...props
 }: Props<T>) {
-  const key = props.name
-  const errorMessage = key
-    ? errors[key]?.type ?? errors[key]?.message ?? ""
-    : ""
-
   return (
-    <Styled.Wrapper $error={!!errorMessage} $required={required}>
-      <input {...props} />
-      {!!errorMessage && <Styled.Error>{`${errorMessage}`}</Styled.Error>}
-    </Styled.Wrapper>
+    <FormFieldWrapper
+      name={props.name}
+      errors={errors}
+      required={props.required}
+      placeholder={props.placeholder}
+    >
+      {(setIsPlaceholderMessage) => (
+        <input
+          {...props}
+          onInput={(event) =>
+            setIsPlaceholderMessage(!!event.currentTarget.value.length)
+          }
+        />
+      )}
+    </FormFieldWrapper>
   )
 }

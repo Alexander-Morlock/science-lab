@@ -1,10 +1,10 @@
 import React, { useEffect } from "react"
 import { Loader } from "../components/Loader.styled"
 import { NoContent } from "../components/NoContent"
-import { Experiment } from "../api/types"
+import { ExperimentFormData } from "../api/types"
 import { Container } from "../components/basic/Container"
 import { Section } from "../components/basic/Section"
-import { ExperimentForm } from "./ExperimentForm"
+import { ExperimentForm } from "../components/ExperimentForm"
 import { ExperimentTitle } from "../components/ExperimentTitle"
 import { useExperimentForm } from "../hooks/useExperimentForm"
 import { useNavigate } from "react-router"
@@ -12,16 +12,23 @@ import { PageNames } from "../router/types"
 import { getPageRouteDetails } from "../router/utils"
 import { apiClient } from "../api/apiClient"
 import { useFetchData } from "../hooks/useFetchData"
+import {
+  convertExperimentFormData,
+  convertExperimentToFormData,
+} from "../utils/utils"
 
 export default function EditExperimentPage() {
   const { fetch: updateExperiment } = useFetchData(apiClient.experiments.update)
 
-  const onValid = async (data: Experiment) => {
-    await updateExperiment(data)
+  const onValid = async (data: ExperimentFormData) => {
+    await updateExperiment(convertExperimentFormData(data))
     navigate(getPageRouteDetails(PageNames.EXPERIMENT_DETAIL).getPath(data.id))
   }
 
   const {
+    users,
+    areasOfExpertise,
+    equipment,
     experiment,
     isInitialized,
     setValue,
@@ -41,18 +48,25 @@ export default function EditExperimentPage() {
   }
 
   useEffect(() => {
-    if (!experiment || isInitialized) {
+    if (!experiment || !areasOfExpertise || isInitialized || !equipment) {
       return
     }
     // fill form with a data from API once
-    Object.entries(experiment).forEach(([key, value]) =>
-      setValue(key as keyof Experiment, value)
+    Object.entries(convertExperimentToFormData(experiment)).forEach(
+      ([key, value]) => setValue(key as keyof ExperimentFormData, value)
     )
 
     setIsInitialized(true)
-  }, [experiment, isInitialized, setIsInitialized, setValue])
+  }, [
+    areasOfExpertise,
+    equipment,
+    experiment,
+    isInitialized,
+    setIsInitialized,
+    setValue,
+  ])
 
-  if (!experiment) {
+  if (!experiment || !users || !areasOfExpertise || !equipment) {
     return isLoading ? <Loader /> : <NoContent />
   }
 
@@ -67,6 +81,9 @@ export default function EditExperimentPage() {
       <ExperimentTitle title={experiment.title} />
       <Section>
         <ExperimentForm
+          users={users}
+          equipment={equipment}
+          areasOfExpertise={areasOfExpertise}
           onSubmit={onSubmit}
           register={register}
           errors={errors}
