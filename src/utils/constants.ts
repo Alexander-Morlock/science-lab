@@ -9,7 +9,10 @@ export enum DeviceColumns {
   DESKTOP = 3,
 }
 
-const ExperimentDetailFieldsDescription: Record<keyof Experiment, string> = {
+export const ExperimentDetailFieldsDescription: Record<
+  keyof Experiment,
+  string
+> = {
   id: "id",
   authorId: "Author ID",
   title: "Title",
@@ -30,16 +33,4 @@ const ExperimentDetailFieldsDescription: Record<keyof Experiment, string> = {
   fileIds: "File IDs",
 }
 
-function isExperimentKeyTypeGuard(
-  key: string | keyof Experiment
-): key is keyof Experiment {
-  return key in ExperimentDetailFieldsDescription
-}
-
-export function getExperimentDetailFieldPlaceholder(
-  key: string | keyof Experiment
-) {
-  return isExperimentKeyTypeGuard(key)
-    ? ExperimentDetailFieldsDescription[key]
-    : key
-}
+export const DEFAULT_SNACKBAR_TIME_DURATION_MS = 2000

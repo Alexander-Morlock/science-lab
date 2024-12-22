@@ -9,7 +9,7 @@ import { Container } from "../components/basic/Container"
 import { getPageRouteDetails } from "../router/utils"
 import { PageNames } from "../router/types"
 import { ExperimentTitle } from "../components/ExperimentTitle"
-import { getExperimentDetailFieldPlaceholder as getPlaceholder } from "../utils/constants"
+import { getExperimentDetailFieldPlaceholder as getPlaceholder } from "../utils/utils"
 
 export default function ExperimentDetailPage() {
   const { id } = useParams()

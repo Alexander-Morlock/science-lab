@@ -60,6 +60,9 @@ export default function EditExperimentPage() {
     clearErrors()
   }
 
+  const onCancel = () =>
+    navigate(getPageRouteDetails(PageNames.EXPERIMENT_DETAIL).getPath(id))
+
   return (
     <>
       <ExperimentTitle title={experiment.title} />
@@ -70,15 +73,7 @@ export default function EditExperimentPage() {
           errors={errors}
         />
         <Container>
-          <button
-            onClick={() =>
-              navigate(
-                getPageRouteDetails(PageNames.EXPERIMENT_DETAIL).getPath(id)
-              )
-            }
-          >
-            Back to details
-          </button>
+          <button onClick={onCancel}>Back to details</button>
           <button onClick={onSubmit}>Submit</button>
           <button onClick={onReset}>Reset</button>
         </Container>

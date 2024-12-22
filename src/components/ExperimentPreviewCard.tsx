@@ -2,7 +2,7 @@ import React from "react"
 import { Experiment } from "../api/types"
 import { Container } from "./basic/Container"
 import { ExperimentTitle } from "./ExperimentTitle"
-import { getExperimentDetailFieldPlaceholder as getPlaceholder } from "../utils/constants"
+import { getExperimentDetailFieldPlaceholder as getPlaceholder } from "../utils/utils"
 
 type Props = Pick<
   Experiment,

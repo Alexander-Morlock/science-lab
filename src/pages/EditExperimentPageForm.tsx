@@ -3,7 +3,7 @@ import { Input } from "../components/basic/Input"
 import { Container } from "../components/basic/Container"
 import { FieldErrors, UseFormRegister } from "react-hook-form"
 import { Experiment } from "../api/types"
-import { getExperimentDetailFieldPlaceholder as getPlaceholder } from "../utils/constants"
+import { getExperimentDetailFieldPlaceholder as getPlaceholder } from "../utils/utils"
 import { Form } from "../components/Form"
 
 type Props = {
@@ -42,6 +42,7 @@ export function EditExperimentPageForm({ onSubmit, register, errors }: Props) {
       <Container autoColumns>
         {requiredInputFields.map((field) => (
           <Input
+            key={field}
             type="text"
             errors={errors}
             placeholder={getPlaceholder(field)}
@@ -51,6 +52,7 @@ export function EditExperimentPageForm({ onSubmit, register, errors }: Props) {
         ))}
         {optionalInputFields.map((field) => (
           <Input
+            key={field}
             type="text"
             errors={errors}
             placeholder={getPlaceholder(field)}
