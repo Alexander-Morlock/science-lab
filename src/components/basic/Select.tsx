@@ -7,7 +7,7 @@ type Props<T extends FieldValues = FieldValues> = DetailedHTMLProps<
   HTMLSelectElement
 > & {
   errors: FieldErrors<T>
-  options: { key: string; value: string | number }[]
+  options: { key: string; value: string }[]
   required?: boolean
 }
 

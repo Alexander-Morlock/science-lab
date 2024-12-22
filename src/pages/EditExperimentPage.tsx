@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { Loader } from "../components/Loader.styled"
 import { NoContent } from "../components/NoContent"
-import { Experiment } from "../api/types"
+import { ExperimentFormData } from "../api/types"
 import { Container } from "../components/basic/Container"
 import { Section } from "../components/basic/Section"
 import { ExperimentForm } from "./ExperimentForm"
@@ -12,17 +12,22 @@ import { PageNames } from "../router/types"
 import { getPageRouteDetails } from "../router/utils"
 import { apiClient } from "../api/apiClient"
 import { useFetchData } from "../hooks/useFetchData"
+import {
+  convertExperimentFormData,
+  convertExperimentToFormData,
+} from "../utils/utils"
 
 export default function EditExperimentPage() {
   const { fetch: updateExperiment } = useFetchData(apiClient.experiments.update)
 
-  const onValid = async (data: Experiment) => {
-    await updateExperiment(data)
+  const onValid = async (data: ExperimentFormData) => {
+    await updateExperiment(convertExperimentFormData(data))
     navigate(getPageRouteDetails(PageNames.EXPERIMENT_DETAIL).getPath(data.id))
   }
 
   const {
     users,
+    areasOfExpertise,
     experiment,
     isInitialized,
     setValue,
@@ -42,18 +47,18 @@ export default function EditExperimentPage() {
   }
 
   useEffect(() => {
-    if (!experiment || isInitialized) {
+    if (!experiment || !areasOfExpertise || isInitialized) {
       return
     }
     // fill form with a data from API once
-    Object.entries(experiment).forEach(([key, value]) =>
-      setValue(key as keyof Experiment, value)
+    Object.entries(convertExperimentToFormData(experiment)).forEach(
+      ([key, value]) => setValue(key as keyof ExperimentFormData, value)
     )
 
     setIsInitialized(true)
-  }, [experiment, isInitialized, setIsInitialized, setValue])
+  }, [areasOfExpertise, experiment, isInitialized, setIsInitialized, setValue])
 
-  if (!experiment || !users) {
+  if (!experiment || !users || !areasOfExpertise) {
     return isLoading ? <Loader /> : <NoContent />
   }
 
@@ -69,6 +74,7 @@ export default function EditExperimentPage() {
       <Section>
         <ExperimentForm
           users={users}
+          areasOfExpertise={areasOfExpertise}
           onSubmit={onSubmit}
           register={register}
           errors={errors}

@@ -74,3 +74,19 @@ export type Experiment = {
   participantIds?: number[]
   fileIds?: number[]
 }
+
+// Because <select> operates with string values only
+export type ExperimentFormData = Omit<
+  Experiment,
+  | "responsiblePersonId"
+  | "areasOfExpertiseIds"
+  | "equipmentIds"
+  | "participantIds"
+  | "fileIds"
+> & {
+  responsiblePersonId: string
+  areasOfExpertiseIds: string[]
+  equipmentIds?: string[]
+  participantIds?: string[]
+  fileIds?: string[]
+}

@@ -2,15 +2,21 @@ import React, { FormEventHandler } from "react"
 import { Input } from "../components/basic/Input"
 import { Container } from "../components/basic/Container"
 import { FieldErrors, UseFormRegister } from "react-hook-form"
-import { Experiment, User } from "../api/types"
+import {
+  AreaOfExpertise,
+  Experiment,
+  ExperimentFormData,
+  User,
+} from "../api/types"
 import { getExperimentDetailFieldPlaceholder as getPlaceholder } from "../utils/utils"
 import { Form } from "../components/Form"
 import { Select } from "../components/basic/Select"
 
 type Props = {
   users: User[]
-  errors: FieldErrors<Experiment>
-  register: UseFormRegister<Experiment>
+  areasOfExpertise: AreaOfExpertise[]
+  errors: FieldErrors<ExperimentFormData>
+  register: UseFormRegister<ExperimentFormData>
   onSubmit?: FormEventHandler<HTMLFormElement> | undefined
 }
 
@@ -19,7 +25,6 @@ const requiredInputFields: (keyof Experiment)[] = [
   "title",
   "startDate",
   "endDate",
-  "areasOfExpertiseIds",
   "visibility",
   "state",
 ]
@@ -36,7 +41,13 @@ const optionalInputFields: (keyof Experiment)[] = [
   "fileIds",
 ]
 
-export function ExperimentForm({ onSubmit, register, errors, users }: Props) {
+export function ExperimentForm({
+  onSubmit,
+  register,
+  errors,
+  users,
+  areasOfExpertise,
+}: Props) {
   return (
     <Form onSubmit={onSubmit}>
       <Container autoColumns>
@@ -53,7 +64,20 @@ export function ExperimentForm({ onSubmit, register, errors, users }: Props) {
         <Select
           errors={errors}
           {...register("responsiblePersonId", { required: true })}
-          options={users.map(({ name: key, id: value }) => ({ key, value }))}
+          options={users.map(({ name: key, id }) => ({
+            key,
+            value: String(id),
+          }))}
+          required
+        />
+        <Select
+          multiple
+          errors={errors}
+          {...register("areasOfExpertiseIds", { required: true })}
+          options={areasOfExpertise.map(({ name: key, id }) => ({
+            key,
+            value: String(id),
+          }))}
           required
         />
         {optionalInputFields.map((field) => (

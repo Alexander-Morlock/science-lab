@@ -2,12 +2,12 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useParams } from "react-router"
 import { apiClient } from "../api/apiClient"
-import { Experiment } from "../api/types"
+import { Experiment, ExperimentFormData } from "../api/types"
 import { useFetchData } from "./useFetchData"
 import { useShowSnackbarMessageOnInvalidFormSubmit } from "./useShowSnackbarMessageOnInvalidFormSubmit"
 
 export function useExperimentForm(
-  onValid: (data: Experiment) => Promise<void>
+  onValid: (data: ExperimentFormData) => Promise<void>
 ) {
   const { id } = useParams()
 
@@ -23,6 +23,9 @@ export function useExperimentForm(
     { autofetch: true }
   )
 
+  const { data: areasOfExpertise, isLoading: isLoadingAreasOfExpertise } =
+    useFetchData(apiClient.areasOfExpertise.getAll, { autofetch: true })
+
   const { showSnackbarMessageOnInvalid } =
     useShowSnackbarMessageOnInvalidFormSubmit()
 
@@ -32,7 +35,7 @@ export function useExperimentForm(
     setValue,
     clearErrors,
     formState: { errors },
-  } = useForm<Experiment>()
+  } = useForm<ExperimentFormData>()
 
   const onSubmit = handleSubmit(onValid, showSnackbarMessageOnInvalid)
 
@@ -40,12 +43,14 @@ export function useExperimentForm(
     onSubmit,
     register,
     setValue,
+    clearErrors,
     errors,
+    users,
     experiment,
-    isLoading: isLoadingExperiment || isLoadingUsers,
+    areasOfExpertise,
+    isLoading:
+      isLoadingExperiment || isLoadingUsers || isLoadingAreasOfExpertise,
     isInitialized,
     setIsInitialized,
-    clearErrors,
-    users,
   }
 }

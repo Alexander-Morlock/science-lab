@@ -7,12 +7,12 @@ app.get("/api/experiments/:experimentId", (req, res) =>
   res.send(
     JSON.stringify({
       id: req.params.experimentId,
-      authorId: 123,
+      authorId: 1,
       title: "test experiment",
       startDate: "2024-11-01",
       endDate: "2024-12-01",
-      responsiblePersonId: 1,
-      areasOfExpertiseIds: [1, 2, 3],
+      responsiblePersonId: 2,
+      areasOfExpertiseIds: [1, 2, 4],
       visibility: "PRIVATE",
       state: "PLANNED",
     })
@@ -24,7 +24,7 @@ app.get("/api/experiments", (req, res) =>
     JSON.stringify(
       [1, 2, 3].map((id) => ({
         id,
-        authorId: 123,
+        authorId: 1,
         title: `test experiment (id: ${id})`,
         startDate: "2024-11-01",
         endDate: "2024-12-01",
@@ -50,12 +50,23 @@ app.get("/api/users", (req, res) =>
   )
 )
 
+app.get("/api/areasOfExpertise", (req, res) =>
+  res.send(
+    JSON.stringify(
+      [1, 2, 3, 4, 5, 6].map((id) => ({
+        id,
+        name: `Area of expertise id${id}`,
+      }))
+    )
+  )
+)
+
 app.put("/api/experiments/:id", (req, res) => {
   res.send(JSON.stringify({ status: "ok" }))
 })
 
 app.post("/api/experiments/", (req, res) => {
-  res.send(JSON.stringify({ id: 123 }))
+  res.send(JSON.stringify({ id: 1 }))
 })
 
 app.listen(PORT, () => {
