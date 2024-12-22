@@ -14,7 +14,8 @@ export const equipment = {
     axios.post(`/api/equipment`, equipment),
 
   /** Update an existing equipment by ID. (Admin only) */
-  update: (id: number) => axios.put(`/api/equipment/${id}`),
+  update: (equipment: EquipmentDetail) =>
+    axios.put(`/api/equipment/${equipment.id}`, equipment),
 
   /** Delete an equipment by ID. (Admin only) */
   delete: (id: number) => axios.delete(`/api/equipment/${id}`),

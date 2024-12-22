@@ -3,14 +3,18 @@ import { useSnackbar } from "./useSnackbar"
 import { SnackbarMessageType } from "../utils/types"
 import { AxiosResponse } from "axios"
 
-export function useFetchData<T>(
-  apiCallFn: () => Promise<AxiosResponse<T | undefined>>,
+export function useFetchData<T, A>(
+  apiCallFn: (...args: A[]) => Promise<AxiosResponse<T | undefined>>,
   options?: {
     onSuccess?: (response: T | undefined) => void
     onError?: (error: unknown) => void
-    enable?: boolean
+    autofetch?: boolean
   }
-) {
+): {
+  fetch: (...args: A[]) => Promise<T | undefined>
+  isLoading: boolean
+  data?: T
+} {
   const [isLoading, setIsLoading] = useState(false)
   const [isFetched, setIsFetched] = useState(false)
   const [data, setData] = useState<T | undefined>()
@@ -31,36 +35,41 @@ export function useFetchData<T>(
   )
 
   const fetch = useCallback(
-    () =>
-      apiCallFn()
-        .then((response) => {
-          setData(response.data)
-          setIsFetched(true)
-          options?.onSuccess?.(response.data)
-        })
-        .catch(handleXhrError)
-        .finally(() => setIsLoading(false)),
+    (...args: A[]) =>
+      new Promise<T | undefined>((resolve, reject) => {
+        setData(undefined)
+        setIsFetched(false)
+
+        try {
+          setIsLoading(true)
+
+          apiCallFn(...args)
+            .then((response) => {
+              setData(response.data)
+              setIsFetched(true)
+              options?.onSuccess?.(response.data)
+              resolve(response.data)
+            })
+            .catch((e) => {
+              handleXhrError(e)
+              reject(e)
+            })
+            .finally(() => setIsLoading(false))
+        } catch (error) {
+          handleXhrError(error)
+          reject()
+        }
+      }),
     [apiCallFn, handleXhrError, options]
   )
 
-  const refetch = useCallback(() => {
-    setData(undefined)
-    setIsFetched(false)
-    fetch()
-  }, [fetch])
-
   useEffect(() => {
-    if (options?.enable === false || isLoading || data || isFetched) {
+    if (options?.autofetch === false || isLoading || data || isFetched) {
       return
     }
 
-    try {
-      setIsLoading(true)
-      fetch()
-    } catch (error) {
-      handleXhrError(error)
-    }
-  }, [apiCallFn, data, handleXhrError, isLoading, options, fetch, isFetched])
+    fetch()
+  }, [data, fetch, isFetched, isLoading, options?.autofetch])
 
-  return { data, isLoading, refetch }
+  return { data, isLoading, fetch }
 }

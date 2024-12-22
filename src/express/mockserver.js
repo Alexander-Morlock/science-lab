@@ -50,6 +50,14 @@ app.get("/api/users", (req, res) =>
   )
 )
 
+app.put("/api/experiments/:id", (req, res) => {
+  res.send(JSON.stringify({ status: "ok" }))
+})
+
+app.post("/api/experiments/", (req, res) => {
+  res.send(JSON.stringify({ id: 123 }))
+})
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
 })

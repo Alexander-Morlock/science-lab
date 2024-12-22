@@ -65,6 +65,7 @@ export const PageContentContainer = styled.div`
 
 export const Snackbar = styled.div<{ $type?: SnackbarMessageType }>`
   position: absolute;
+  z-index: 999;
   left: 1rem;
   top: 1rem;
   border-radius: 0.5rem;

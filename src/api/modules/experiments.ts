@@ -11,11 +11,11 @@ export const experiments = {
 
   /** Create a new experiment. (Admin, Scientist) */
   create: (experiment: Experiment) =>
-    axios.post(`/api/experiments`, experiment),
+    axios.post<{ id: number }>(`/api/experiments`, experiment),
 
   /** Update an existing experiment by ID. (Admin, Scientist, Lab Technician) */
   update: (experiment: Experiment) =>
-    axios.put(`/api/experiments/${experiment.id}`),
+    axios.put(`/api/experiments/${experiment.id}`, experiment),
 
   /** Delete an experiment by ID. (Admin,Scientist) */
   delete: (experimentId: number) =>

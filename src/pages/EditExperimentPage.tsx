@@ -1,38 +1,47 @@
-import React, { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router"
-import { apiClient } from "../api/apiClient"
+import React, { useEffect } from "react"
 import { Loader } from "../components/Loader.styled"
 import { NoContent } from "../components/NoContent"
-import { useFetchData } from "../hooks/useFetchData"
-import { useForm } from "react-hook-form"
 import { Experiment } from "../api/types"
 import { Container } from "../components/basic/Container"
 import { Section } from "../components/basic/Section"
-import { getPageRouteDetails } from "../router/utils"
-import { PageNames } from "../router/types"
-import { EditExperimentPageForm } from "./EditExperimentPageForm"
+import { ExperimentForm } from "./ExperimentForm"
 import { ExperimentTitle } from "../components/ExperimentTitle"
-import { useShowSnackbarMessageOnInvalidFormSubmit } from "../hooks/useShowSnackbarMessageOnInvalidFormSubmit"
+import { useExperimentForm } from "../hooks/useExperimentForm"
+import { useNavigate } from "react-router"
+import { PageNames } from "../router/types"
+import { getPageRouteDetails } from "../router/utils"
+import { apiClient } from "../api/apiClient"
+import { useFetchData } from "../hooks/useFetchData"
 
 export default function EditExperimentPage() {
-  const { id } = useParams()
+  const { fetch: updateExperiment } = useFetchData(
+    apiClient.experiments.update,
+    { autofetch: false }
+  )
+
+  const onValid = async (data: Experiment) => {
+    await updateExperiment(data)
+    navigate(getPageRouteDetails(PageNames.EXPERIMENT_DETAIL).getPath(data.id))
+  }
+
+  const {
+    experiment,
+    isInitialized,
+    setValue,
+    setIsInitialized,
+    isLoading,
+    onSubmit,
+    register,
+    errors,
+    clearErrors,
+  } = useExperimentForm(onValid)
+
   const navigate = useNavigate()
 
-  const { showSnackbarMessageOnInvalid } =
-    useShowSnackbarMessageOnInvalidFormSubmit()
-
-  const [isInitialized, setIsInitialized] = useState(false)
-
-  const { data: experiment, isLoading } = useFetchData(() =>
-    apiClient.experiments.get(Number(id))
-  )
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    clearErrors,
-    formState: { errors },
-  } = useForm<Experiment>()
+  const onReset = () => {
+    setIsInitialized(false)
+    clearErrors()
+  }
 
   useEffect(() => {
     if (!experiment || isInitialized) {
@@ -44,30 +53,23 @@ export default function EditExperimentPage() {
     )
 
     setIsInitialized(true)
-  }, [experiment, isInitialized, setValue])
+  }, [experiment, isInitialized, setIsInitialized, setValue])
 
   if (!experiment) {
     return isLoading ? <Loader /> : <NoContent />
   }
 
-  const onValid = (data: Experiment) =>
-    navigate(getPageRouteDetails(PageNames.EXPERIMENT_DETAIL).getPath(data.id))
-
-  const onSubmit = handleSubmit(onValid, showSnackbarMessageOnInvalid)
-
-  const onReset = () => {
-    setIsInitialized(false)
-    clearErrors()
-  }
-
   const onCancel = () =>
-    navigate(getPageRouteDetails(PageNames.EXPERIMENT_DETAIL).getPath(id))
+    navigate(
+      getPageRouteDetails(PageNames.EXPERIMENT_DETAIL).getPath(experiment.id)
+    )
 
   return (
     <>
+      {isLoading && <Loader />}
       <ExperimentTitle title={experiment.title} />
       <Section>
-        <EditExperimentPageForm
+        <ExperimentForm
           onSubmit={onSubmit}
           register={register}
           errors={errors}

@@ -13,7 +13,6 @@ type Props = {
 }
 
 const requiredInputFields: (keyof Experiment)[] = [
-  "id",
   "authorId",
   "title",
   "startDate",
@@ -36,7 +35,7 @@ const optionalInputFields: (keyof Experiment)[] = [
   "fileIds",
 ]
 
-export function EditExperimentPageForm({ onSubmit, register, errors }: Props) {
+export function ExperimentForm({ onSubmit, register, errors }: Props) {
   return (
     <Form onSubmit={onSubmit}>
       <Container autoColumns>

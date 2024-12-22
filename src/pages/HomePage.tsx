@@ -13,8 +13,8 @@ import { Container } from "../components/basic/Container"
 export default function HomePage() {
   const navigate = useNavigate()
 
-  const { data: users, isLoading: isLoadingUsers } = useFetchData(() =>
-    apiClient.user.getAll()
+  const { data: users, isLoading: isLoadingUsers } = useFetchData(
+    apiClient.user.getAll
   )
 
   const { data: experiments, isLoading: isLoadingExperiments } = useFetchData(
