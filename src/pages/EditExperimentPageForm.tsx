@@ -3,7 +3,7 @@ import { Input } from "../components/basic/Input"
 import { Container } from "../components/basic/Container"
 import { FieldErrors, UseFormRegister } from "react-hook-form"
 import { Experiment } from "../api/types"
-import { getExperimentDetailFieldsDescription } from "../utils/constants"
+import { getExperimentDetailFieldPlaceholder } from "../utils/constants"
 
 type Props = {
   errors: FieldErrors<Experiment>
@@ -43,7 +43,7 @@ export function EditExperimentPageForm({ onSubmit, register, errors }: Props) {
           <Input
             type="text"
             errors={errors}
-            placeholder={getExperimentDetailFieldsDescription(field)}
+            placeholder={getExperimentDetailFieldPlaceholder(field)}
             {...register(field, { required: true })}
             required
           />
@@ -52,7 +52,7 @@ export function EditExperimentPageForm({ onSubmit, register, errors }: Props) {
           <Input
             type="text"
             errors={errors}
-            placeholder={getExperimentDetailFieldsDescription(field)}
+            placeholder={getExperimentDetailFieldPlaceholder(field)}
             {...register(field)}
           />
         ))}

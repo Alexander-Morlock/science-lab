@@ -2,7 +2,7 @@ import React from "react"
 import { Experiment } from "../api/types"
 import { Container } from "./basic/Container"
 import { ExperimentTitle } from "./ExperimentTitle"
-import { getExperimentDetailFieldsDescription } from "../utils/constants"
+import { getExperimentDetailFieldPlaceholder } from "../utils/constants"
 
 type Props = Pick<
   Experiment,
@@ -29,7 +29,7 @@ export function ExperimentPreviewCard({
           endDate,
           state,
         }).map(([key, value]) => (
-          <li key={key}>{`${getExperimentDetailFieldsDescription(
+          <li key={key}>{`${getExperimentDetailFieldPlaceholder(
             key
           )}: ${value}`}</li>
         ))}

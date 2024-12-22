@@ -36,7 +36,7 @@ function isExperimentKeyTypeGuard(
   return key in ExperimentDetailFieldsDescription
 }
 
-export function getExperimentDetailFieldsDescription(
+export function getExperimentDetailFieldPlaceholder(
   key: string | keyof Experiment
 ) {
   return isExperimentKeyTypeGuard(key)

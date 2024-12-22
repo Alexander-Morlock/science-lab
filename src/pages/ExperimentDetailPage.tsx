@@ -9,7 +9,7 @@ import { Container } from "../components/basic/Container"
 import { getPageRouteDetails } from "../router/utils"
 import { PageNames } from "../router/types"
 import { ExperimentTitle } from "../components/ExperimentTitle"
-import { getExperimentDetailFieldsDescription } from "../utils/constants"
+import { getExperimentDetailFieldPlaceholder } from "../utils/constants"
 
 export default function ExperimentDetailPage() {
   const { id } = useParams()
@@ -30,7 +30,7 @@ export default function ExperimentDetailPage() {
         <Container>
           <ul>
             {Object.entries(experiment).map(([key, value]) => (
-              <li key={key}>{`${getExperimentDetailFieldsDescription(
+              <li key={key}>{`${getExperimentDetailFieldPlaceholder(
                 key
               )}: ${value}`}</li>
             ))}
