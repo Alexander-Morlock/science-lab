@@ -36,14 +36,14 @@ export default function LoginPage() {
             type="text"
             errors={errors}
             placeholder="Login"
-            {...register("login", { required: true, minLength: 3 })}
+            {...register("login", { required: true })}
             required
           />
           <Input
             type="password"
             errors={errors}
             placeholder="Password"
-            {...register("password", { required: true, minLength: 3 })}
+            {...register("password", { required: true })}
             required
           />
         </Container>
