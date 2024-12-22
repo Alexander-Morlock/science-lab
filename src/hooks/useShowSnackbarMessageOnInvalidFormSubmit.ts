@@ -3,10 +3,10 @@ import { FieldErrors, FieldValues } from "react-hook-form"
 import { useSnackbar } from "./useSnackbar"
 import { SnackbarMessageType } from "../utils/types"
 
-export function useOnInvalidFormSubmit() {
+export function useShowSnackbarMessageOnInvalidFormSubmit() {
   const { showSnackbar } = useSnackbar()
 
-  const onInvalid = useCallback(
+  const showSnackbarMessageOnInvalid = useCallback(
     <T extends FieldValues>(errors: FieldErrors<T>) => {
       showSnackbar({
         message: Object.entries(errors)
@@ -22,5 +22,5 @@ export function useOnInvalidFormSubmit() {
     [showSnackbar]
   )
 
-  return { onInvalid }
+  return { showSnackbarMessageOnInvalid }
 }

@@ -21,11 +21,9 @@ export function Input<T extends FieldValues = FieldValues>({
     : ""
 
   return (
-    <div>
-      <Styled.Wrapper $error={!!errorMessage} $required={required}>
-        <input {...props} />
-      </Styled.Wrapper>
+    <Styled.Wrapper $error={!!errorMessage} $required={required}>
+      <input {...props} />
       {!!errorMessage && <Styled.Error>{`${errorMessage}`}</Styled.Error>}
-    </div>
+    </Styled.Wrapper>
   )
 }

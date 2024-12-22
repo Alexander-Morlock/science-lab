@@ -12,13 +12,14 @@ import { getPageRouteDetails } from "../router/utils"
 import { PageNames } from "../router/types"
 import { EditExperimentPageForm } from "./EditExperimentPageForm"
 import { ExperimentTitle } from "../components/ExperimentTitle"
-import { useOnInvalidFormSubmit } from "../hooks/useOnInvalidFormSubmit"
+import { useShowSnackbarMessageOnInvalidFormSubmit } from "../hooks/useShowSnackbarMessageOnInvalidFormSubmit"
 
 export default function EditExperimentPage() {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const { onInvalid } = useOnInvalidFormSubmit()
+  const { showSnackbarMessageOnInvalid } =
+    useShowSnackbarMessageOnInvalidFormSubmit()
 
   const [isInitialized, setIsInitialized] = useState(false)
 
@@ -50,13 +51,18 @@ export default function EditExperimentPage() {
   }
 
   const onValid = (data: Experiment) => console.log("SUBMIT -> ", data)
+  const onSubmit = handleSubmit(onValid, showSnackbarMessageOnInvalid)
+  const onReset = () => {
+    setIsInitialized(false)
+    clearErrors()
+  }
 
   return (
     <>
       <ExperimentTitle title={experiment.title} />
       <Section>
         <EditExperimentPageForm
-          onSubmit={handleSubmit(onValid, onInvalid)}
+          onSubmit={onSubmit}
           register={register}
           errors={errors}
         />
@@ -70,15 +76,8 @@ export default function EditExperimentPage() {
           >
             Back to details
           </button>
-          <button onClick={handleSubmit(onValid, onInvalid)}>Submit</button>
-          <button
-            onClick={(e) => {
-              setIsInitialized(false)
-              clearErrors()
-            }}
-          >
-            Reset
-          </button>
+          <button onClick={onSubmit}>Submit</button>
+          <button onClick={onReset}>Reset</button>
         </Container>
       </Section>
     </>

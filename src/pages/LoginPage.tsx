@@ -4,11 +4,12 @@ import { Container } from "../components/basic/Container"
 import { useSnackbar } from "../hooks/useSnackbar"
 import { useForm } from "react-hook-form"
 import { Input } from "../components/basic/Input"
-import { useOnInvalidFormSubmit } from "../hooks/useOnInvalidFormSubmit"
+import { useShowSnackbarMessageOnInvalidFormSubmit } from "../hooks/useShowSnackbarMessageOnInvalidFormSubmit"
 
 export default function LoginPage() {
   const { showSnackbar } = useSnackbar()
-  const { onInvalid } = useOnInvalidFormSubmit()
+  const { showSnackbarMessageOnInvalid } =
+    useShowSnackbarMessageOnInvalidFormSubmit()
 
   const {
     register,
@@ -24,25 +25,29 @@ export default function LoginPage() {
     })
   }
 
+  const onSubmit = handleSubmit(onValid, showSnackbarMessageOnInvalid)
+
   return (
     <Container centered>
       <p>Please log in</p>
-      <Form onSubmit={handleSubmit(onValid, onInvalid)}>
-        <Input
-          type="text"
-          errors={errors}
-          placeholder="Login"
-          {...register("login", { required: true, minLength: 3 })}
-          required
-        />
-        <Input
-          type="password"
-          errors={errors}
-          placeholder="Password"
-          {...register("password", { required: true, minLength: 3 })}
-          required
-        />
-        <button onClick={handleSubmit(onValid, onInvalid)}>Submit</button>
+      <Form onSubmit={onSubmit}>
+        <Container>
+          <Input
+            type="text"
+            errors={errors}
+            placeholder="Login"
+            {...register("login", { required: true, minLength: 3 })}
+            required
+          />
+          <Input
+            type="password"
+            errors={errors}
+            placeholder="Password"
+            {...register("password", { required: true, minLength: 3 })}
+            required
+          />
+        </Container>
+        <button onClick={onSubmit}>Submit</button>
       </Form>
     </Container>
   )
