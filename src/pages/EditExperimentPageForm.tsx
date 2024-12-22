@@ -3,7 +3,8 @@ import { Input } from "../components/basic/Input"
 import { Container } from "../components/basic/Container"
 import { FieldErrors, UseFormRegister } from "react-hook-form"
 import { Experiment } from "../api/types"
-import { getExperimentDetailFieldPlaceholder } from "../utils/constants"
+import { getExperimentDetailFieldPlaceholder as getPlaceholder } from "../utils/constants"
+import { Form } from "../components/Form"
 
 type Props = {
   errors: FieldErrors<Experiment>
@@ -37,13 +38,13 @@ const optionalInputFields: (keyof Experiment)[] = [
 
 export function EditExperimentPageForm({ onSubmit, register, errors }: Props) {
   return (
-    <form onSubmit={onSubmit}>
+    <Form onSubmit={onSubmit}>
       <Container autoColumns>
         {requiredInputFields.map((field) => (
           <Input
             type="text"
             errors={errors}
-            placeholder={getExperimentDetailFieldPlaceholder(field)}
+            placeholder={getPlaceholder(field)}
             {...register(field, { required: true })}
             required
           />
@@ -52,11 +53,11 @@ export function EditExperimentPageForm({ onSubmit, register, errors }: Props) {
           <Input
             type="text"
             errors={errors}
-            placeholder={getExperimentDetailFieldPlaceholder(field)}
+            placeholder={getPlaceholder(field)}
             {...register(field)}
           />
         ))}
       </Container>
-    </form>
+    </Form>
   )
 }

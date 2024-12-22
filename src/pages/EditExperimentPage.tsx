@@ -4,22 +4,22 @@ import { apiClient } from "../api/apiClient"
 import { Loader } from "../components/Loader.styled"
 import { NoContent } from "../components/NoContent"
 import { useFetchData } from "../hooks/useFetchData"
-import { FieldErrors, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { Experiment } from "../api/types"
 import { Container } from "../components/basic/Container"
-import { useSnackbar } from "../hooks/useSnackbar"
-import { SnackbarMessageType } from "../utils/types"
 import { Section } from "../components/basic/Section"
 import { getPageRouteDetails } from "../router/utils"
 import { PageNames } from "../router/types"
 import { EditExperimentPageForm } from "./EditExperimentPageForm"
 import { ExperimentTitle } from "../components/ExperimentTitle"
+import { useOnInvalidFormSubmit } from "../hooks/useOnInvalidFormSubmit"
 
 export default function EditExperimentPage() {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const { showSnackbar } = useSnackbar()
+  const { onInvalid } = useOnInvalidFormSubmit()
+
   const [isInitialized, setIsInitialized] = useState(false)
 
   const { data: experiment, isLoading } = useFetchData(() =>
@@ -49,23 +49,14 @@ export default function EditExperimentPage() {
     return isLoading ? <Loader /> : <NoContent />
   }
 
-  const onSubmit = (data: Experiment) => console.log("SUBMIT -> ", data)
-
-  const onError = (error: FieldErrors<Experiment>) => {
-    showSnackbar({
-      message: Object.entries(error)
-        .map(([fieldName, { type }]) => `${fieldName}: ${type}`)
-        .join(", "),
-      type: SnackbarMessageType.ERROR,
-    })
-  }
+  const onValid = (data: Experiment) => console.log("SUBMIT -> ", data)
 
   return (
     <>
       <ExperimentTitle title={experiment.title} />
       <Section>
         <EditExperimentPageForm
-          onSubmit={handleSubmit(onSubmit, onError)}
+          onSubmit={handleSubmit(onValid, onInvalid)}
           register={register}
           errors={errors}
         />
@@ -79,7 +70,7 @@ export default function EditExperimentPage() {
           >
             Back to details
           </button>
-          <button onClick={handleSubmit(onSubmit, onError)}>Submit</button>
+          <button onClick={handleSubmit(onValid, onInvalid)}>Submit</button>
           <button
             onClick={(e) => {
               setIsInitialized(false)
