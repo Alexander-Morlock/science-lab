@@ -1,29 +1,26 @@
 import React from "react"
 import { Form } from "../components/Form"
 import { Container } from "../components/basic/Container"
-import { useSnackbar } from "../hooks/useSnackbar"
 import { useForm } from "react-hook-form"
 import { Input } from "../components/basic/Input"
 import { useShowSnackbarMessageOnInvalidFormSubmit } from "../hooks/useShowSnackbarMessageOnInvalidFormSubmit"
+import { useNavigate } from "react-router"
+import { getPageRouteDetails } from "../router/utils"
+import { PageNames } from "../router/types"
 
 export default function LoginPage() {
-  const { showSnackbar } = useSnackbar()
+  const navigate = useNavigate()
   const { showSnackbarMessageOnInvalid } =
     useShowSnackbarMessageOnInvalidFormSubmit()
 
   const {
     register,
-    getValues,
+
     handleSubmit,
     formState: { errors },
   } = useForm<{ login: string; password: string }>()
 
-  const onValid = () => {
-    const { login, password } = getValues()
-    showSnackbar({
-      message: `Login [${login}] and password [${password}] are submitted!`,
-    })
-  }
+  const onValid = () => navigate(getPageRouteDetails(PageNames.HOMEPAGE).route)
 
   const onSubmit = handleSubmit(onValid, showSnackbarMessageOnInvalid)
 
