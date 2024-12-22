@@ -11,7 +11,7 @@ app.get("/api/experiments/:experimentId", (req, res) =>
       title: "test experiment",
       startDate: "2024-11-01",
       endDate: "2024-12-01",
-      responsiblePersonId: 11,
+      responsiblePersonId: 1,
       areasOfExpertiseIds: [1, 2, 3],
       visibility: "PRIVATE",
       state: "PLANNED",

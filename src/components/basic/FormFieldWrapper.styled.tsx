@@ -10,12 +10,13 @@ export const Wrapper = styled.div<{ $error?: boolean; $required?: boolean }>`
         position: absolute;
         content: "*";
         color: red;
-        right: -0.5rem;
+        right: 0;
         top: -1rem;
       }
     `};
 
-  input {
+  input,
+  select {
     width: 100%;
     border: 1px solid ${({ $error }) => ($error ? "red" : "aliceblue")};
   }

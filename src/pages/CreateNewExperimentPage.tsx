@@ -11,6 +11,7 @@ import { useNavigate } from "react-router"
 import { Experiment } from "../api/types"
 import { PageNames } from "../router/types"
 import { getPageRouteDetails } from "../router/utils"
+import { NoContent } from "../components/NoContent"
 
 export default function CreateNewExperimentPage() {
   const navigate = useNavigate()
@@ -22,7 +23,12 @@ export default function CreateNewExperimentPage() {
       navigate(getPageRouteDetails(PageNames.EXPERIMENT_DETAIL).getPath(res.id))
   }
 
-  const { onSubmit, register, errors, isLoading } = useExperimentForm(onValid)
+  const { onSubmit, register, errors, isLoading, users } =
+    useExperimentForm(onValid)
+
+  if (!users) {
+    return isLoading ? <Loader /> : <NoContent />
+  }
 
   return (
     <>
@@ -30,6 +36,7 @@ export default function CreateNewExperimentPage() {
       <ExperimentTitle />
       <Section>
         <ExperimentForm
+          users={users}
           onSubmit={onSubmit}
           register={register}
           errors={errors}

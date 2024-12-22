@@ -13,8 +13,13 @@ export function useExperimentForm(
 
   const [isInitialized, setIsInitialized] = useState(false)
 
-  const { data: experiment, isLoading } = useFetchData(
+  const { data: experiment, isLoading: isLoadingExperiment } = useFetchData(
     () => apiClient.experiments.get(Number(id)),
+    { autofetch: true }
+  )
+
+  const { data: users, isLoading: isLoadingUsers } = useFetchData(
+    apiClient.user.getAll,
     { autofetch: true }
   )
 
@@ -37,9 +42,10 @@ export function useExperimentForm(
     setValue,
     errors,
     experiment,
-    isLoading,
+    isLoading: isLoadingExperiment || isLoadingUsers,
     isInitialized,
     setIsInitialized,
     clearErrors,
+    users,
   }
 }

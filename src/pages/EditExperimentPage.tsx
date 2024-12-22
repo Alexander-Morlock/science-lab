@@ -22,6 +22,7 @@ export default function EditExperimentPage() {
   }
 
   const {
+    users,
     experiment,
     isInitialized,
     setValue,
@@ -52,7 +53,7 @@ export default function EditExperimentPage() {
     setIsInitialized(true)
   }, [experiment, isInitialized, setIsInitialized, setValue])
 
-  if (!experiment) {
+  if (!experiment || !users) {
     return isLoading ? <Loader /> : <NoContent />
   }
 
@@ -67,6 +68,7 @@ export default function EditExperimentPage() {
       <ExperimentTitle title={experiment.title} />
       <Section>
         <ExperimentForm
+          users={users}
           onSubmit={onSubmit}
           register={register}
           errors={errors}
