@@ -12,7 +12,7 @@ export function ExperimentTitle({ title, headerLevel }: Props) {
 
   return (
     <HeaderComponent>
-      {title ? `Experiment ${title}` : "Creating new experiment"}
+      {title ? `Experiment "${title}"` : "Creating new experiment"}
     </HeaderComponent>
   )
 }
