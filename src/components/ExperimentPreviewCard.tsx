@@ -1,6 +1,7 @@
 import React from "react"
 import { Experiment } from "../api/types"
 import { Container } from "./basic/Container"
+import { ExperimentTitle } from "./ExperimentTitle"
 
 type Props = Pick<
   Experiment,
@@ -20,7 +21,7 @@ export function ExperimentPreviewCard({
 }: Props) {
   return (
     <Container colorizeBackgroundColorOnHover onClick={onClick}>
-      <h3>{title}</h3>
+      <ExperimentTitle title={title} headerLevel={3} />
       <ul>
         <li>Start date: {startDate}</li>
         <li>End date: {endDate}</li>

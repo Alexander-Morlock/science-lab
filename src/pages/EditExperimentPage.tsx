@@ -9,11 +9,11 @@ import { Experiment } from "../api/types"
 import { Container } from "../components/basic/Container"
 import { useSnackbar } from "../hooks/useSnackbar"
 import { SnackbarMessageType } from "../utils/types"
-import { Input } from "../components/basic/Input"
 import { Section } from "../components/basic/Section"
 import { getPageRouteDetails } from "../router/utils"
 import { PageNames } from "../router/types"
 import { EditExperimentPageForm } from "./EditExperimentPageForm"
+import { ExperimentTitle } from "../components/ExperimentTitle"
 
 export default function EditExperimentPage() {
   const { id } = useParams()
@@ -37,7 +37,7 @@ export default function EditExperimentPage() {
     if (!experiment || isInitialized) {
       return
     }
-    // fill form with a data from API
+    // fill form with a data from API once
     Object.entries(experiment).forEach(([key, value]) =>
       setValue(key as keyof Experiment, value)
     )
@@ -62,12 +62,12 @@ export default function EditExperimentPage() {
 
   return (
     <>
-      <h1>{`Experiment "${experiment.title}"`}</h1>
+      <ExperimentTitle title={experiment.title} />
       <Section>
         <EditExperimentPageForm
           onSubmit={handleSubmit(onSubmit, onError)}
-          errors={errors}
           register={register}
+          errors={errors}
         />
         <Container>
           <button

@@ -8,6 +8,7 @@ import { Section } from "../components/basic/Section"
 import { Container } from "../components/basic/Container"
 import { getPageRouteDetails } from "../router/utils"
 import { PageNames } from "../router/types"
+import { ExperimentTitle } from "../components/ExperimentTitle"
 
 export default function ExperimentDetailPage() {
   const { id } = useParams()
@@ -23,7 +24,7 @@ export default function ExperimentDetailPage() {
 
   return (
     <>
-      <h1>{`Experiment "${experiment.title}"`}</h1>
+      <ExperimentTitle title={experiment.title} />
       <Section>
         <Container>
           <ul>
