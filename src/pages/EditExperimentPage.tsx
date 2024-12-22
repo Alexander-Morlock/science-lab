@@ -50,8 +50,11 @@ export default function EditExperimentPage() {
     return isLoading ? <Loader /> : <NoContent />
   }
 
-  const onValid = (data: Experiment) => console.log("SUBMIT -> ", data)
+  const onValid = (data: Experiment) =>
+    navigate(getPageRouteDetails(PageNames.EXPERIMENT_DETAIL).getPath(data.id))
+
   const onSubmit = handleSubmit(onValid, showSnackbarMessageOnInvalid)
+
   const onReset = () => {
     setIsInitialized(false)
     clearErrors()
