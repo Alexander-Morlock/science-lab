@@ -1,14 +1,12 @@
 import React, { useState, PropsWithChildren } from "react"
-import { UserInfo } from "../utils/types"
-import { defaultUserContext, UserContext } from "../context/userContext"
+import { UserContext } from "../context/userContext"
+import { User } from "../api/types"
 
 export function UserContextProvider({ children }: PropsWithChildren) {
-  const [userInfo, setUserInfo] = useState<UserInfo>(
-    defaultUserContext.userInfo
-  )
+  const [user, setUser] = useState<User | undefined>()
 
   return (
-    <UserContext.Provider value={{ userInfo, setUserInfo }}>
+    <UserContext.Provider value={{ user, setUser }}>
       {children}
     </UserContext.Provider>
   )

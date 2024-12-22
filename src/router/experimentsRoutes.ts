@@ -1,6 +1,6 @@
-import CreateNewExperiment from "../pages/CreateNewExperiment"
-import EditExperiment from "../pages/EditExperiment"
-import ExperimentDetail from "../pages/ExperimentDetail"
+import CreateNewExperimentPage from "../pages/CreateNewExperimentPage"
+import EditExperimentPage from "../pages/EditExperimentPage"
+import ExperimentDetailPage from "../pages/ExperimentDetailPage"
 import { PageNames, RouteDetail } from "./types"
 
 type ExperimentsPageNames =
@@ -10,21 +10,24 @@ type ExperimentsPageNames =
 
 export const experimentsRoutes: Record<ExperimentsPageNames, RouteDetail> = {
   [PageNames.CREATE_NEW_EXPERIMENT]: {
-    path: "/experiments/create",
-    title: "Create new experiment",
-    element: CreateNewExperiment,
+    route: `/experiments/create`,
+    getPath: () => `/experiments/create`,
+    title: `Create new experiment`,
+    element: CreateNewExperimentPage,
     forLoggedUserOnly: false,
   },
   [PageNames.EDIT_EXPERIMENT]: {
-    path: "/experiments/edit/:id",
-    title: "Edit experiment",
-    element: EditExperiment,
+    route: `/experiments/edit/:id`,
+    getPath: (id: number) => `/experiments/edit/${id}`,
+    title: `Edit experiment`,
+    element: EditExperimentPage,
     forLoggedUserOnly: false,
   },
   [PageNames.EXPERIMENT_DETAIL]: {
-    path: "/experiments/:id",
-    title: "Detail of experiment",
-    element: ExperimentDetail,
+    route: `/experiments/:id`,
+    getPath: (id: number) => `/experiments/${id}`,
+    title: `Detail of experiment`,
+    element: ExperimentDetailPage,
     forLoggedUserOnly: false,
   },
 }

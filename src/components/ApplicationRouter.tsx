@@ -1,30 +1,29 @@
 import React from "react"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router"
 import { ApplicationLayout } from "./layout/ApplicationLayout"
-import { useUserInfo } from "../hooks/useUserInfo"
+import { useUser } from "../hooks/useUser"
 import { applicationRoutes } from "../router/routes"
-import PageNotFound from "../pages/PageNotFound"
+import PageNotFound from "../pages/NotFoundPage"
 import { PageNames } from "../router/types"
+import { getPageRouteDetails } from "../router/utils"
 
 export function ApplicationRouter() {
-  const {
-    userInfo: { isLoggedIn },
-  } = useUserInfo()
+  const { user } = useUser()
 
   const getElement = (
     pageName: string,
-    Element: () => React.JSX.Element,
+    Element: React.JSX.Element,
     forLoggedUserOnly: boolean
   ) => {
-    if (forLoggedUserOnly && !isLoggedIn && pageName !== PageNames.LOGIN_PAGE) {
-      return <Navigate to={applicationRoutes[PageNames.LOGIN_PAGE].path} />
+    if (forLoggedUserOnly && !user && pageName !== PageNames.LOGIN_PAGE) {
+      return <Navigate to={getPageRouteDetails(PageNames.LOGIN_PAGE).route} />
     }
 
-    if (pageName === PageNames.LOGIN_PAGE && isLoggedIn) {
-      return <Navigate to={applicationRoutes[PageNames.HOMEPAGE].path} />
+    if (pageName === PageNames.LOGIN_PAGE && user) {
+      return <Navigate to={getPageRouteDetails(PageNames.HOMEPAGE).route} />
     }
 
-    return <Element />
+    return Element
   }
 
   return (
@@ -32,13 +31,15 @@ export function ApplicationRouter() {
       <ApplicationLayout>
         <Routes>
           {Object.entries(applicationRoutes).map(
-            ([pageName, { path, element, forLoggedUserOnly }]) => (
-              <Route
-                key={pageName}
-                path={path}
-                element={getElement(pageName, element, forLoggedUserOnly)}
-              />
-            )
+            ([pageName, { route, element: Element, forLoggedUserOnly }]) => {
+              return (
+                <Route
+                  key={pageName}
+                  path={route}
+                  element={getElement(pageName, <Element />, forLoggedUserOnly)}
+                />
+              )
+            }
           )}
           <Route path="*" element={<PageNotFound />} />
         </Routes>

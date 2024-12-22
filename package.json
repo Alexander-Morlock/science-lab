@@ -2,10 +2,13 @@
   "name": "science-lab",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
+    "axios": "^1.7.9",
     "cra-template-typescript": "1.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.54.2",
     "react-router": "^7.0.2",
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.13"
@@ -13,14 +16,17 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "mockserver": "node src/express/mockserver.js"
   },
+  "proxy": "http://localhost:3001",
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
-    ]
+      "eslint:recommended"
+    ],
+    "rules": {
+      "no-unused-vars": "warn"
+    }
   },
   "browserslist": {
     "production": [

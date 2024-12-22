@@ -1,49 +1,50 @@
-import React, { useState } from "react"
+import React from "react"
 import { Form } from "../components/Form"
 import { Container } from "../components/basic/Container"
-import { useSnackbar } from "../hooks/useSnackbar"
-import { SnackbarMessageType } from "../utils/types"
+import { useForm } from "react-hook-form"
+import { Input } from "../components/basic/Input"
+import { useShowSnackbarMessageOnInvalidFormSubmit } from "../hooks/useShowSnackbarMessageOnInvalidFormSubmit"
+import { useNavigate } from "react-router"
+import { getPageRouteDetails } from "../router/utils"
+import { PageNames } from "../router/types"
 
 export default function LoginPage() {
-  const { showSnackbar } = useSnackbar()
-  const [login, setLogin] = useState("")
-  const [password, setPassword] = useState("")
+  const navigate = useNavigate()
+  const { showSnackbarMessageOnInvalid } =
+    useShowSnackbarMessageOnInvalidFormSubmit()
 
-  const isDataIncorrect = !login.length || !password.length
-  const isSubmitButtonDisabled = !login.length && !password.length
+  const {
+    register,
+
+    handleSubmit,
+    formState: { errors },
+  } = useForm<{ login: string; password: string }>()
+
+  const onValid = () => navigate(getPageRouteDetails(PageNames.HOMEPAGE).route)
+
+  const onSubmit = handleSubmit(onValid, showSnackbarMessageOnInvalid)
 
   return (
-    <Container>
+    <Container centered>
       <p>Please log in</p>
-      <Form
-        onSubmit={() =>
-          showSnackbar(
-            isDataIncorrect
-              ? {
-                  message: "Data is incorrect",
-                  type: SnackbarMessageType.ERROR,
-                }
-              : {
-                  message: `Login [${login}] and password [${password}] are submitted!`,
-                }
-          )
-        }
-      >
-        <input
-          type="text"
-          placeholder="Login"
-          value={login}
-          onChange={(e) => setLogin(e.currentTarget.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.currentTarget.value)}
-        />
-        <button type="submit" disabled={isSubmitButtonDisabled}>
-          Submit
-        </button>
+      <Form onSubmit={onSubmit}>
+        <Container>
+          <Input
+            type="text"
+            errors={errors}
+            placeholder="Login"
+            {...register("login", { required: true })}
+            required
+          />
+          <Input
+            type="password"
+            errors={errors}
+            placeholder="Password"
+            {...register("password", { required: true })}
+            required
+          />
+        </Container>
+        <button onClick={onSubmit}>Submit</button>
       </Form>
     </Container>
   )

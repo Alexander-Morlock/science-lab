@@ -1,9 +1,10 @@
 import { JSX } from "react"
 
 export type RouteDetail = {
-  path: string
+  route: string
+  getPath: (args?: any) => string
   title: string
-  element: () => JSX.Element
+  element: () => JSX.Element | null
   forLoggedUserOnly: boolean
 }
 

@@ -6,8 +6,7 @@ import React, {
 } from "react"
 import { SnackbarContext } from "../context/snackbarContext"
 import { SnackbarMessageType, SnackBarType } from "../utils/types"
-
-const DEFAULT_TIME_DURATION_MS = 2000
+import { DEFAULT_SNACKBAR_TIME_DURATION_MS } from "../utils/constants"
 
 export function SnackbarContextProvider({ children }: PropsWithChildren) {
   const [snackbar, setSnackbar] = useState<SnackBarType>()
@@ -20,7 +19,7 @@ export function SnackbarContextProvider({ children }: PropsWithChildren) {
 
     const {
       message,
-      milliseconds = DEFAULT_TIME_DURATION_MS,
+      milliseconds = DEFAULT_SNACKBAR_TIME_DURATION_MS,
       type = SnackbarMessageType.INFO,
     } = props
 
