@@ -46,6 +46,7 @@ export function useFetchData<T, A>(
           setIsFetched(true)
           options?.onSuccess?.(data)
           return data
+
         })
         .catch((e) => {
           handleXhrError(e)
