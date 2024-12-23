@@ -20,6 +20,7 @@ export function convertExperimentFormData(
 ): Experiment {
   return {
     ...data,
+    authorId: Number(data.authorId),
     responsiblePersonId: Number(data.responsiblePersonId),
     areasOfExpertiseIds: data.areasOfExpertiseIds.map(Number),
     equipmentIds: data.equipmentIds?.map(Number),
@@ -33,6 +34,7 @@ export function convertExperimentToFormData(
 ): ExperimentFormData {
   return {
     ...data,
+    authorId: String(data.authorId),
     responsiblePersonId: String(data.responsiblePersonId),
     areasOfExpertiseIds: data.areasOfExpertiseIds.map(String),
     equipmentIds: data.equipmentIds?.map(String),

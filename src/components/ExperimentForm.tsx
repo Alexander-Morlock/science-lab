@@ -23,7 +23,6 @@ type Props = {
 }
 
 const requiredInputFields: (keyof Experiment)[] = [
-  "authorId",
   "title",
   "startDate",
   "endDate",
@@ -48,9 +47,31 @@ export function ExperimentForm({
   areasOfExpertise,
   equipment,
 }: Props) {
+  const usersOptions = users.map(({ name, id }) => ({
+    key: name,
+    value: String(id),
+  }))
+
+  const areasOfExpertiseOptions = areasOfExpertise.map(({ name, id }) => ({
+    key: name,
+    value: String(id),
+  }))
+
+  const equipmentOptions = equipment.map(({ name, id }) => ({
+    key: name,
+    value: String(id),
+  }))
+
   return (
     <Form onSubmit={onSubmit}>
       <Container autoColumns>
+        <Select
+          errors={errors}
+          {...register("authorId")}
+          placeholder={getPlaceholder("authorId")}
+          options={usersOptions}
+          required
+        />
         {requiredInputFields.map((field) => (
           <Input
             key={field}
@@ -63,23 +84,17 @@ export function ExperimentForm({
         ))}
         <Select
           errors={errors}
-          {...register("responsiblePersonId", { required: true })}
+          {...register("responsiblePersonId")}
           placeholder={getPlaceholder("responsiblePersonId")}
-          options={users.map(({ name: key, id }) => ({
-            key,
-            value: String(id),
-          }))}
+          options={usersOptions}
           required
         />
         <Select
           multiple
           errors={errors}
-          {...register("areasOfExpertiseIds", { required: true })}
+          {...register("areasOfExpertiseIds")}
           placeholder={getPlaceholder("areasOfExpertiseIds")}
-          options={areasOfExpertise.map(({ name: key, id }) => ({
-            key,
-            value: String(id),
-          }))}
+          options={areasOfExpertiseOptions}
           required
         />
         {optionalInputFields.map((field) => (
@@ -96,20 +111,14 @@ export function ExperimentForm({
           errors={errors}
           {...register("equipmentIds")}
           placeholder={getPlaceholder("equipmentIds")}
-          options={equipment.map(({ name: key, id }) => ({
-            key,
-            value: String(id),
-          }))}
+          options={equipmentOptions}
         />
         <Select
           multiple
           errors={errors}
           {...register("participantIds")}
           placeholder={getPlaceholder("participantIds")}
-          options={users.map(({ name: key, id }) => ({
-            key,
-            value: String(id),
-          }))}
+          options={usersOptions}
         />
       </Container>
     </Form>
