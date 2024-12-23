@@ -2,7 +2,7 @@ import React, { DetailedHTMLProps, SelectHTMLAttributes } from "react"
 import { FieldErrors, FieldValues } from "react-hook-form"
 import { FormFieldWrapper } from "./FormFieldWrapper"
 
-type Props<T extends FieldValues = FieldValues> = DetailedHTMLProps<
+type Props<T extends FieldValues> = DetailedHTMLProps<
   SelectHTMLAttributes<HTMLSelectElement>,
   HTMLSelectElement
 > & {
@@ -12,7 +12,7 @@ type Props<T extends FieldValues = FieldValues> = DetailedHTMLProps<
   placeholder?: string
 }
 
-export function Select<T extends FieldValues = FieldValues>({
+export function Select<T extends FieldValues>({
   errors,
   options,
   placeholder,
@@ -24,21 +24,16 @@ export function Select<T extends FieldValues = FieldValues>({
       errors={errors}
       placeholder={placeholder}
       required={props.required}
+      showPlaceholder
     >
-      {(setIsPlaceholderMessage) => (
-        <select
-          {...props}
-          ref={(ref) => {
-            ref && setIsPlaceholderMessage(true)
-          }}
-        >
-          {options.map(({ key, value }) => (
-            <option key={key} value={value}>
-              {key}
-            </option>
-          ))}
-        </select>
-      )}
+      <select {...props}>
+        <option value="">- select -</option>
+        {options.map(({ key, value }) => (
+          <option key={key} value={value}>
+            {key}
+          </option>
+        ))}
+      </select>
     </FormFieldWrapper>
   )
 }

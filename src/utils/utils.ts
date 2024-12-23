@@ -49,3 +49,16 @@ export function optionsMapper({ name, id }: { name: string; id: number }) {
     value: String(id),
   }
 }
+
+export function getOptionsFromEnum(obj: Record<string, string>) {
+  return Object.values(obj).map((value) => ({
+    key: Capitalize(value),
+    value,
+  }))
+}
+
+export function Capitalize(value: string) {
+  const lowerCaseValue = value.toLowerCase()
+  const [firstLetter, ...letters] = lowerCaseValue
+  return `${firstLetter.toUpperCase()}${letters.join("")}`
+}
