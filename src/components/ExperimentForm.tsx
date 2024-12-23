@@ -7,9 +7,12 @@ import {
   EquipmentDetail,
   Experiment,
   ExperimentFormData,
+  ExperimentState,
+  ExperimentVisibility,
   User,
 } from "../api/types"
 import {
+  getOptionsFromEnum,
   getExperimentDetailFieldPlaceholder as getPlaceholder,
   optionsMapper,
 } from "../utils/utils"
@@ -29,8 +32,6 @@ const requiredInputFields: (keyof Experiment)[] = [
   "title",
   "startDate",
   "endDate",
-  "visibility",
-  "state",
 ]
 
 const optionalInputFields: (keyof Experiment)[] = [
@@ -59,7 +60,7 @@ export function ExperimentForm({
       <Container autoColumns>
         <Select
           errors={errors}
-          {...register("authorId")}
+          {...register("authorId", { required: true })}
           placeholder={getPlaceholder("authorId")}
           options={usersOptions}
           required
@@ -76,15 +77,29 @@ export function ExperimentForm({
         ))}
         <Select
           errors={errors}
-          {...register("responsiblePersonId")}
+          {...register("visibility", { required: true })}
+          placeholder={getPlaceholder("visibility")}
+          options={getOptionsFromEnum(ExperimentVisibility)}
+          required
+        />
+        <Select
+          errors={errors}
+          {...register("responsiblePersonId", { required: true })}
           placeholder={getPlaceholder("responsiblePersonId")}
           options={usersOptions}
           required
         />
         <Select
+          errors={errors}
+          {...register("state", { required: true })}
+          placeholder={getPlaceholder("state")}
+          options={getOptionsFromEnum(ExperimentState)}
+          required
+        />
+        <Select
           multiple
           errors={errors}
-          {...register("areasOfExpertiseIds")}
+          {...register("areasOfExpertiseIds", { required: true })}
           placeholder={getPlaceholder("areasOfExpertiseIds")}
           options={areasOfExpertiseOptions}
           required

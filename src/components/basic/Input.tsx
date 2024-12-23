@@ -2,7 +2,7 @@ import React, { DetailedHTMLProps, InputHTMLAttributes } from "react"
 import { FieldErrors, FieldValues } from "react-hook-form"
 import { FormFieldWrapper } from "./FormFieldWrapper"
 
-type Props<T extends FieldValues = FieldValues> = DetailedHTMLProps<
+type Props<T extends FieldValues> = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
 > & {
@@ -10,18 +10,14 @@ type Props<T extends FieldValues = FieldValues> = DetailedHTMLProps<
   required?: boolean
 }
 
-export function Input<T extends FieldValues = FieldValues>({
-  errors,
-  ...props
-}: Props<T>) {
+export function Input<T extends FieldValues>({ errors, ...props }: Props<T>) {
   return (
     <FormFieldWrapper
       name={props.name}
       errors={errors}
       required={props.required}
       placeholder={props.placeholder}
-    >
-      {(setIsPlaceholderMessage) => (
+      input={(setIsPlaceholderMessage) => (
         <input
           {...props}
           onInput={(event) =>
@@ -29,6 +25,6 @@ export function Input<T extends FieldValues = FieldValues>({
           }
         />
       )}
-    </FormFieldWrapper>
+    />
   )
 }
