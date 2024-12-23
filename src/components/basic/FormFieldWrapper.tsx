@@ -24,8 +24,8 @@ export function FormFieldWrapper<T extends FieldValues = FieldValues>({
     : ""
 
   return (
-    <Styled.Wrapper $error={!!errorMessage} $required={required}>
-      <Styled.Subwrapper>
+    <Styled.Wrapper>
+      <Styled.Subwrapper $error={!!errorMessage} $required={required}>
         {children(setIsPlaceholderMessage)}
         {(!!errorMessage || (!!placeholder && isPlaceholderMessage)) && (
           <Styled.Message $error={!!errorMessage}>{`${

@@ -78,12 +78,14 @@ export type Experiment = {
 // Because <select> operates with string values only
 export type ExperimentFormData = Omit<
   Experiment,
+  | "authorId"
   | "responsiblePersonId"
   | "areasOfExpertiseIds"
   | "equipmentIds"
   | "participantIds"
   | "fileIds"
 > & {
+  authorId: string
   responsiblePersonId: string
   areasOfExpertiseIds: string[]
   equipmentIds?: string[]
