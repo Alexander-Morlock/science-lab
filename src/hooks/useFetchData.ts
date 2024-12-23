@@ -35,31 +35,24 @@ export function useFetchData<T, A>(
   )
 
   const fetch = useCallback(
-    (...args: A[]) =>
-      new Promise<T | undefined>((resolve, reject) => {
-        setData(undefined)
-        setIsFetched(false)
+    (...args: A[]) => {
+      setData(undefined)
+      setIsFetched(false)
+      setIsLoading(true)
 
-        try {
-          setIsLoading(true)
-
-          apiCallFn(...args)
-            .then((response) => {
-              setData(response.data)
-              setIsFetched(true)
-              options?.onSuccess?.(response.data)
-              resolve(response.data)
-            })
-            .catch((e) => {
-              handleXhrError(e)
-              reject(e)
-            })
-            .finally(() => setIsLoading(false))
-        } catch (error) {
-          handleXhrError(error)
-          reject()
-        }
-      }),
+      return apiCallFn(...args)
+        .then(({ data }) => {
+          setData(data)
+          setIsFetched(true)
+          options?.onSuccess?.(data)
+          return data
+        })
+        .catch((e) => {
+          handleXhrError(e)
+          return e
+        })
+        .finally(() => setIsLoading(false))
+    },
     [apiCallFn, handleXhrError, options]
   )
 
