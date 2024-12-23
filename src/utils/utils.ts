@@ -42,3 +42,10 @@ export function convertExperimentToFormData(
     fileIds: data.fileIds?.map(String),
   }
 }
+
+export function optionsMapper({ name, id }: { name: string; id: number }) {
+  return {
+    key: name,
+    value: String(id),
+  }
+}

@@ -9,7 +9,10 @@ import {
   ExperimentFormData,
   User,
 } from "../api/types"
-import { getExperimentDetailFieldPlaceholder as getPlaceholder } from "../utils/utils"
+import {
+  getExperimentDetailFieldPlaceholder as getPlaceholder,
+  optionsMapper,
+} from "../utils/utils"
 import { Form } from "./Form"
 import { Select } from "./basic/Select"
 
@@ -47,20 +50,9 @@ export function ExperimentForm({
   areasOfExpertise,
   equipment,
 }: Props) {
-  const usersOptions = users.map(({ name, id }) => ({
-    key: name,
-    value: String(id),
-  }))
-
-  const areasOfExpertiseOptions = areasOfExpertise.map(({ name, id }) => ({
-    key: name,
-    value: String(id),
-  }))
-
-  const equipmentOptions = equipment.map(({ name, id }) => ({
-    key: name,
-    value: String(id),
-  }))
+  const usersOptions = users.map(optionsMapper)
+  const areasOfExpertiseOptions = areasOfExpertise.map(optionsMapper)
+  const equipmentOptions = equipment.map(optionsMapper)
 
   return (
     <Form onSubmit={onSubmit}>
