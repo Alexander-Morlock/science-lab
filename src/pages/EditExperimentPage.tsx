@@ -7,7 +7,7 @@ import { Section } from "../components/basic/Section"
 import { ExperimentForm } from "../components/ExperimentForm"
 import { ExperimentTitle } from "../components/ExperimentTitle"
 import { useExperimentForm } from "../hooks/useExperimentForm"
-import { useNavigate } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import { PageNames } from "../router/types"
 import { getPageRouteDetails } from "../router/utils"
 import { apiClient } from "../api/apiClient"
@@ -18,6 +18,13 @@ import {
 } from "../utils/utils"
 
 export default function EditExperimentPage() {
+  const { id } = useParams()
+
+  const { data: experiment, isLoading: isLoadingExperiment } = useFetchData(
+    () => apiClient.experiments.get(Number(id)),
+    { autofetch: true }
+  )
+
   const { fetch: updateExperiment } = useFetchData(apiClient.experiments.update)
 
   const onValid = async (data: ExperimentFormData) => {
@@ -29,7 +36,6 @@ export default function EditExperimentPage() {
     users,
     areasOfExpertise,
     equipment,
-    experiment,
     isInitialized,
     setValue,
     setIsInitialized,
@@ -67,7 +73,7 @@ export default function EditExperimentPage() {
   ])
 
   if (!experiment || !users || !areasOfExpertise || !equipment) {
-    return isLoading ? <Loader /> : <NoContent />
+    return isLoading || isLoadingExperiment ? <Loader /> : <NoContent />
   }
 
   const onCancel = () =>

@@ -77,6 +77,7 @@ export function ExperimentForm({
         ))}
         <Select
           errors={errors}
+          defaultValue={ExperimentVisibility.PRIVATE}
           {...register("visibility", { required: true })}
           placeholder={getPlaceholder("visibility")}
           options={getOptionsFromEnum(ExperimentVisibility)}
@@ -91,6 +92,7 @@ export function ExperimentForm({
         />
         <Select
           errors={errors}
+          defaultValue={ExperimentState.PLANNED}
           {...register("state", { required: true })}
           placeholder={getPlaceholder("state")}
           options={getOptionsFromEnum(ExperimentState)}
