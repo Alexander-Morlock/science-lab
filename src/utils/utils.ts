@@ -15,6 +15,14 @@ export function getExperimentDetailFieldPlaceholder(
     : key
 }
 
+export function getNonEmptyString(value?: string) {
+  return value && value.length > 0 ? value : undefined
+}
+
+export function getNonEmptyArray<T>(value?: T[]) {
+  return value && value.length > 0 ? value : undefined
+}
+
 export function convertExperimentFormData(
   data: ExperimentFormData
 ): Experiment {
@@ -23,9 +31,15 @@ export function convertExperimentFormData(
     authorId: Number(data.authorId),
     responsiblePersonId: Number(data.responsiblePersonId),
     areasOfExpertiseIds: data.areasOfExpertiseIds.map(Number),
-    equipmentIds: data.equipmentIds?.map(Number),
-    participantIds: data.participantIds?.map(Number),
-    fileIds: data.fileIds?.map(Number),
+    equipmentIds: getNonEmptyArray(data.equipmentIds)?.map(Number),
+    participantIds: getNonEmptyArray(data.participantIds)?.map(Number),
+    fileIds: getNonEmptyArray(data.fileIds)?.map(Number),
+    stateMark: getNonEmptyString(data.stateMark),
+    description: getNonEmptyString(data.description),
+    purpose: getNonEmptyString(data.purpose),
+    expectedResults: getNonEmptyString(data.expectedResults),
+    actualResults: getNonEmptyString(data.actualResults),
+    conclusion: getNonEmptyString(data.conclusion),
   }
 }
 
