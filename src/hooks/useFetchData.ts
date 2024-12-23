@@ -41,11 +41,12 @@ export function useFetchData<T, A>(
       setIsLoading(true)
 
       return apiCallFn(...args)
-        .then((response) => {
-          setData(response.data)
+        .then(({ data }) => {
+          setData(data)
           setIsFetched(true)
-          options?.onSuccess?.(response.data)
-          return response.data
+          options?.onSuccess?.(data)
+          return data
+
         })
         .catch((e) => {
           handleXhrError(e)
