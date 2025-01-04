@@ -1,6 +1,4 @@
 import React from "react"
-import { useFetchData } from "../hooks/useFetchData"
-import { apiClient } from "../api/apiClient"
 import { Loader } from "../components/Loader"
 import { NoContent } from "../components/NoContent"
 import { ExperimentPreviewCard } from "../components/ExperimentPreviewCard"
@@ -9,22 +7,14 @@ import { PageNames } from "../router/types"
 import { getPageRouteDetails } from "../router/utils"
 import { Section } from "../components/basic/Section"
 import { Container } from "../components/basic/Container"
+import { useGetHomePageData } from "../hooks/useGetHomePageData"
 
 export default function HomePage() {
   const navigate = useNavigate()
-
-  const { data: users, isLoading: isLoadingUsers } = useFetchData(
-    apiClient.user.getAll,
-    { autofetch: true }
-  )
-
-  const { data: experiments, isLoading: isLoadingExperiments } = useFetchData(
-    () => apiClient.experiments.getAll(),
-    { autofetch: true }
-  )
+  const { experiments, users, isLoading } = useGetHomePageData()
 
   if (!experiments || !users) {
-    return isLoadingUsers || isLoadingExperiments ? <Loader /> : <NoContent />
+    return isLoading ? <Loader /> : <NoContent />
   }
 
   const getReponsiblePersonName = (id: number) =>

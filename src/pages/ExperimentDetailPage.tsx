@@ -1,7 +1,5 @@
 import React from "react"
 import { useNavigate, useParams } from "react-router"
-import { useFetchData } from "../hooks/useFetchData"
-import { apiClient } from "../api/apiClient"
 import { Loader } from "../components/Loader.styled"
 import { NoContent } from "../components/NoContent"
 import { Section } from "../components/basic/Section"
@@ -10,15 +8,13 @@ import { getPageRouteDetails } from "../router/utils"
 import { PageNames } from "../router/types"
 import { ExperimentTitle } from "../components/ExperimentTitle"
 import { getExperimentDetailFieldPlaceholder as getPlaceholder } from "../utils/utils"
+import { useGetExperimentDetailsData } from "../hooks/useGetExperimentDetailsData"
 
 export default function ExperimentDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
 
-  const { data: experiment, isLoading } = useFetchData(
-    () => apiClient.experiments.get(Number(id)),
-    { autofetch: true }
-  )
+  const { data: experiment, isLoading } = useGetExperimentDetailsData(id)
 
   if (!experiment) {
     return isLoading ? <Loader /> : <NoContent />

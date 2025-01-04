@@ -16,14 +16,13 @@ import {
   convertExperimentFormData,
   convertExperimentToFormData,
 } from "../utils/utils"
+import { useGetExperimentDetailsData } from "../hooks/useGetExperimentDetailsData"
 
 export default function EditExperimentPage() {
   const { id } = useParams()
 
-  const { data: experiment, isLoading: isLoadingExperiment } = useFetchData(
-    () => apiClient.experiments.get(Number(id)),
-    { autofetch: true }
-  )
+  const { data: experiment, isLoading: isLoadingExperiment } =
+    useGetExperimentDetailsData(id)
 
   const { fetch: updateExperiment } = useFetchData(apiClient.experiments.update)
 

@@ -75,7 +75,7 @@ export type Experiment = {
   fileIds?: number[]
 }
 
-// Because <select> operates with string values only
+// Because form elements operate with string values only
 export type ExperimentFormData = Omit<
   Experiment,
   | "authorId"

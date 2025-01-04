@@ -16,12 +16,14 @@ import { convertExperimentFormData } from "../utils/utils"
 
 export default function CreateNewExperimentPage() {
   const navigate = useNavigate()
+
   const { fetch: updateExperiment } = useFetchData(apiClient.experiments.create)
 
   const onValid = async (data: ExperimentFormData) => {
     const res = await updateExperiment(convertExperimentFormData(data))
-    res?.id &&
+    if (res?.id) {
       navigate(getPageRouteDetails(PageNames.EXPERIMENT_DETAIL).getPath(res.id))
+    }
   }
 
   const {
