@@ -7,9 +7,9 @@ import { Container } from "../../components/basic/Container"
 import { getPageRouteDetails } from "../../router/utils"
 import { PageNames } from "../../router/types"
 import { getExperimentDetailFieldPlaceholder as getPlaceholder } from "../../utils/utils"
-import { useGetExperimentDetailsData } from "../../hooks/useGetExperimentDetailsData"
 import { useUserRole } from "../../hooks/useUserRole"
 import { PageTitle } from "../../components/PageTitle"
+import { useGetExperimentDetailsData } from "./hooks/useGetExperimentDetailsData"
 
 export default function ExperimentDetailPage() {
   const { id } = useParams()

@@ -13,12 +13,12 @@ import {
   convertExperimentFormData,
   convertExperimentToFormData,
 } from "../../utils/utils"
-import { useGetExperimentDetailsData } from "../../hooks/useGetExperimentDetailsData"
 import { useRedirectToHomepageForRolesExcept } from "../../hooks/useRedirectToHomepageForRolesExcept"
 import { useUserRole } from "../../hooks/useUserRole"
 import { PageTitle } from "../../components/PageTitle"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { useExperimentForm } from "./hooks/useExperimentForm"
+import { useGetExperimentDetailsData } from "./hooks/useGetExperimentDetailsData"
 
 export default function ExperimentEditPage() {
   const { id } = useParams()
