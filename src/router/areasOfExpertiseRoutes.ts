@@ -1,6 +1,6 @@
-import AreasOfExpertiseCreatePage from "../pages/AreasOfExpertiseCreatePage"
-import AreasOfExpertiseEditPage from "../pages/AreasOfExpertiseEditPage"
-import AreasOfExpertisePage from "../pages/AreasOfExpertisePage"
+import AreasOfExpertiseCreatePage from "../pages/areasOfExpertise/AreasOfExpertiseCreatePage"
+import AreasOfExpertiseEditPage from "../pages/areasOfExpertise/AreasOfExpertiseEditPage"
+import AreasOfExpertisePage from "../pages/areasOfExpertise/AreasOfExpertisePage"
 import { PageNames, RouteDetail } from "./types"
 
 type AreasOfExpertiseRoutes =

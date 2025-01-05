@@ -1,10 +1,10 @@
 import React from "react"
-import { AreaOfExpertise } from "../api/types"
-import { Container } from "./basic/Container"
-import { useUserRole } from "../hooks/useUserRole"
+import { AreaOfExpertise } from "../../../api/types"
+import { Container } from "../../../components/basic/Container"
+import { useUserRole } from "../../../hooks/useUserRole"
 import { useNavigate } from "react-router"
-import { getPageRouteDetails } from "../router/utils"
-import { PageNames } from "../router/types"
+import { getPageRouteDetails } from "../../../router/utils"
+import { PageNames } from "../../../router/types"
 
 type Props = AreaOfExpertise & {
   onDelete: (id: number) => void

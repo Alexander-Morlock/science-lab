@@ -1,6 +1,6 @@
 import React, { FormEventHandler } from "react"
-import { Input } from "./basic/Input"
-import { Container } from "./basic/Container"
+import { Input } from "../../../components/basic/Input"
+import { Container } from "../../../components/basic/Container"
 import { FieldErrors, UseFormRegister } from "react-hook-form"
 import {
   AreaOfExpertise,
@@ -10,14 +10,14 @@ import {
   ExperimentState,
   ExperimentVisibility,
   User,
-} from "../api/types"
+} from "../../../api/types"
 import {
   getOptionsFromEnum,
   getExperimentDetailFieldPlaceholder as getPlaceholder,
   optionsMapper,
-} from "../utils/utils"
-import { Form } from "./Form"
-import { Select } from "./basic/Select"
+} from "../../../utils/utils"
+import { Form } from "../../../components/Form"
+import { Select } from "../../../components/basic/Select"
 
 type Props = {
   users: User[]

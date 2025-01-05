@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react"
-import { Loader } from "../components/Loader"
-import { NoContent } from "../components/NoContent"
-import { Section } from "../components/basic/Section"
-import { useFetchData } from "../hooks/useFetchData"
-import { apiClient } from "../api/apiClient"
+import { Loader } from "../../components/Loader"
+import { NoContent } from "../../components/NoContent"
+import { Section } from "../../components/basic/Section"
+import { useFetchData } from "../../hooks/useFetchData"
+import { apiClient } from "../../api/apiClient"
 import { useNavigate, useParams } from "react-router"
-import { useUserRole } from "../hooks/useUserRole"
-import { useRedirectToHomepageForRolesExcept } from "../hooks/useRedirectToHomepageForRolesExcept"
-import { EquipmentDetailFormData, UserRole } from "../api/types"
-import { getPageRouteDetails } from "../router/utils"
-import { PageNames } from "../router/types"
-import { useEquipmentForm } from "../hooks/useEquipmentForm"
-import { EquipmentForm } from "../components/EquipmentForm"
+import { useUserRole } from "../../hooks/useUserRole"
+import { useRedirectToHomepageForRolesExcept } from "../../hooks/useRedirectToHomepageForRolesExcept"
+import { EquipmentDetailFormData, UserRole } from "../../api/types"
+import { getPageRouteDetails } from "../../router/utils"
+import { PageNames } from "../../router/types"
+import { EquipmentForm } from "./components/EquipmentForm"
 import {
   convertEquipmentFormData,
   convertEquipmentToFormData,
-} from "../utils/utils"
-import { PageTitle } from "../components/PageTitle"
-import { FormPageFooter } from "../components/FormPageFooter"
+} from "../../utils/utils"
+import { PageTitle } from "../../components/PageTitle"
+import { FormPageFooter } from "../../components/FormPageFooter"
+import { useEquipmentForm } from "./hooks/useEquipmentForm"
 
 export default function EquipmentEditPage() {
   const { id } = useParams()

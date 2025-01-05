@@ -1,6 +1,6 @@
-import EquipmentCreatePage from "../pages/EquipmentCreatePage"
-import EquipmentEditPage from "../pages/EquipmentEditPage"
-import EquipmentPage from "../pages/EquipmentPage"
+import EquipmentCreatePage from "../pages/equipment/EquipmentCreatePage"
+import EquipmentEditPage from "../pages/equipment/EquipmentEditPage"
+import EquipmentPage from "../pages/equipment/EquipmentPage"
 import { PageNames, RouteDetail } from "./types"
 
 type EquipmentRoutes =

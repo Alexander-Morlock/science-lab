@@ -1,10 +1,10 @@
 import React from "react"
-import { Experiment } from "../api/types"
-import { Container } from "./basic/Container"
-import { getExperimentDetailFieldPlaceholder as getPlaceholder } from "../utils/utils"
+import { Experiment } from "../../../api/types"
+import { Container } from "../../../components/basic/Container"
+import { getExperimentDetailFieldPlaceholder as getPlaceholder } from "../../../utils/utils"
 import { useNavigate } from "react-router"
-import { PageNames } from "../router/types"
-import { getPageRouteDetails } from "../router/utils"
+import { PageNames } from "../../../router/types"
+import { getPageRouteDetails } from "../../../router/utils"
 
 type Props = Pick<
   Experiment,

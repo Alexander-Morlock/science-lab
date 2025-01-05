@@ -1,10 +1,10 @@
 import React, { FormEventHandler } from "react"
-import { Input } from "./basic/Input"
-import { Container } from "./basic/Container"
+import { Input } from "../../../components/basic/Input"
+import { Container } from "../../../components/basic/Container"
 import { FieldErrors, UseFormRegister } from "react-hook-form"
-import { AreaOfExpertiseFromData } from "../api/types"
-import { getAreaOfExpertiseFieldPlaceholder as getPlaceholder } from "../utils/utils"
-import { Form } from "./Form"
+import { AreaOfExpertiseFromData } from "../../../api/types"
+import { getAreaOfExpertiseFieldPlaceholder as getPlaceholder } from "../../../utils/utils"
+import { Form } from "../../../components/Form"
 
 type Props = {
   errors: FieldErrors<AreaOfExpertiseFromData>

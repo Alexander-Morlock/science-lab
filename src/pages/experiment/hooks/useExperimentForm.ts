@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form"
-import { apiClient } from "../api/apiClient"
-import { ExperimentFormData } from "../api/types"
-import { useFetchData } from "./useFetchData"
-import { useShowSnackbarMessageOnInvalidFormSubmit } from "./useShowSnackbarMessageOnInvalidFormSubmit"
+import { apiClient } from "../../../api/apiClient"
+import { ExperimentFormData } from "../../../api/types"
+import { useFetchData } from "../../../hooks/useFetchData"
+import { useShowSnackbarMessageOnInvalidFormSubmit } from "../../../hooks/useShowSnackbarMessageOnInvalidFormSubmit"
 
 export function useExperimentForm(
   onValid: (data: ExperimentFormData) => Promise<void>

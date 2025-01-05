@@ -1,21 +1,21 @@
 import React from "react"
-import { Section } from "../components/basic/Section"
-import { ExperimentForm } from "../components/ExperimentForm"
-import { useExperimentForm } from "../hooks/useExperimentForm"
-import { useFetchData } from "../hooks/useFetchData"
-import { apiClient } from "../api/apiClient"
-import { Loader } from "../components/Loader"
+import { Section } from "../../components/basic/Section"
+import { ExperimentForm } from "./components/ExperimentForm"
+import { useFetchData } from "../../hooks/useFetchData"
+import { apiClient } from "../../api/apiClient"
+import { Loader } from "../../components/Loader"
 import { useNavigate } from "react-router"
-import { ExperimentFormData, UserRole } from "../api/types"
-import { PageNames } from "../router/types"
-import { getPageRouteDetails } from "../router/utils"
-import { NoContent } from "../components/NoContent"
-import { convertExperimentFormData } from "../utils/utils"
-import { useRedirectToHomepageForRolesExcept } from "../hooks/useRedirectToHomepageForRolesExcept"
-import { PageTitle } from "../components/PageTitle"
-import { FormPageFooter } from "../components/FormPageFooter"
+import { ExperimentFormData, UserRole } from "../../api/types"
+import { PageNames } from "../../router/types"
+import { getPageRouteDetails } from "../../router/utils"
+import { NoContent } from "../../components/NoContent"
+import { convertExperimentFormData } from "../../utils/utils"
+import { useRedirectToHomepageForRolesExcept } from "../../hooks/useRedirectToHomepageForRolesExcept"
+import { PageTitle } from "../../components/PageTitle"
+import { FormPageFooter } from "../../components/FormPageFooter"
+import { useExperimentForm } from "./hooks/useExperimentForm"
 
-export default function ExperimentsCreateNewPage() {
+export default function ExperimentCreateNewPage() {
   const navigate = useNavigate()
 
   useRedirectToHomepageForRolesExcept([UserRole.ADMIN, UserRole.SCIENTIST])

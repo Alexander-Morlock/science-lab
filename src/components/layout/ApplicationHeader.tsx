@@ -13,6 +13,7 @@ export function ApplicationHeader() {
     ...(isScientist || isAdmin ? [PageNames.EXPERIMENT_CREATE_NEW] : []),
     PageNames.EQUIPMENT,
     PageNames.AREAS_OF_EXPERTISE,
+    PageNames.USERS,
   ]
   return (
     <Styled.Header>

@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form"
-import { EquipmentDetailFormData } from "../api/types"
-import { useShowSnackbarMessageOnInvalidFormSubmit } from "./useShowSnackbarMessageOnInvalidFormSubmit"
+import { AreaOfExpertiseFromData } from "../../../api/types"
+import { useShowSnackbarMessageOnInvalidFormSubmit } from "../../../hooks/useShowSnackbarMessageOnInvalidFormSubmit"
 
-export function useEquipmentForm(
-  onValid: (data: EquipmentDetailFormData) => Promise<void>
+export function useAreasOfExpertiseForm(
+  onValid: (data: AreaOfExpertiseFromData) => Promise<void>
 ) {
   const { showSnackbarMessageOnInvalid } =
     useShowSnackbarMessageOnInvalidFormSubmit()
@@ -14,7 +14,7 @@ export function useEquipmentForm(
     setValue,
     clearErrors,
     formState: { errors },
-  } = useForm<EquipmentDetailFormData>()
+  } = useForm<AreaOfExpertiseFromData>()
 
   const onSubmit = handleSubmit(onValid, showSnackbarMessageOnInvalid)
 
