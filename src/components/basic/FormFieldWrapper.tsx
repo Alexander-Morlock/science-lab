@@ -1,4 +1,4 @@
-import React, { JSX, PropsWithChildren, useState } from "react"
+import React, { JSX, PropsWithChildren, useEffect, useState } from "react"
 import * as Styled from "./FormFieldWrapper.styled"
 import { FieldErrors, FieldValues } from "react-hook-form"
 
@@ -20,8 +20,14 @@ export function FormFieldWrapper<T extends FieldValues = FieldValues>({
   children,
   showPlaceholder = false,
 }: Props<T>) {
-  const [isPlaceholderMessage, setIsPlaceholderMessage] =
-    useState(showPlaceholder)
+  const [isPlaceholder, setIsPlaceholder] = useState(false)
+
+  useEffect(() => {
+    if (showPlaceholder === undefined) {
+      return
+    }
+    setIsPlaceholder(showPlaceholder)
+  }, [showPlaceholder])
 
   const errorMessage = name
     ? errors[name]?.type ?? errors[name]?.message ?? ""
@@ -30,10 +36,10 @@ export function FormFieldWrapper<T extends FieldValues = FieldValues>({
   return (
     <Styled.Wrapper>
       <Styled.Subwrapper $error={!!errorMessage} $required={required}>
-        {input?.(setIsPlaceholderMessage)}
+        {input?.(setIsPlaceholder)}
         {children}
 
-        {(!!errorMessage || (!!placeholder && isPlaceholderMessage)) && (
+        {(!!errorMessage || (!!placeholder && isPlaceholder)) && (
           <Styled.Message $error={!!errorMessage}>{`${
             errorMessage || placeholder
           }`}</Styled.Message>

@@ -45,6 +45,13 @@ export type EquipmentDetail = {
   experiments: Experiment[]
 }
 
+export type EquipmentDetailFormData = {
+  id: number
+  name: string
+  amount: string
+  experimentsIds: string[]
+}
+
 export type ExperimentFile = {
   id: number
   name: string

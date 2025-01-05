@@ -26,6 +26,7 @@ type Props = {
   errors: FieldErrors<ExperimentFormData>
   register: UseFormRegister<ExperimentFormData>
   onSubmit?: FormEventHandler<HTMLFormElement> | undefined
+  isInitialized?: boolean
 }
 
 const requiredInputFields: (keyof Experiment)[] = [
@@ -50,6 +51,7 @@ export function ExperimentForm({
   users,
   areasOfExpertise,
   equipment,
+  isInitialized,
 }: Props) {
   const usersOptions = users.map(optionsMapper)
   const areasOfExpertiseOptions = areasOfExpertise.map(optionsMapper)
@@ -71,6 +73,7 @@ export function ExperimentForm({
             type="text"
             errors={errors}
             placeholder={getPlaceholder(field)}
+            showPlaceholder={isInitialized}
             {...register(field, { required: true })}
             required
           />
@@ -112,6 +115,7 @@ export function ExperimentForm({
             type="text"
             errors={errors}
             placeholder={getPlaceholder(field)}
+            showPlaceholder={isInitialized}
             {...register(field)}
           />
         ))}

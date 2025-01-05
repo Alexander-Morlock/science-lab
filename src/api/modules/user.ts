@@ -17,6 +17,9 @@ export const user = {
   /** Delete a user by ID. (Admin only) */
   delete: (id: number) => axios.delete(`/api/users/${id}`),
 
+  /** Get a role of the authorized user */
+  getRole: () => axios.get<UserRole>(`/api/users/role`),
+
   /** Update the role of a user. (Admin only) */
   updateRole: (id: number, role: UserRole) =>
     axios.put(` /api/users/${id}/role`, role),

@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { apiClient } from "../api/apiClient"
 import { ExperimentFormData } from "../api/types"
@@ -8,8 +7,6 @@ import { useShowSnackbarMessageOnInvalidFormSubmit } from "./useShowSnackbarMess
 export function useExperimentForm(
   onValid: (data: ExperimentFormData) => Promise<void>
 ) {
-  const [isInitialized, setIsInitialized] = useState(false)
-
   const { data: users, isLoading: isLoadingUsers } = useFetchData(
     apiClient.user.getAll,
     { autofetch: true }
@@ -47,7 +44,5 @@ export function useExperimentForm(
     equipment,
     isLoading:
       isLoadingUsers || isLoadingAreasOfExpertise || isLoadingEquipment,
-    isInitialized,
-    setIsInitialized,
   }
 }

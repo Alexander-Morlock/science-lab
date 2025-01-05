@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { Loader } from "../components/Loader.styled"
 import { NoContent } from "../components/NoContent"
 import { ExperimentFormData } from "../api/types"
@@ -18,8 +18,9 @@ import {
 } from "../utils/utils"
 import { useGetExperimentDetailsData } from "../hooks/useGetExperimentDetailsData"
 
-export default function EditExperimentPage() {
+export default function ExperimentEditPage() {
   const { id } = useParams()
+  const [isInitialized, setIsInitialized] = useState(false)
 
   const { data: experiment, isLoading: isLoadingExperiment } =
     useGetExperimentDetailsData(id)
@@ -35,9 +36,7 @@ export default function EditExperimentPage() {
     users,
     areasOfExpertise,
     equipment,
-    isInitialized,
     setValue,
-    setIsInitialized,
     isLoading,
     onSubmit,
     register,
@@ -82,10 +81,10 @@ export default function EditExperimentPage() {
 
   return (
     <>
-      {isLoading && <Loader />}
       <ExperimentTitle title={experiment.title} />
       <Section>
         <ExperimentForm
+          isInitialized={isInitialized}
           users={users}
           equipment={equipment}
           areasOfExpertise={areasOfExpertise}

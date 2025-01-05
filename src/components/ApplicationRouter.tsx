@@ -1,29 +1,27 @@
 import React from "react"
-import { BrowserRouter, Routes, Route, Navigate } from "react-router"
+import { BrowserRouter, Routes, Route } from "react-router"
 import { ApplicationLayout } from "./layout/ApplicationLayout"
-import { useUser } from "../hooks/useUser"
 import { applicationRoutes } from "../router/routes"
 import PageNotFound from "../pages/NotFoundPage"
-import { PageNames } from "../router/types"
-import { getPageRouteDetails } from "../router/utils"
+import { useUser } from "../hooks/useUser"
+import { apiClient } from "../api/apiClient"
+import { UserRole } from "../api/types"
+import { useFetchData } from "../hooks/useFetchData"
+import { Loader } from "./Loader.styled"
 
 export function ApplicationRouter() {
-  const { user } = useUser()
+  const { user, setUser } = useUser()
 
-  const getElement = (
-    pageName: string,
-    Element: React.JSX.Element,
-    forLoggedUserOnly: boolean
-  ) => {
-    if (forLoggedUserOnly && !user && pageName !== PageNames.LOGIN_PAGE) {
-      return <Navigate to={getPageRouteDetails(PageNames.LOGIN_PAGE).route} />
-    }
+  const { isLoading } = useFetchData(apiClient.user.getRole, {
+    autofetch: !user,
+    onSuccess: (role) =>
+      setUser({
+        role: role ?? UserRole.GUEST,
+      }),
+  })
 
-    if (pageName === PageNames.LOGIN_PAGE && user) {
-      return <Navigate to={getPageRouteDetails(PageNames.HOMEPAGE).route} />
-    }
-
-    return Element
+  if (isLoading) {
+    return <Loader />
   }
 
   return (
@@ -31,14 +29,8 @@ export function ApplicationRouter() {
       <ApplicationLayout>
         <Routes>
           {Object.entries(applicationRoutes).map(
-            ([pageName, { route, element: Element, forLoggedUserOnly }]) => {
-              return (
-                <Route
-                  key={pageName}
-                  path={route}
-                  element={getElement(pageName, <Element />, forLoggedUserOnly)}
-                />
-              )
+            ([pageName, { route, element: Element }]) => {
+              return <Route key={pageName} path={route} element={<Element />} />
             }
           )}
           <Route path="*" element={<PageNotFound />} />

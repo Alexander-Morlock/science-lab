@@ -6,10 +6,8 @@ import { getPageRouteDetails } from "../../router/utils"
 
 const headerNavigationPagenames = [
   PageNames.HOMEPAGE,
-  PageNames.LOGIN_PAGE,
-  PageNames.PUBLIC_EXPERIMENTS,
-  PageNames.DASHBOARD,
   PageNames.CREATE_NEW_EXPERIMENT,
+  PageNames.EQUIPMENT,
 ]
 
 export function ApplicationHeader() {

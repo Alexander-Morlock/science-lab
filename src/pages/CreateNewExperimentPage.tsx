@@ -42,7 +42,6 @@ export default function CreateNewExperimentPage() {
 
   return (
     <>
-      {isLoading && <Loader />}
       <ExperimentTitle />
       <Section>
         <ExperimentForm

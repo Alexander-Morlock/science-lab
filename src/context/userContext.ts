@@ -1,5 +1,7 @@
 import { createContext } from "react"
-import { User } from "../api/types"
+import { UserRole } from "../api/types"
+
+type User = { role: UserRole }
 
 type UserContextType = {
   user?: User

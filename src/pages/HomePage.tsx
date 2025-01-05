@@ -22,8 +22,7 @@ export default function HomePage() {
 
   return (
     <>
-      <h1>HomePage</h1>
-
+      <h1>{getPageRouteDetails(PageNames.HOMEPAGE).title}</h1>
       <Section>
         <Container noPadding autoColumns>
           {experiments.map(

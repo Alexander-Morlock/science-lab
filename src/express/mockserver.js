@@ -66,7 +66,7 @@ app.get("/api/equipment", (req, res) =>
     JSON.stringify(
       [1, 2, 3, 4, 5, 6].map((id) => ({
         id,
-        name: `Area of expertise id${id}`,
+        name: `Equipment id${id}`,
         amount: 2,
         experiments: [
           {
@@ -86,8 +86,45 @@ app.get("/api/equipment", (req, res) =>
   )
 )
 
+app.get("/api/equipment/:id", (req, res) =>
+  res.send({
+    id: req.params.id,
+    name: `Equipment id${req.params.id}`,
+    amount: 2,
+    experiments: [
+      {
+        id: 1,
+        authorId: 1,
+        title: "test experiment",
+        startDate: "2024-11-01",
+        endDate: "2024-12-01",
+        responsiblePersonId: 2,
+        areasOfExpertiseIds: [1, 2, 4],
+        visibility: "PRIVATE",
+        state: "PLANNED",
+      },
+    ],
+  })
+)
+
+app.put("/api/equipment/:id", (req, res) =>
+  res.send({
+    id: req.params.id,
+  })
+)
+
+app.post("/api/equipment", (req, res) =>
+  res.send({
+    id: 111,
+  })
+)
+
 app.put("/api/experiments/:id", (req, res) => {
   res.send(JSON.stringify({ status: "ok" }))
+})
+
+app.get("/api/users/role", (req, res) => {
+  res.send("ADMIN")
 })
 
 app.post("/api/experiments/", (req, res) => {
