@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { Loader } from "../components/Loader.styled"
 import { NoContent } from "../components/NoContent"
-import { ExperimentFormData } from "../api/types"
+import { ExperimentFormData, UserRole } from "../api/types"
 import { Container } from "../components/basic/Container"
 import { Section } from "../components/basic/Section"
 import { ExperimentForm } from "../components/ExperimentForm"
-import { ExperimentTitle } from "../components/ExperimentTitle"
 import { useExperimentForm } from "../hooks/useExperimentForm"
 import { useNavigate, useParams } from "react-router"
 import { PageNames } from "../router/types"
@@ -17,19 +16,36 @@ import {
   convertExperimentToFormData,
 } from "../utils/utils"
 import { useGetExperimentDetailsData } from "../hooks/useGetExperimentDetailsData"
+import { useRedirectToHomepageForRolesExcept } from "../hooks/useRedirectToHomepageForRolesExcept"
+import { useUserRole } from "../hooks/useUserRole"
+import { PageTitle } from "../components/PageTitle"
 
 export default function ExperimentEditPage() {
   const { id } = useParams()
   const [isInitialized, setIsInitialized] = useState(false)
 
+  const { isAdmin, isScientist } = useUserRole()
+
+  useRedirectToHomepageForRolesExcept([
+    UserRole.ADMIN,
+    UserRole.SCIENTIST,
+    UserRole.LAB_TECHNICIAN,
+  ])
+
   const { data: experiment, isLoading: isLoadingExperiment } =
     useGetExperimentDetailsData(id)
 
   const { fetch: updateExperiment } = useFetchData(apiClient.experiments.update)
+  const { fetch: deleteExperiment } = useFetchData(apiClient.experiments.delete)
 
   const onValid = async (data: ExperimentFormData) => {
     await updateExperiment(convertExperimentFormData(data))
     navigate(getPageRouteDetails(PageNames.EXPERIMENT_DETAIL).getPath(data.id))
+  }
+
+  const onDelete = async () => {
+    await deleteExperiment(Number(id))
+    navigate(getPageRouteDetails(PageNames.HOMEPAGE).route)
   }
 
   const {
@@ -81,7 +97,8 @@ export default function ExperimentEditPage() {
 
   return (
     <>
-      <ExperimentTitle title={experiment.title} />
+      <PageTitle pageName={PageNames.EXPERIMENT_EDIT} />
+
       <Section>
         <ExperimentForm
           isInitialized={isInitialized}
@@ -96,6 +113,9 @@ export default function ExperimentEditPage() {
           <button onClick={onCancel}>Back to details</button>
           <button onClick={onSubmit}>Submit</button>
           <button onClick={onReset}>Reset</button>
+          {(isAdmin || isScientist) && (
+            <button onClick={onDelete}>Delete</button>
+          )}
         </Container>
       </Section>
     </>

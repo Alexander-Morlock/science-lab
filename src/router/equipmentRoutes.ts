@@ -18,13 +18,13 @@ export const equipmentRoutes: Record<EquipmentRoutes, RouteDetail> = {
   [PageNames.EQUIPMENT_EDIT]: {
     route: `/equipment/edit/:id`,
     getPath: (id: number) => `/equipment/edit/${id}`,
-    title: `Equipment edit`,
+    title: `Edit Equipment`,
     element: EquipmentEditPage,
   },
   [PageNames.EQUIPMENT_CREATE]: {
     route: `/equipment/add`,
     getPath: () => `/equipment/add`,
-    title: `Equipment create`,
+    title: `Create Equipment`,
     element: EquipmentCreatePage,
   },
 }

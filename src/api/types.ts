@@ -38,6 +38,10 @@ export type AreaOfExpertise = {
   name: string
 }
 
+export type AreaOfExpertiseFromData = {
+  name: string
+}
+
 export type EquipmentDetail = {
   id: number
   name: string
@@ -82,7 +86,6 @@ export type Experiment = {
   fileIds?: number[]
 }
 
-// Because form elements operate with string values only
 export type ExperimentFormData = Omit<
   Experiment,
   | "authorId"

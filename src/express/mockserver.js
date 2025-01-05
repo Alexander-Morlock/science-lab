@@ -3,22 +3,6 @@ import express from "express"
 const app = express()
 const PORT = process.env.PORT || 3001
 
-app.get("/api/experiments/:experimentId", (req, res) =>
-  res.send(
-    JSON.stringify({
-      id: req.params.experimentId,
-      authorId: 1,
-      title: "test experiment",
-      startDate: "2024-11-01",
-      endDate: "2024-12-01",
-      responsiblePersonId: 2,
-      areasOfExpertiseIds: [1, 2, 4],
-      visibility: "PRIVATE",
-      state: "PLANNED",
-    })
-  )
-)
-
 app.get("/api/experiments", (req, res) =>
   res.send(
     JSON.stringify(
@@ -36,6 +20,34 @@ app.get("/api/experiments", (req, res) =>
     )
   )
 )
+
+app.get("/api/experiments/:experimentId", (req, res) =>
+  res.send(
+    JSON.stringify({
+      id: req.params.experimentId,
+      authorId: 1,
+      title: "test experiment",
+      startDate: "2024-11-01",
+      endDate: "2024-12-01",
+      responsiblePersonId: 2,
+      areasOfExpertiseIds: [1, 2, 4],
+      visibility: "PRIVATE",
+      state: "PLANNED",
+    })
+  )
+)
+
+app.put("/api/experiments/:id", (req, res) => {
+  res.send(JSON.stringify({ id: req.params.id }))
+})
+
+app.delete("/api/experiments/:id", (req, res) => {
+  res.send(JSON.stringify({ id: req.params.id }))
+})
+
+app.post("/api/experiments/", (req, res) => {
+  res.send(JSON.stringify({ id: 1 }))
+})
 
 app.get("/api/users", (req, res) =>
   res.send(
@@ -60,6 +72,27 @@ app.get("/api/areasOfExpertise", (req, res) =>
     )
   )
 )
+
+app.get("/api/areasOfExpertise/:id", (req, res) => {
+  res.send(
+    JSON.stringify({
+      id: req.params.id,
+      name: `Area of expertise id:${req.params.id}`,
+    })
+  )
+})
+
+app.post("/api/areasOfExpertise", (req, res) =>
+  res.send(JSON.stringify({ id: 1 }))
+)
+
+app.put("/api/areasOfExpertise/:id", (req, res) => {
+  res.send(JSON.stringify({ id: req.params.id }))
+})
+
+app.delete("/api/areasOfExpertise/:id", (req, res) => {
+  res.send(JSON.stringify({ id: req.params.id }))
+})
 
 app.get("/api/equipment", (req, res) =>
   res.send(
@@ -124,16 +157,16 @@ app.post("/api/equipment", (req, res) =>
   })
 )
 
-app.put("/api/experiments/:id", (req, res) => {
-  res.send(JSON.stringify({ status: "ok" }))
-})
-
 app.get("/api/users/role", (req, res) => {
+  // res.send("GUEST")
+  // res.send("LAB_TECHNICIAN")
+  // res.send("SCIENTIST")
   res.send("ADMIN")
+  // res.status(403).send("NOT AUTHORIZED")
 })
 
-app.post("/api/experiments/", (req, res) => {
-  res.send(JSON.stringify({ id: 1 }))
+app.get("/login", (req, res) => {
+  res.send("<html><body><p>LOGIN-PAGE-HTML</p></body></html>")
 })
 
 app.listen(PORT, () => {

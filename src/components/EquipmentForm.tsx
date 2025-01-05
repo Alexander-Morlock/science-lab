@@ -2,11 +2,7 @@ import React, { FormEventHandler } from "react"
 import { Input } from "./basic/Input"
 import { Container } from "./basic/Container"
 import { FieldErrors, UseFormRegister } from "react-hook-form"
-import {
-  EquipmentDetail,
-  EquipmentDetailFormData,
-  Experiment,
-} from "../api/types"
+import { EquipmentDetailFormData, Experiment } from "../api/types"
 import {
   getEquipmentDetailFieldPlaceholder as getPlaceholder,
   optionsMapper,

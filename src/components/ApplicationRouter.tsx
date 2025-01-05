@@ -8,6 +8,7 @@ import { apiClient } from "../api/apiClient"
 import { UserRole } from "../api/types"
 import { useFetchData } from "../hooks/useFetchData"
 import { Loader } from "./Loader.styled"
+import LoginPage from "../pages/LoginPage"
 
 export function ApplicationRouter() {
   const { user, setUser } = useUser()
@@ -24,16 +25,22 @@ export function ApplicationRouter() {
     return <Loader />
   }
 
+  const loggedInRoutes = (
+    <>
+      {Object.entries(applicationRoutes).map(
+        ([pageName, { route, element: Element }]) => {
+          return <Route key={pageName} path={route} element={<Element />} />
+        }
+      )}
+      <Route path="*" element={<PageNotFound />} />
+    </>
+  )
+
   return (
     <BrowserRouter>
       <ApplicationLayout>
         <Routes>
-          {Object.entries(applicationRoutes).map(
-            ([pageName, { route, element: Element }]) => {
-              return <Route key={pageName} path={route} element={<Element />} />
-            }
-          )}
-          <Route path="*" element={<PageNotFound />} />
+          {user ? loggedInRoutes : <Route path="*" element={<LoginPage />} />}
         </Routes>
       </ApplicationLayout>
     </BrowserRouter>

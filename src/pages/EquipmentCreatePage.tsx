@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { Loader } from "../components/Loader"
 import { NoContent } from "../components/NoContent"
 import { Section } from "../components/basic/Section"
@@ -14,10 +14,13 @@ import { PageNames } from "../router/types"
 import { useEquipmentForm } from "../hooks/useEquipmentForm"
 import { EquipmentForm } from "../components/EquipmentForm"
 import { convertEquipmentFormData } from "../utils/utils"
+import { PageTitle } from "../components/PageTitle"
 
 export default function EquipmentCreatePage() {
   const { isAdmin } = useUserRole()
   const navigate = useNavigate()
+
+  useRedirectToHomepageForRolesExcept([UserRole.ADMIN])
 
   const { data: experiments, isLoading } = useFetchData(
     apiClient.experiments.getAll,
@@ -27,8 +30,6 @@ export default function EquipmentCreatePage() {
   )
 
   const { fetch: createEquipment } = useFetchData(apiClient.equipment.create)
-
-  useRedirectToHomepageForRolesExcept([UserRole.ADMIN])
 
   const onValid = async (data: EquipmentDetailFormData) => {
     if (!experiments) {
@@ -50,7 +51,8 @@ export default function EquipmentCreatePage() {
 
   return (
     <>
-      <h1>{getPageRouteDetails(PageNames.EQUIPMENT_CREATE).title}</h1>
+      <PageTitle pageName={PageNames.EQUIPMENT_CREATE} />
+
       <Section>
         <EquipmentForm
           onSubmit={onSubmit}

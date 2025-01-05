@@ -2,16 +2,14 @@ import React from "react"
 import { Loader } from "../components/Loader"
 import { NoContent } from "../components/NoContent"
 import { ExperimentPreviewCard } from "../components/ExperimentPreviewCard"
-import { useNavigate } from "react-router"
 import { PageNames } from "../router/types"
-import { getPageRouteDetails } from "../router/utils"
 import { Section } from "../components/basic/Section"
 import { Container } from "../components/basic/Container"
 import { apiClient } from "../api/apiClient"
 import { useFetchData } from "../hooks/useFetchData"
+import { PageTitle } from "../components/PageTitle"
 
 export default function HomePage() {
-  const navigate = useNavigate()
   const { data: users, isLoading: isLoadingUsers } = useFetchData(
     apiClient.user.getAll,
     { autofetch: true }
@@ -31,25 +29,19 @@ export default function HomePage() {
 
   return (
     <>
-      <h1>{getPageRouteDetails(PageNames.HOMEPAGE).title}</h1>
+      <PageTitle pageName={PageNames.HOMEPAGE} />
+
       <Section>
         <Container noPadding autoColumns>
-          {experiments.map(
-            ({ id, title, startDate, endDate, state, responsiblePersonId }) => (
-              <ExperimentPreviewCard
-                key={id}
-                onClick={() =>
-                  navigate(
-                    getPageRouteDetails(PageNames.EXPERIMENT_DETAIL).getPath(id)
-                  )
-                }
-                {...{ id, title, startDate, endDate, state }}
-                responsiblePersonName={getReponsiblePersonName(
-                  responsiblePersonId
-                )}
-              />
-            )
-          )}
+          {experiments.map(({ responsiblePersonId, ...props }) => (
+            <ExperimentPreviewCard
+              responsiblePersonName={getReponsiblePersonName(
+                responsiblePersonId
+              )}
+              key={props.id}
+              {...props}
+            />
+          ))}
         </Container>
       </Section>
     </>

@@ -1,4 +1,4 @@
-import { EquipmentDetail, Experiment } from "../api/types"
+import { AreaOfExpertise, EquipmentDetail, Experiment } from "../api/types"
 
 export const MOBILE_DEVICE_MAX_WIDTH_PX = 640
 export const TABLET_DEVICE_MAX_WIDTH_PX = 1024
@@ -41,6 +41,14 @@ export const EquipmentDetailFieldsDescription: Record<
   name: "Name",
   amount: "Amount",
   experiments: "Experiments",
+}
+
+export const AreaOfExpertiseFieldsDescription: Record<
+  keyof AreaOfExpertise,
+  string
+> = {
+  id: "id",
+  name: "Name",
 }
 
 export const DEFAULT_SNACKBAR_TIME_DURATION_MS = 2000

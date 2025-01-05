@@ -23,4 +23,7 @@ export const user = {
   /** Update the role of a user. (Admin only) */
   updateRole: (id: number, role: UserRole) =>
     axios.put(` /api/users/${id}/role`, role),
+
+  /** HTML of login page from backend */
+  getLoginPageHTML: () => axios.get<string>(`/login`),
 }

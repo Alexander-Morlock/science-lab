@@ -1,10 +1,12 @@
 import {
+  AreaOfExpertise,
   EquipmentDetail,
   EquipmentDetailFormData,
   Experiment,
   ExperimentFormData,
 } from "../api/types"
 import {
+  AreaOfExpertiseFieldsDescription,
   EquipmentDetailFieldsDescription,
   ExperimentDetailFieldsDescription,
 } from "./constants"
@@ -12,12 +14,6 @@ import {
 function isExperimentKeyTypeGuard(
   key: string | keyof Experiment
 ): key is keyof Experiment {
-  return key in ExperimentDetailFieldsDescription
-}
-
-function isEquipmentKeyTypeGuard(
-  key: string | keyof EquipmentDetail
-): key is keyof EquipmentDetail {
   return key in ExperimentDetailFieldsDescription
 }
 
@@ -29,11 +25,31 @@ export function getExperimentDetailFieldPlaceholder(
     : key
 }
 
+function isEquipmentKeyTypeGuard(
+  key: string | keyof EquipmentDetail
+): key is keyof EquipmentDetail {
+  return key in ExperimentDetailFieldsDescription
+}
+
 export function getEquipmentDetailFieldPlaceholder(
   key: string | keyof EquipmentDetail
 ) {
   return isEquipmentKeyTypeGuard(key)
     ? EquipmentDetailFieldsDescription[key]
+    : key
+}
+
+function isAreaOfExpertiseKeyTypeGuard(
+  key: string | keyof AreaOfExpertise
+): key is keyof AreaOfExpertise {
+  return key in AreaOfExpertiseFieldsDescription
+}
+
+export function getAreaOfExpertiseFieldPlaceholder(
+  key: string | keyof AreaOfExpertise
+) {
+  return isAreaOfExpertiseKeyTypeGuard(key)
+    ? AreaOfExpertiseFieldsDescription[key]
     : key
 }
 

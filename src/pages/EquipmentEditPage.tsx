@@ -17,11 +17,15 @@ import {
   convertEquipmentFormData,
   convertEquipmentToFormData,
 } from "../utils/utils"
+import { PageTitle } from "../components/PageTitle"
 
 export default function EquipmentEditPage() {
   const { id } = useParams()
   const { isAdmin } = useUserRole()
   const navigate = useNavigate()
+
+  useRedirectToHomepageForRolesExcept([UserRole.ADMIN])
+
   const [isInitialized, setIsInitialized] = useState(false)
 
   const { data: detail, isLoading } = useFetchData(
@@ -39,8 +43,6 @@ export default function EquipmentEditPage() {
   const { fetch: deleteEquipment } = useFetchData(apiClient.equipment.delete)
 
   const { fetch: updateEquipment } = useFetchData(apiClient.equipment.update)
-
-  useRedirectToHomepageForRolesExcept([UserRole.ADMIN])
 
   const onValid = async (data: EquipmentDetailFormData) => {
     if (!experiments) {
@@ -84,7 +86,8 @@ export default function EquipmentEditPage() {
 
   return (
     <>
-      <h1>{getPageRouteDetails(PageNames.EQUIPMENT_EDIT).title}</h1>
+      <PageTitle pageName={PageNames.EQUIPMENT_EDIT} />
+
       <Section>
         <EquipmentForm
           isInitialized={isInitialized}

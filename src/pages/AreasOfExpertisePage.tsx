@@ -5,42 +5,44 @@ import { Section } from "../components/basic/Section"
 import { Container } from "../components/basic/Container"
 import { useFetchData } from "../hooks/useFetchData"
 import { apiClient } from "../api/apiClient"
-import { EquipmentPreviewCard } from "../components/EquipmentPreviewCard"
 import { useUserRole } from "../hooks/useUserRole"
 import { useNavigate } from "react-router"
 import { getPageRouteDetails } from "../router/utils"
 import { PageNames } from "../router/types"
+import { AreaOfExpertisePreviewCard } from "../components/AreaOfExpertisePreviewCard"
 import { PageTitle } from "../components/PageTitle"
 
-export default function EquipmentPage() {
+export default function AreasOfExpertisePage() {
   const { isAdmin } = useUserRole()
   const navigate = useNavigate()
 
   const {
-    data: equipment,
+    data: areasOfExpertise,
     isLoading,
-    fetch: refetchEquipment,
-  } = useFetchData(apiClient.equipment.getAll, { autofetch: true })
+    fetch: refetchAreasOfExpertise,
+  } = useFetchData(apiClient.areasOfExpertise.getAll, { autofetch: true })
 
-  const { fetch: deleteEquipment } = useFetchData(apiClient.equipment.delete)
+  const { fetch: deleteAreaOfExpertise } = useFetchData(
+    apiClient.areasOfExpertise.delete
+  )
 
   const onDelete = async (id: number) => {
-    await deleteEquipment(id)
-    refetchEquipment()
+    await deleteAreaOfExpertise(id)
+    refetchAreasOfExpertise()
   }
 
-  if (!equipment) {
+  if (!areasOfExpertise) {
     return isLoading ? <Loader /> : <NoContent />
   }
 
   return (
     <>
-      <PageTitle pageName={PageNames.EQUIPMENT} />
+      <PageTitle pageName={PageNames.AREAS_OF_EXPERTISE} />
 
       <Section>
         <Container noPadding autoColumns>
-          {equipment.map((detail) => (
-            <EquipmentPreviewCard
+          {areasOfExpertise.map((detail) => (
+            <AreaOfExpertisePreviewCard
               onDelete={onDelete}
               key={detail.id}
               {...detail}
@@ -50,7 +52,10 @@ export default function EquipmentPage() {
         {isAdmin && (
           <button
             onClick={() =>
-              navigate(getPageRouteDetails(PageNames.EQUIPMENT_CREATE).route)
+              navigate(
+                getPageRouteDetails(PageNames.AREAS_OF_EXPERTISE_CREATE_NEW)
+                  .route
+              )
             }
           >
             Create
