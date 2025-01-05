@@ -1,5 +1,5 @@
 import axios from "axios"
-import { User, UserRole } from "../types"
+import { User, UserFormData, UserRole } from "../types"
 
 export const user = {
   /** Get a specific user by ID */
@@ -9,7 +9,7 @@ export const user = {
   getAll: () => axios.get<User[] | undefined>(`/api/users`),
 
   /** Create a new user. (Admin only) */
-  create: (user: User) => axios.post(`/api/users`, user),
+  create: (user: UserFormData) => axios.post(`/api/users`, user),
 
   /** Update an existing user by ID */
   update: (user: User) => axios.put(`/api/users/${user.id}`, user),
@@ -18,7 +18,7 @@ export const user = {
   delete: (id: number) => axios.delete(`/api/users/${id}`),
 
   /** Get a role of the authorized user */
-  getRole: () => axios.get<UserRole>(`/api/users/role`),
+  getCurrentUser: () => axios.get<User>(`/api/users/current`),
 
   /** Update the role of a user. (Admin only) */
   updateRole: (id: number, role: UserRole) =>

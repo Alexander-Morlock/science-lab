@@ -4,11 +4,13 @@ import {
   EquipmentDetailFormData,
   Experiment,
   ExperimentFormData,
+  User,
 } from "../api/types"
 import {
   AreaOfExpertiseFieldsDescription,
   EquipmentDetailFieldsDescription,
   ExperimentDetailFieldsDescription,
+  UserFieldsDescription,
 } from "./constants"
 
 function isExperimentKeyTypeGuard(
@@ -51,6 +53,14 @@ export function getAreaOfExpertiseFieldPlaceholder(
   return isAreaOfExpertiseKeyTypeGuard(key)
     ? AreaOfExpertiseFieldsDescription[key]
     : key
+}
+
+function isUserKeyTypeGuard(key: string | keyof User): key is keyof User {
+  return key in UserFieldsDescription
+}
+
+export function getUserFieldPlaceholder(key: string | keyof User) {
+  return isUserKeyTypeGuard(key) ? UserFieldsDescription[key] : key
 }
 
 export function getNonEmptyString(value?: string) {

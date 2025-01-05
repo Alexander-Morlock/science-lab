@@ -5,7 +5,6 @@ import { applicationRoutes } from "../router/routes"
 import PageNotFound from "../pages/NotFoundPage"
 import { useUser } from "../hooks/useUser"
 import { apiClient } from "../api/apiClient"
-import { UserRole } from "../api/types"
 import { useFetchData } from "../hooks/useFetchData"
 import { Loader } from "./Loader.styled"
 import LoginPage from "../pages/LoginPage"
@@ -13,12 +12,9 @@ import LoginPage from "../pages/LoginPage"
 export function ApplicationRouter() {
   const { user, setUser } = useUser()
 
-  const { isLoading } = useFetchData(apiClient.user.getRole, {
+  const { isLoading } = useFetchData(apiClient.user.getCurrentUser, {
     autofetch: !user,
-    onSuccess: (role) =>
-      setUser({
-        role: role ?? UserRole.GUEST,
-      }),
+    onSuccess: setUser,
   })
 
   if (isLoading) {

@@ -22,9 +22,10 @@ export type User = {
   id: number
   name: string
   email: string
-  password: string
   role: UserRole // Default GUEST to avoid null pointer exception
 }
+
+export type UserFormData = Omit<User, "id">
 
 export type LabPerson = User & {
   participantExperimentsIds: number[]

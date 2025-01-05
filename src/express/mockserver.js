@@ -62,6 +62,38 @@ app.get("/api/users", (req, res) =>
   )
 )
 
+app.post("/api/users", (req, res) => res.send({ id: 1 }))
+
+app.put("/api/users/:id", (req, res) => res.send({ id: req.params.id }))
+
+app.delete("/api/users/:id", (req, res) => res.send({ id: req.params.id }))
+
+app.get("/api/users/:id", (req, res) => {
+  if (req.params.id === "current") {
+    res.send(
+      JSON.stringify({
+        id: 1,
+        name: `User id${1}`,
+        email: `email-${1}@email.cz`,
+        // role: "GUEST",
+        // role: "LAB_TECHNICIAN",
+        // role: "SCIENTIST",
+        role: "ADMIN",
+      })
+    )
+    return
+  }
+
+  res.send(
+    JSON.stringify({
+      id: req.params.id,
+      name: `User id${req.params.id}`,
+      email: `email-${req.params.id}@email.cz`,
+      role: "GUEST",
+    })
+  )
+})
+
 app.get("/api/areasOfExpertise", (req, res) =>
   res.send(
     JSON.stringify(
@@ -156,14 +188,6 @@ app.post("/api/equipment", (req, res) =>
     id: 111,
   })
 )
-
-app.get("/api/users/role", (req, res) => {
-  // res.send("GUEST")
-  // res.send("LAB_TECHNICIAN")
-  // res.send("SCIENTIST")
-  res.send("ADMIN")
-  // res.status(403).send("NOT AUTHORIZED")
-})
 
 app.get("/login", (req, res) => {
   res.send("<html><body><p>LOGIN-PAGE-HTML</p></body></html>")
