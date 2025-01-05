@@ -8,6 +8,7 @@ import { apiClient } from "../api/apiClient"
 import { useFetchData } from "../hooks/useFetchData"
 import { Loader } from "./Loader.styled"
 import LoginPage from "../pages/LoginPage"
+import { UserRole } from "../api/types"
 
 export function ApplicationRouter() {
   const { user, setUser } = useUser()
@@ -15,6 +16,13 @@ export function ApplicationRouter() {
   const { isLoading } = useFetchData(apiClient.user.getCurrentUser, {
     autofetch: !user,
     onSuccess: setUser,
+    onError: () =>
+      setUser({
+        id: 1,
+        name: "",
+        email: "",
+        role: UserRole.GUEST,
+      }),
   })
 
   if (isLoading) {

@@ -70,17 +70,18 @@ app.delete("/api/users/:id", (req, res) => res.send({ id: req.params.id }))
 
 app.get("/api/users/:id", (req, res) => {
   if (req.params.id === "current") {
-    res.send(
-      JSON.stringify({
-        id: 1,
-        name: `User id${1}`,
-        email: `email-${1}@email.cz`,
-        // role: "GUEST",
-        // role: "LAB_TECHNICIAN",
-        // role: "SCIENTIST",
-        role: "ADMIN",
-      })
-    )
+    // res.send(
+    //   JSON.stringify({
+    //     id: 1,
+    //     name: `User id${1}`,
+    //     email: `email-${1}@email.cz`,
+    //     // role: "GUEST",
+    //     // role: "LAB_TECHNICIAN",
+    //     // role: "SCIENTIST",
+    //     role: "ADMIN",
+    //   })
+    // )
+    res.status(401).send("Forbidden")
     return
   }
 
