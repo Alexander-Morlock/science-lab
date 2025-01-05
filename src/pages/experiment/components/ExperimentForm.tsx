@@ -1,6 +1,6 @@
 import React, { FormEventHandler } from "react"
-import { Input } from "./basic/Input"
-import { Container } from "./basic/Container"
+import { Input } from "../../../components/basic/Input"
+import { Container } from "../../../components/basic/Container"
 import { FieldErrors, UseFormRegister } from "react-hook-form"
 import {
   AreaOfExpertise,
@@ -10,14 +10,14 @@ import {
   ExperimentState,
   ExperimentVisibility,
   User,
-} from "../api/types"
+} from "../../../api/types"
 import {
   getOptionsFromEnum,
   getExperimentDetailFieldPlaceholder as getPlaceholder,
   optionsMapper,
-} from "../utils/utils"
-import { Form } from "./Form"
-import { Select } from "./basic/Select"
+} from "../../../utils/utils"
+import { Form } from "../../../components/Form"
+import { Select } from "../../../components/basic/Select"
 
 type Props = {
   users: User[]
@@ -26,6 +26,7 @@ type Props = {
   errors: FieldErrors<ExperimentFormData>
   register: UseFormRegister<ExperimentFormData>
   onSubmit?: FormEventHandler<HTMLFormElement> | undefined
+  isInitialized?: boolean
 }
 
 const requiredInputFields: (keyof Experiment)[] = [
@@ -50,6 +51,7 @@ export function ExperimentForm({
   users,
   areasOfExpertise,
   equipment,
+  isInitialized,
 }: Props) {
   const usersOptions = users.map(optionsMapper)
   const areasOfExpertiseOptions = areasOfExpertise.map(optionsMapper)
@@ -71,6 +73,7 @@ export function ExperimentForm({
             type="text"
             errors={errors}
             placeholder={getPlaceholder(field)}
+            showPlaceholder={isInitialized}
             {...register(field, { required: true })}
             required
           />
@@ -112,6 +115,7 @@ export function ExperimentForm({
             type="text"
             errors={errors}
             placeholder={getPlaceholder(field)}
+            showPlaceholder={isInitialized}
             {...register(field)}
           />
         ))}

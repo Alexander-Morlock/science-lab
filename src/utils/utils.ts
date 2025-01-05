@@ -1,5 +1,17 @@
-import { Experiment, ExperimentFormData } from "../api/types"
-import { ExperimentDetailFieldsDescription } from "./constants"
+import {
+  AreaOfExpertise,
+  EquipmentDetail,
+  EquipmentDetailFormData,
+  Experiment,
+  ExperimentFormData,
+  User,
+} from "../api/types"
+import {
+  AreaOfExpertiseFieldsDescription,
+  EquipmentDetailFieldsDescription,
+  ExperimentDetailFieldsDescription,
+  UserFieldsDescription,
+} from "./constants"
 
 function isExperimentKeyTypeGuard(
   key: string | keyof Experiment
@@ -13,6 +25,42 @@ export function getExperimentDetailFieldPlaceholder(
   return isExperimentKeyTypeGuard(key)
     ? ExperimentDetailFieldsDescription[key]
     : key
+}
+
+function isEquipmentKeyTypeGuard(
+  key: string | keyof EquipmentDetail
+): key is keyof EquipmentDetail {
+  return key in ExperimentDetailFieldsDescription
+}
+
+export function getEquipmentDetailFieldPlaceholder(
+  key: string | keyof EquipmentDetail
+) {
+  return isEquipmentKeyTypeGuard(key)
+    ? EquipmentDetailFieldsDescription[key]
+    : key
+}
+
+function isAreaOfExpertiseKeyTypeGuard(
+  key: string | keyof AreaOfExpertise
+): key is keyof AreaOfExpertise {
+  return key in AreaOfExpertiseFieldsDescription
+}
+
+export function getAreaOfExpertiseFieldPlaceholder(
+  key: string | keyof AreaOfExpertise
+) {
+  return isAreaOfExpertiseKeyTypeGuard(key)
+    ? AreaOfExpertiseFieldsDescription[key]
+    : key
+}
+
+function isUserKeyTypeGuard(key: string | keyof User): key is keyof User {
+  return key in UserFieldsDescription
+}
+
+export function getUserFieldPlaceholder(key: string | keyof User) {
+  return isUserKeyTypeGuard(key) ? UserFieldsDescription[key] : key
 }
 
 export function getNonEmptyString(value?: string) {
@@ -57,7 +105,38 @@ export function convertExperimentToFormData(
   }
 }
 
-export function optionsMapper({ name, id }: { name: string; id: number }) {
+export function convertEquipmentToFormData({
+  id,
+  name,
+  amount,
+  experiments,
+}: EquipmentDetail): EquipmentDetailFormData {
+  return {
+    id,
+    name,
+    amount: String(amount),
+    experimentsIds: experiments.map(({ id }) => String(id)),
+  }
+}
+
+export function convertEquipmentFormData(
+  { id, name, amount, experimentsIds }: EquipmentDetailFormData,
+  experiments: Experiment[]
+): EquipmentDetail {
+  return {
+    id,
+    name,
+    amount: Number(amount),
+    experiments: experiments.filter(({ id }) =>
+      experimentsIds.includes(String(id))
+    ),
+  }
+}
+
+export function optionsMapper({
+  name,
+  id,
+}: { name: string; id: number } | { name: string; id: number }) {
   return {
     key: name,
     value: String(id),

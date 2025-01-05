@@ -3,16 +3,18 @@ import { NavLink } from "react-router"
 import * as Styled from "./ApplicationLayout.styled"
 import { PageNames } from "../../router/types"
 import { getPageRouteDetails } from "../../router/utils"
-
-const headerNavigationPagenames = [
-  PageNames.HOMEPAGE,
-  PageNames.LOGIN_PAGE,
-  PageNames.PUBLIC_EXPERIMENTS,
-  PageNames.DASHBOARD,
-  PageNames.CREATE_NEW_EXPERIMENT,
-]
+import { useUserRole } from "../../hooks/useUserRole"
 
 export function ApplicationHeader() {
+  const { isScientist, isAdmin } = useUserRole()
+
+  const headerNavigationPagenames = [
+    PageNames.HOMEPAGE,
+    ...(isScientist || isAdmin ? [PageNames.EXPERIMENT_CREATE_NEW] : []),
+    PageNames.EQUIPMENT,
+    PageNames.AREAS_OF_EXPERTISE,
+    PageNames.USERS,
+  ]
   return (
     <Styled.Header>
       <nav>
