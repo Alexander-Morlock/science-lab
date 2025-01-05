@@ -7,14 +7,23 @@ import { PageNames } from "../router/types"
 import { getPageRouteDetails } from "../router/utils"
 import { Section } from "../components/basic/Section"
 import { Container } from "../components/basic/Container"
-import { useGetHomePageData } from "../hooks/useGetHomePageData"
+import { apiClient } from "../api/apiClient"
+import { useFetchData } from "../hooks/useFetchData"
 
 export default function HomePage() {
   const navigate = useNavigate()
-  const { experiments, users, isLoading } = useGetHomePageData()
+  const { data: users, isLoading: isLoadingUsers } = useFetchData(
+    apiClient.user.getAll,
+    { autofetch: true }
+  )
+
+  const { data: experiments, isLoading: isLoadingExperiments } = useFetchData(
+    () => apiClient.experiments.getAll(),
+    { autofetch: true }
+  )
 
   if (!experiments || !users) {
-    return isLoading ? <Loader /> : <NoContent />
+    return isLoadingUsers || isLoadingExperiments ? <Loader /> : <NoContent />
   }
 
   const getReponsiblePersonName = (id: number) =>

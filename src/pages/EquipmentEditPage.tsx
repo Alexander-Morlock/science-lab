@@ -36,6 +36,8 @@ export default function EquipmentEditPage() {
     }
   )
 
+  const { fetch: deleteEquipment } = useFetchData(apiClient.equipment.delete)
+
   const { fetch: updateEquipment } = useFetchData(apiClient.equipment.update)
 
   useRedirectToHomepageForRolesExcept([UserRole.ADMIN])
@@ -52,12 +54,17 @@ export default function EquipmentEditPage() {
   const { onSubmit, register, errors, clearErrors, setValue } =
     useEquipmentForm(onValid)
 
-  const onCancel = () =>
+  const navigateToEquipmentPage = () =>
     navigate(getPageRouteDetails(PageNames.EQUIPMENT).route)
 
   const onReset = () => {
     setIsInitialized(false)
     clearErrors()
+  }
+
+  const onDelete = async () => {
+    await deleteEquipment(Number(id))
+    navigateToEquipmentPage()
   }
 
   useEffect(() => {
@@ -87,9 +94,10 @@ export default function EquipmentEditPage() {
           experiments={experiments}
         />
         <Container>
-          <button onClick={onCancel}>Back to equipment</button>
+          <button onClick={navigateToEquipmentPage}>Back to equipment</button>
           <button onClick={onSubmit}>Submit</button>
           <button onClick={onReset}>Reset</button>
+          <button onClick={onDelete}>Delete</button>
         </Container>
       </Section>
     </>

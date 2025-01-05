@@ -112,6 +112,11 @@ app.put("/api/equipment/:id", (req, res) =>
     id: req.params.id,
   })
 )
+app.delete("/api/equipment/:id", (req, res) =>
+  res.send({
+    id: req.params.id,
+  })
+)
 
 app.post("/api/equipment", (req, res) =>
   res.send({

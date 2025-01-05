@@ -15,10 +15,18 @@ export default function EquipmentPage() {
   const { isAdmin } = useUserRole()
   const navigate = useNavigate()
 
-  const { data: equipment, isLoading } = useFetchData(
-    apiClient.equipment.getAll,
-    { autofetch: true }
-  )
+  const {
+    data: equipment,
+    isLoading,
+    fetch: refetchEquipment,
+  } = useFetchData(apiClient.equipment.getAll, { autofetch: true })
+
+  const { fetch: deleteEquipment } = useFetchData(apiClient.equipment.delete)
+
+  const onDeleteButtonClick = async (id: number) => {
+    await deleteEquipment(id)
+    refetchEquipment()
+  }
 
   if (!equipment) {
     return isLoading ? <Loader /> : <NoContent />
@@ -30,7 +38,11 @@ export default function EquipmentPage() {
       <Section>
         <Container noPadding autoColumns>
           {equipment.map((detail) => (
-            <EquipmentPreviewCard key={detail.id} {...detail} />
+            <EquipmentPreviewCard
+              key={detail.id}
+              {...detail}
+              onDeleteButtonClick={onDeleteButtonClick}
+            />
           ))}
         </Container>
         {isAdmin && (

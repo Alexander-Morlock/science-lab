@@ -6,12 +6,17 @@ import { useNavigate } from "react-router"
 import { getPageRouteDetails } from "../router/utils"
 import { PageNames } from "../router/types"
 
+type Props = EquipmentDetail & {
+  onDeleteButtonClick: (id: number) => void
+}
+
 export function EquipmentPreviewCard({
   id,
   name,
   amount,
   experiments,
-}: EquipmentDetail) {
+  onDeleteButtonClick,
+}: Props) {
   const { isAdmin } = useUserRole()
   const navigate = useNavigate()
 
@@ -30,13 +35,18 @@ export function EquipmentPreviewCard({
         </li>
       </ul>
       {isAdmin && (
-        <button
-          onClick={() =>
-            navigate(getPageRouteDetails(PageNames.EQUIPMENT_EDIT).getPath(id))
-          }
-        >
-          Edit
-        </button>
+        <>
+          <button
+            onClick={() =>
+              navigate(
+                getPageRouteDetails(PageNames.EQUIPMENT_EDIT).getPath(id)
+              )
+            }
+          >
+            Edit
+          </button>
+          <button onClick={() => onDeleteButtonClick(id)}>Delete</button>
+        </>
       )}
     </Container>
   )
