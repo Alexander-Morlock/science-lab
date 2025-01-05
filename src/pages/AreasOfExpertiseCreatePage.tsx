@@ -7,10 +7,10 @@ import { getPageRouteDetails } from "../router/utils"
 import { PageNames } from "../router/types"
 import { useRedirectToHomepageForRolesExcept } from "../hooks/useRedirectToHomepageForRolesExcept"
 import { AreaOfExpertiseFromData, UserRole } from "../api/types"
-import { Container } from "../components/basic/Container"
 import { PageTitle } from "../components/PageTitle"
 import { AreasOfExpertiseForm } from "../components/AreasOfExpertiseForm"
 import { useAreasOfExpertiseForm } from "../hooks/useAreasOfExpertiseForm"
+import { FormPageFooter } from "../components/FormPageFooter"
 
 export default function AreasOfExpertiseCreatePage() {
   const navigate = useNavigate()
@@ -21,12 +21,12 @@ export default function AreasOfExpertiseCreatePage() {
     apiClient.areasOfExpertise.create
   )
 
-  const navigateToAreasOfExpertisePage = () =>
+  const onCancel = () =>
     navigate(getPageRouteDetails(PageNames.AREAS_OF_EXPERTISE).route)
 
   const onValid = async (data: AreaOfExpertiseFromData) => {
     await createAreaOfExpertise(data.name)
-    navigateToAreasOfExpertisePage()
+    onCancel()
   }
 
   const { onSubmit, register, errors } = useAreasOfExpertiseForm(onValid)
@@ -41,13 +41,7 @@ export default function AreasOfExpertiseCreatePage() {
           register={register}
           errors={errors}
         />
-
-        <Container>
-          <button onClick={navigateToAreasOfExpertisePage}>
-            Back to areas of expertise
-          </button>
-          <button onClick={onSubmit}>Submit</button>
-        </Container>
+        <FormPageFooter onCancel={onCancel} onSubmit={onSubmit} />
       </Section>
     </>
   )

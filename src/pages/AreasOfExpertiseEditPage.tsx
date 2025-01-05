@@ -10,10 +10,10 @@ import { getPageRouteDetails } from "../router/utils"
 import { PageNames } from "../router/types"
 import { useRedirectToHomepageForRolesExcept } from "../hooks/useRedirectToHomepageForRolesExcept"
 import { AreaOfExpertiseFromData, UserRole } from "../api/types"
-import { Container } from "../components/basic/Container"
 import { PageTitle } from "../components/PageTitle"
 import { AreasOfExpertiseForm } from "../components/AreasOfExpertiseForm"
 import { useAreasOfExpertiseForm } from "../hooks/useAreasOfExpertiseForm"
+import { FormPageFooter } from "../components/FormPageFooter"
 
 export default function AreasOfExpertiseEditPage() {
   const { isAdmin } = useUserRole()
@@ -85,15 +85,12 @@ export default function AreasOfExpertiseEditPage() {
           register={register}
           errors={errors}
         />
-
-        <Container>
-          <button onClick={navigateToAreasOfExpertisePage}>
-            Back to areas of expertise
-          </button>
-          <button onClick={onSubmit}>Submit</button>
-          <button onClick={onReset}>Reset</button>
-          <button onClick={onDelete}>Delete</button>
-        </Container>
+        <FormPageFooter
+          onCancel={navigateToAreasOfExpertisePage}
+          onSubmit={onSubmit}
+          onReset={onReset}
+          onDelete={onDelete}
+        />
       </Section>
     </>
   )

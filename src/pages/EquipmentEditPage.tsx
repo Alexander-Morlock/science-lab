@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react"
 import { Loader } from "../components/Loader"
 import { NoContent } from "../components/NoContent"
 import { Section } from "../components/basic/Section"
-import { Container } from "../components/basic/Container"
 import { useFetchData } from "../hooks/useFetchData"
 import { apiClient } from "../api/apiClient"
 import { useNavigate, useParams } from "react-router"
@@ -18,6 +17,7 @@ import {
   convertEquipmentToFormData,
 } from "../utils/utils"
 import { PageTitle } from "../components/PageTitle"
+import { FormPageFooter } from "../components/FormPageFooter"
 
 export default function EquipmentEditPage() {
   const { id } = useParams()
@@ -96,12 +96,12 @@ export default function EquipmentEditPage() {
           errors={errors}
           experiments={experiments}
         />
-        <Container>
-          <button onClick={navigateToEquipmentPage}>Back to equipment</button>
-          <button onClick={onSubmit}>Submit</button>
-          <button onClick={onReset}>Reset</button>
-          <button onClick={onDelete}>Delete</button>
-        </Container>
+        <FormPageFooter
+          onCancel={navigateToEquipmentPage}
+          onSubmit={onSubmit}
+          onReset={onReset}
+          onDelete={onDelete}
+        />
       </Section>
     </>
   )

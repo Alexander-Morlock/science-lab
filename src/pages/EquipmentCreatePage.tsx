@@ -2,7 +2,6 @@ import React from "react"
 import { Loader } from "../components/Loader"
 import { NoContent } from "../components/NoContent"
 import { Section } from "../components/basic/Section"
-import { Container } from "../components/basic/Container"
 import { useFetchData } from "../hooks/useFetchData"
 import { apiClient } from "../api/apiClient"
 import { useNavigate } from "react-router"
@@ -15,6 +14,7 @@ import { useEquipmentForm } from "../hooks/useEquipmentForm"
 import { EquipmentForm } from "../components/EquipmentForm"
 import { convertEquipmentFormData } from "../utils/utils"
 import { PageTitle } from "../components/PageTitle"
+import { FormPageFooter } from "../components/FormPageFooter"
 
 export default function EquipmentCreatePage() {
   const { isAdmin } = useUserRole()
@@ -60,10 +60,7 @@ export default function EquipmentCreatePage() {
           errors={errors}
           experiments={experiments}
         />
-        <Container>
-          <button onClick={onCancel}>Back to equipment</button>
-          <button onClick={onSubmit}>Submit</button>
-        </Container>
+        <FormPageFooter onCancel={onCancel} onSubmit={onSubmit} />
       </Section>
     </>
   )

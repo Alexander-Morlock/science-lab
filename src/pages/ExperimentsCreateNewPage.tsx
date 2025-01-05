@@ -1,5 +1,4 @@
 import React from "react"
-import { Container } from "../components/basic/Container"
 import { Section } from "../components/basic/Section"
 import { ExperimentForm } from "../components/ExperimentForm"
 import { useExperimentForm } from "../hooks/useExperimentForm"
@@ -14,6 +13,7 @@ import { NoContent } from "../components/NoContent"
 import { convertExperimentFormData } from "../utils/utils"
 import { useRedirectToHomepageForRolesExcept } from "../hooks/useRedirectToHomepageForRolesExcept"
 import { PageTitle } from "../components/PageTitle"
+import { FormPageFooter } from "../components/FormPageFooter"
 
 export default function ExperimentsCreateNewPage() {
   const navigate = useNavigate()
@@ -39,6 +39,8 @@ export default function ExperimentsCreateNewPage() {
     equipment,
   } = useExperimentForm(onValid)
 
+  const onCancel = () => navigate(getPageRouteDetails(PageNames.HOMEPAGE).route)
+
   if (!users || !areasOfExpertise || !equipment) {
     return isLoading ? <Loader /> : <NoContent />
   }
@@ -56,9 +58,7 @@ export default function ExperimentsCreateNewPage() {
           register={register}
           errors={errors}
         />
-        <Container>
-          <button onClick={onSubmit}>Submit</button>
-        </Container>
+        <FormPageFooter onCancel={onCancel} onSubmit={onSubmit} />
       </Section>
     </>
   )

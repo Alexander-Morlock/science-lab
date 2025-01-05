@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react"
 import { Loader } from "../components/Loader.styled"
 import { NoContent } from "../components/NoContent"
 import { ExperimentFormData, UserRole } from "../api/types"
-import { Container } from "../components/basic/Container"
 import { Section } from "../components/basic/Section"
 import { ExperimentForm } from "../components/ExperimentForm"
 import { useExperimentForm } from "../hooks/useExperimentForm"
@@ -19,6 +18,7 @@ import { useGetExperimentDetailsData } from "../hooks/useGetExperimentDetailsDat
 import { useRedirectToHomepageForRolesExcept } from "../hooks/useRedirectToHomepageForRolesExcept"
 import { useUserRole } from "../hooks/useUserRole"
 import { PageTitle } from "../components/PageTitle"
+import { FormPageFooter } from "../components/FormPageFooter"
 
 export default function ExperimentEditPage() {
   const { id } = useParams()
@@ -109,14 +109,12 @@ export default function ExperimentEditPage() {
           register={register}
           errors={errors}
         />
-        <Container>
-          <button onClick={onCancel}>Back to details</button>
-          <button onClick={onSubmit}>Submit</button>
-          <button onClick={onReset}>Reset</button>
-          {(isAdmin || isScientist) && (
-            <button onClick={onDelete}>Delete</button>
-          )}
-        </Container>
+        <FormPageFooter
+          onCancel={onCancel}
+          onSubmit={onSubmit}
+          onReset={onReset}
+          onDelete={isAdmin || isScientist ? onDelete : undefined}
+        />
       </Section>
     </>
   )
