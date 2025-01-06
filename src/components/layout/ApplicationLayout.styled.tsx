@@ -77,3 +77,9 @@ export const Snackbar = styled.div<{ $type?: SnackbarMessageType }>`
   color: white;
   max-width: calc(100vw - 2rem);
 `
+
+export const UnauthorizedUserMessage = styled.div`
+  padding: 1rem;
+  background-color: red;
+  color: white;
+`

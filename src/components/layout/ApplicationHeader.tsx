@@ -20,9 +20,9 @@ export function ApplicationHeader() {
   return (
     <>
       {!user?.name && (
-        <p style={{ padding: "1rem", color: "white", backgroundColor: "red" }}>
+        <Styled.UnauthorizedUserMessage>
           Unauthorized user (Guest mode)
-        </p>
+        </Styled.UnauthorizedUserMessage>
       )}
       <Styled.Header>
         <nav>

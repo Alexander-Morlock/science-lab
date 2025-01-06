@@ -9,7 +9,6 @@ export type RouteDetail = {
 
 export enum PageNames {
   HOMEPAGE = "HOMEPAGE",
-  LOGIN = "LOGIN",
 
   EXPERIMENTS = "EXPERIMENTS",
   EXPERIMENT_DETAIL = "EXPERIMENT_DETAIL",
