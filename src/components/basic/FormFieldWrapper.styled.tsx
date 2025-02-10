@@ -1,7 +1,11 @@
 import styled, { css } from "styled-components"
 
-export const Wrapper = styled.div<{ $error?: boolean; $required?: boolean }>`
+export const Wrapper = styled.div`
   margin: 0.2rem 0;
+`
+
+export const Subwrapper = styled.div<{ $error?: boolean; $required?: boolean }>`
+  position: relative;
 
   ${({ $required }) =>
     $required &&
@@ -20,10 +24,6 @@ export const Wrapper = styled.div<{ $error?: boolean; $required?: boolean }>`
     width: 100%;
     border: 1px solid ${({ $error }) => ($error ? "red" : "aliceblue")};
   }
-`
-
-export const Subwrapper = styled.div`
-  position: relative;
 `
 
 export const Message = styled.p<{ $error?: boolean }>`

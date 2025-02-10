@@ -1,35 +1,47 @@
-import React, { JSX, useState } from "react"
+import React, { JSX, PropsWithChildren, useEffect, useState } from "react"
 import * as Styled from "./FormFieldWrapper.styled"
 import { FieldErrors, FieldValues } from "react-hook-form"
 
-type Props<T extends FieldValues = FieldValues> = {
+type Props<T extends FieldValues = FieldValues> = PropsWithChildren<{
   name?: string
   errors: FieldErrors<T>
   required?: boolean
   placeholder?: string
-  children: (setFocus: (value: boolean) => void) => JSX.Element
-}
+  input?: (setFocus: (value: boolean) => void) => JSX.Element
+  showPlaceholder?: boolean
+}>
 
 export function FormFieldWrapper<T extends FieldValues = FieldValues>({
   name,
   errors,
   required,
   placeholder,
+  input,
   children,
+  showPlaceholder = false,
 }: Props<T>) {
-  const [isPlaceholderMessage, setIsPlaceholderMessage] = useState(false)
+  const [isPlaceholder, setIsPlaceholder] = useState(false)
+
+  useEffect(() => {
+    if (showPlaceholder === undefined) {
+      return
+    }
+    setIsPlaceholder(showPlaceholder)
+  }, [showPlaceholder])
 
   const errorMessage = name
     ? errors[name]?.type ?? errors[name]?.message ?? ""
     : ""
 
   return (
-    <Styled.Wrapper $error={!!errorMessage} $required={required}>
-      <Styled.Subwrapper>
-        {children(setIsPlaceholderMessage)}
-        {(!!errorMessage || (!!placeholder && isPlaceholderMessage)) && (
+    <Styled.Wrapper>
+      <Styled.Subwrapper $error={!!errorMessage} $required={required}>
+        {input?.(setIsPlaceholder)}
+        {children}
+
+        {(!!errorMessage || (!!placeholder && isPlaceholder)) && (
           <Styled.Message $error={!!errorMessage}>{`${
-            placeholder || errorMessage
+            errorMessage || placeholder
           }`}</Styled.Message>
         )}
       </Styled.Subwrapper>

@@ -1,22 +1,20 @@
-import { JSX } from "react"
+export enum Pages {
+  HOMEPAGE = "homepage",
 
-export type RouteDetail = {
-  route: string
-  getPath: (args?: any) => string
-  title: string
-  element: () => JSX.Element | null
-  forLoggedUserOnly: boolean
-}
+  EXPERIMENTS = "experiments",
+  EXPERIMENT_DETAIL = "experimentDetail",
+  EXPERIMENT_EDIT = "experimentEdit",
+  EXPERIMENT_CREATE_NEW = "experimentCreateNew",
 
-export enum PageNames {
-  // Client routes
-  HOMEPAGE = "HOMEPAGE",
-  LOGIN_PAGE = "LOGIN_PAGE",
-  PUBLIC_EXPERIMENTS = "PUBLIC_EXPERIMENTS",
-  DASHBOARD = "DASHBOARD",
+  EQUIPMENT = "equipment",
+  EQUIPMENT_EDIT = "equipmentEdit",
+  EQUIPMENT_CREATE = "equipmentCreate",
 
-  // Experiments pages
-  CREATE_NEW_EXPERIMENT = "CREATE_NEW_EXPERIMENT",
-  EDIT_EXPERIMENT = "EDIT_EXPERIMENT",
-  EXPERIMENT_DETAIL = "EXPERIMENT_DETAIL",
+  AREAS_OF_EXPERTISE = "areasOfExpertise",
+  AREAS_OF_EXPERTISE_CREATE_NEW = "areasOfExpertiseCreateNew",
+  AREAS_OF_EXPERTISE_EDIT = "areasOfExpertiseEdit",
+
+  USERS = "users",
+  USER_EDIT = "userEdit",
+  USER_CREATE = "userCreate",
 }

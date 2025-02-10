@@ -1,33 +1,37 @@
-import CreateNewExperimentPage from "../pages/CreateNewExperimentPage"
-import EditExperimentPage from "../pages/EditExperimentPage"
-import ExperimentDetailPage from "../pages/ExperimentDetailPage"
-import { PageNames, RouteDetail } from "./types"
+import ExperimentCreateNewPage from "../pages/experiment/ExperimentCreateNewPage"
+import ExperimentEditPage from "../pages/experiment/ExperimentEditPage"
+import ExperimentDetailPage from "../pages/experiment/ExperimentDetailPage"
+import { Pages } from "./types"
+import ExperimentsPage from "../pages/experiment/ExperimentsPage"
+import { createPageRoute } from "./utils"
 
-type ExperimentsPageNames =
-  | PageNames.CREATE_NEW_EXPERIMENT
-  | PageNames.EDIT_EXPERIMENT
-  | PageNames.EXPERIMENT_DETAIL
-
-export const experimentsRoutes: Record<ExperimentsPageNames, RouteDetail> = {
-  [PageNames.CREATE_NEW_EXPERIMENT]: {
+export const experimentsRoutes = {
+  ...createPageRoute({
+    page: Pages.EXPERIMENTS,
+    route: `/experiments`,
+    getPath: () => `/experiments`,
+    title: `Public Experiments`,
+    element: ExperimentsPage,
+  }),
+  ...createPageRoute({
+    page: Pages.EXPERIMENT_CREATE_NEW,
     route: `/experiments/create`,
     getPath: () => `/experiments/create`,
-    title: `Create new experiment`,
-    element: CreateNewExperimentPage,
-    forLoggedUserOnly: false,
-  },
-  [PageNames.EDIT_EXPERIMENT]: {
+    title: `Create New Experiment`,
+    element: ExperimentCreateNewPage,
+  }),
+  ...createPageRoute({
+    page: Pages.EXPERIMENT_EDIT,
     route: `/experiments/edit/:id`,
     getPath: (id: number) => `/experiments/edit/${id}`,
-    title: `Edit experiment`,
-    element: EditExperimentPage,
-    forLoggedUserOnly: false,
-  },
-  [PageNames.EXPERIMENT_DETAIL]: {
+    title: `Edit Experiment`,
+    element: ExperimentEditPage,
+  }),
+  ...createPageRoute({
+    page: Pages.EXPERIMENT_DETAIL,
     route: `/experiments/:id`,
     getPath: (id: number) => `/experiments/${id}`,
-    title: `Detail of experiment`,
+    title: `Detail of Experiment`,
     element: ExperimentDetailPage,
-    forLoggedUserOnly: false,
-  },
+  }),
 }

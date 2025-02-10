@@ -22,9 +22,10 @@ export type User = {
   id: number
   name: string
   email: string
-  password: string
   role: UserRole // Default GUEST to avoid null pointer exception
 }
+
+export type UserFormData = Omit<User, "id">
 
 export type LabPerson = User & {
   participantExperimentsIds: number[]
@@ -38,11 +39,22 @@ export type AreaOfExpertise = {
   name: string
 }
 
+export type AreaOfExpertiseFromData = {
+  name: string
+}
+
 export type EquipmentDetail = {
   id: number
   name: string
   amount: number
   experiments: Experiment[]
+}
+
+export type EquipmentDetailFormData = {
+  id: number
+  name: string
+  amount: string
+  experimentsIds: string[]
 }
 
 export type ExperimentFile = {
@@ -75,15 +87,16 @@ export type Experiment = {
   fileIds?: number[]
 }
 
-// Because <select> operates with string values only
 export type ExperimentFormData = Omit<
   Experiment,
+  | "authorId"
   | "responsiblePersonId"
   | "areasOfExpertiseIds"
   | "equipmentIds"
   | "participantIds"
   | "fileIds"
 > & {
+  authorId: string
   responsiblePersonId: string
   areasOfExpertiseIds: string[]
   equipmentIds?: string[]

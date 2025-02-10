@@ -11,11 +11,11 @@ export const areasOfExpertise = {
     axios.get<AreaOfExpertise[] | undefined>(`/api/areasOfExpertise`),
 
   /** Create a new area of expertise. (Admin only) */
-  create: (area: AreaOfExpertise) => axios.post(`/api/areasOfExpertise`, area),
+  create: (name: string) => axios.post(`/api/areasOfExpertise`, { name }),
 
   /** Update an existing area of expertise by ID. (Admin only) */
-  update: (area: AreaOfExpertise) =>
-    axios.put(`/api/areasOfExpertise/${area.id}`, area),
+  update: (id: number, name: string) =>
+    axios.put(`/api/areasOfExpertise/${id}`, { name }),
 
   /** Delete an area of expertise by ID. (Admin only) */
   delete: (id: number) => axios.delete(`/api/areasOfExpertise/${id}`),
