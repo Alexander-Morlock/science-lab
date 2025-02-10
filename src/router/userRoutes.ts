@@ -1,7 +1,7 @@
 import UserCreatePage from "../pages/user/UserCreatePage"
 import UserEditPage from "../pages/user/UserEditPage"
 import UsersPage from "../pages/user/UsersPage"
-import { Pages } from "./types"
+import { Pages } from "./constants"
 import { createPageRoute } from "./utils"
 
 export const userRoutes = {

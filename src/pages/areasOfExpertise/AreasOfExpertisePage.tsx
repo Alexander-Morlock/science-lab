@@ -7,10 +7,10 @@ import { useFetchData } from "../../hooks/useFetchData"
 import { apiClient } from "../../api/apiClient"
 import { useUserRole } from "../../hooks/useUserRole"
 import { useNavigate } from "react-router"
-import { Pages } from "../../router/types"
 import { AreaOfExpertisePreviewCard } from "./components/AreaOfExpertisePreviewCard"
 import { PageTitle } from "../../components/PageTitle"
 import { applicationRoutes } from "../../router/routes"
+import { Pages } from "../../router/constants"
 
 export default function AreasOfExpertisePage() {
   const { isAdmin } = useUserRole()
@@ -37,7 +37,7 @@ export default function AreasOfExpertisePage() {
 
   return (
     <>
-      <PageTitle pageName={Pages.AREAS_OF_EXPERTISE} />
+      <PageTitle page={Pages.AREAS_OF_EXPERTISE} />
 
       <Section>
         <Container noPadding autoColumns>
@@ -52,9 +52,7 @@ export default function AreasOfExpertisePage() {
         {isAdmin && (
           <button
             onClick={() =>
-              navigate(
-                applicationRoutes.areasOfExpertise.areasOfExpertiseCreateNew.getPath()
-              )
+              navigate(applicationRoutes.areasOfExpertise.create.getPath())
             }
           >
             Create

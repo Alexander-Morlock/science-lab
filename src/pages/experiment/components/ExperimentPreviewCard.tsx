@@ -23,7 +23,7 @@ export function ExperimentPreviewCard({
   const navigate = useNavigate()
 
   const onClick = () =>
-    navigate(applicationRoutes.experiments.experimentDetail.getPath(id))
+    navigate(applicationRoutes.experiments.detail.getPath(id))
 
   return (
     <Container colorizeBackgroundColorOnHover onClick={onClick}>

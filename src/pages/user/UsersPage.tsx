@@ -4,19 +4,19 @@ import { apiClient } from "../../api/apiClient"
 import { useFetchData } from "../../hooks/useFetchData"
 import { NoContent } from "../../components/NoContent"
 import { PageTitle } from "../../components/PageTitle"
-import { Pages } from "../../router/types"
 import { Container } from "../../components/basic/Container"
 import { Section } from "../../components/basic/Section.styled"
 import { UserDetailPreviewCard } from "./components/UserDetailPreviewCard"
 import { useNavigate } from "react-router"
 import { useUserRole } from "../../hooks/useUserRole"
 import { applicationRoutes } from "../../router/routes"
+import { Pages } from "../../router/constants"
 
 export default function UsersPage() {
   const { isAdmin } = useUserRole()
   const navigate = useNavigate()
   const navigateToCreateUserPage = () =>
-    navigate(applicationRoutes.user.userCreate.getPath())
+    navigate(applicationRoutes.user.create.getPath())
 
   const { data: users, isLoading } = useFetchData(apiClient.user.getAll, {
     autofetch: true,
@@ -28,7 +28,7 @@ export default function UsersPage() {
 
   return (
     <>
-      <PageTitle pageName={Pages.USERS} />
+      <PageTitle page={Pages.USERS} />
 
       <Section>
         <Container noPadding autoColumns>

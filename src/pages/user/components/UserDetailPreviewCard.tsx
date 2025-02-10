@@ -13,7 +13,7 @@ export function UserDetailPreviewCard({ id, name, email, role }: User) {
 
   const navigate = useNavigate()
   const navigateToUserEditPage = () =>
-    navigate(applicationRoutes.user.userEdit.getPath(id))
+    navigate(applicationRoutes.user.edit.getPath(id))
 
   return (
     <Container>

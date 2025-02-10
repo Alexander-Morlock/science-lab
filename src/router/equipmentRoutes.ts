@@ -1,7 +1,7 @@
 import EquipmentCreatePage from "../pages/equipment/EquipmentCreatePage"
 import EquipmentEditPage from "../pages/equipment/EquipmentEditPage"
 import EquipmentPage from "../pages/equipment/EquipmentPage"
-import { Pages } from "./types"
+import { Pages } from "./constants"
 import { createPageRoute } from "./utils"
 
 export const equipmentRoutes = {

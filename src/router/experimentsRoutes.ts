@@ -1,9 +1,9 @@
 import ExperimentCreateNewPage from "../pages/experiment/ExperimentCreateNewPage"
 import ExperimentEditPage from "../pages/experiment/ExperimentEditPage"
 import ExperimentDetailPage from "../pages/experiment/ExperimentDetailPage"
-import { Pages } from "./types"
 import ExperimentsPage from "../pages/experiment/ExperimentsPage"
 import { createPageRoute } from "./utils"
+import { Pages } from "./constants"
 
 export const experimentsRoutes = {
   ...createPageRoute({

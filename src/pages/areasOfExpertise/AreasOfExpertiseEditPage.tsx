@@ -6,7 +6,6 @@ import { useFetchData } from "../../hooks/useFetchData"
 import { apiClient } from "../../api/apiClient"
 import { useUserRole } from "../../hooks/useUserRole"
 import { useNavigate, useParams } from "react-router"
-import { Pages } from "../../router/types"
 import { useRedirectToHomepageForRolesExcept } from "../../hooks/useRedirectToHomepageForRolesExcept"
 import { AreaOfExpertiseFromData, UserRole } from "../../api/types"
 import { PageTitle } from "../../components/PageTitle"
@@ -14,6 +13,7 @@ import { AreasOfExpertiseForm } from "./components/AreasOfExpertiseForm"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { useAreasOfExpertiseForm } from "./hooks/useAreasOfExpertiseForm"
 import { applicationRoutes } from "../../router/routes"
+import { Pages } from "../../router/constants"
 
 export default function AreasOfExpertiseEditPage() {
   const { isAdmin } = useUserRole()
@@ -38,7 +38,7 @@ export default function AreasOfExpertiseEditPage() {
   )
 
   const navigateToAreasOfExpertisePage = () =>
-    navigate(applicationRoutes.areasOfExpertise.areasOfExpertise.getPath())
+    navigate(applicationRoutes.areasOfExpertise.getAll.getPath())
 
   const onDelete = async () => {
     await deleteAreaOfExpertise(Number(id))
@@ -77,7 +77,7 @@ export default function AreasOfExpertiseEditPage() {
 
   return (
     <>
-      <PageTitle pageName={Pages.AREAS_OF_EXPERTISE_EDIT} />
+      <PageTitle page={Pages.AREAS_OF_EXPERTISE_EDIT} />
 
       <Section>
         <AreasOfExpertiseForm

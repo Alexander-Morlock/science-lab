@@ -37,7 +37,7 @@ export function EquipmentPreviewCard({
         <>
           <button
             onClick={() =>
-              navigate(applicationRoutes.equipment.equipmentEdit.getPath(id))
+              navigate(applicationRoutes.equipment.edit.getPath(id))
             }
           >
             Edit

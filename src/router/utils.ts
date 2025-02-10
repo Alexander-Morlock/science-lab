@@ -1,32 +1,21 @@
-import { JSX } from "react"
-import { Pages } from "./types"
+import { PageRoute, PageRouteDetails } from "./types"
 import { flattenRoutes } from "./routes"
+import { Pages } from "./constants"
 
-type PageRouteBody<TGetPathParam> = {
-  route: string
-  getPath: TGetPathParam extends string | number
-    ? (param: TGetPathParam) => string
-    : () => string
-  title: string
-  element: () => JSX.Element | null
-}
-
-type CreatePageRouteProps<TPages extends Pages, TGetPathParam> = {
+type CreatePageRouteProps<TPages, TGetPathFunc> = {
   page: TPages
-} & PageRouteBody<TGetPathParam>
+} & PageRouteDetails<TGetPathFunc>
 
-type CreatePageRoute<TPages extends Pages, TGetPathParam> = Record<
-  TPages,
-  PageRouteBody<TGetPathParam>
->
-
-export function createPageRoute<TPages extends Pages, TGetPathParam>({
+export function createPageRoute<
+  TPages extends Pages,
+  TGetPathFunc extends (...args: any) => string
+>({
   page,
   route,
   getPath,
   title,
   element,
-}: CreatePageRouteProps<TPages, TGetPathParam>) {
+}: CreatePageRouteProps<TPages, TGetPathFunc>) {
   return {
     [page]: {
       route,
@@ -34,7 +23,7 @@ export function createPageRoute<TPages extends Pages, TGetPathParam>({
       title,
       element,
     },
-  } as CreatePageRoute<TPages, TGetPathParam>
+  } as PageRoute<TPages, TGetPathFunc>
 }
 
 export function getRouteDetails(page: Pages) {

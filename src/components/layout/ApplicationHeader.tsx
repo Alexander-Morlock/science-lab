@@ -1,10 +1,10 @@
 import React from "react"
 import { NavLink } from "react-router"
 import * as Styled from "./ApplicationLayout.styled"
-import { Pages } from "../../router/types"
 import { getRouteDetails } from "../../router/utils"
 import { useUserRole } from "../../hooks/useUserRole"
 import { useUser } from "../../hooks/useUser"
+import { Pages } from "../../router/constants"
 
 export function ApplicationHeader() {
   const { isScientist, isAdmin } = useUserRole()
@@ -27,10 +27,10 @@ export function ApplicationHeader() {
       <Styled.Header>
         <nav>
           <Styled.HeaderNavigationList>
-            {headerNavigationPages.map((pageName) => {
-              const { route, title } = getRouteDetails(pageName)
+            {headerNavigationPages.map((page) => {
+              const { route, title } = getRouteDetails(page)
               return (
-                <li key={pageName}>
+                <li key={page}>
                   <NavLink to={route}>{title}</NavLink>
                 </li>
               )

@@ -2,12 +2,12 @@ import React from "react"
 import { Loader } from "../../components/Loader"
 import { NoContent } from "../../components/NoContent"
 import { ExperimentPreviewCard } from "./components/ExperimentPreviewCard"
-import { Pages } from "../../router/types"
 import { Section } from "../../components/basic/Section"
 import { Container } from "../../components/basic/Container"
 import { apiClient } from "../../api/apiClient"
 import { useFetchData } from "../../hooks/useFetchData"
 import { PageTitle } from "../../components/PageTitle"
+import { Pages } from "../../router/constants"
 
 export default function ExperimentsPage() {
   const { data: users, isLoading: isLoadingUsers } = useFetchData(
@@ -29,7 +29,7 @@ export default function ExperimentsPage() {
 
   return (
     <>
-      <PageTitle pageName={Pages.EXPERIMENTS} />
+      <PageTitle page={Pages.EXPERIMENTS} />
 
       <Section>
         <Container noPadding autoColumns>

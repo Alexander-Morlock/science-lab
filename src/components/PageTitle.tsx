@@ -1,7 +1,7 @@
 import React from "react"
-import { Pages } from "../router/types"
 import { getRouteDetails } from "../router/utils"
+import { Pages } from "../router/constants"
 
-export function PageTitle({ pageName }: { pageName: Pages }) {
-  return <h1>{getRouteDetails(pageName).title}</h1>
+export function PageTitle({ page }: { page: Pages }) {
+  return <h1>{getRouteDetails(page).title}</h1>
 }

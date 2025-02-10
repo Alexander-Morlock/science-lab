@@ -6,7 +6,6 @@ import { apiClient } from "../../api/apiClient"
 import { Loader } from "../../components/Loader"
 import { useNavigate } from "react-router"
 import { ExperimentFormData, UserRole } from "../../api/types"
-import { Pages } from "../../router/types"
 import { NoContent } from "../../components/NoContent"
 import { convertExperimentFormData } from "../../utils/utils"
 import { useRedirectToHomepageForRolesExcept } from "../../hooks/useRedirectToHomepageForRolesExcept"
@@ -14,6 +13,7 @@ import { PageTitle } from "../../components/PageTitle"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { useExperimentForm } from "./hooks/useExperimentForm"
 import { applicationRoutes } from "../../router/routes"
+import { Pages } from "../../router/constants"
 
 export default function ExperimentCreateNewPage() {
   const navigate = useNavigate()
@@ -25,7 +25,7 @@ export default function ExperimentCreateNewPage() {
   const onValid = async (data: ExperimentFormData) => {
     const res = await updateExperiment(convertExperimentFormData(data))
     if (res?.id) {
-      navigate(applicationRoutes.experiments.experimentDetail.getPath(res.id))
+      navigate(applicationRoutes.experiments.detail.getPath(res.id))
     }
   }
 
@@ -47,7 +47,7 @@ export default function ExperimentCreateNewPage() {
 
   return (
     <>
-      <PageTitle pageName={Pages.EXPERIMENT_CREATE_NEW} />
+      <PageTitle page={Pages.EXPERIMENT_CREATE_NEW} />
 
       <Section>
         <ExperimentForm

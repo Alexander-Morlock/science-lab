@@ -33,8 +33,8 @@ export function ApplicationRouter() {
       <ApplicationLayout>
         <Routes>
           {Object.entries(flattenRoutes).map(
-            ([pageName, { route, element: Element }]) => {
-              return <Route key={pageName} path={route} element={<Element />} />
+            ([page, { route, element: Element }]) => {
+              return <Route key={page} path={route} element={<Element />} />
             }
           )}
           <Route path="*" element={<PageNotFound />} />

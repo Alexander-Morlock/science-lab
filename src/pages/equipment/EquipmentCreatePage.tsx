@@ -8,13 +8,13 @@ import { useNavigate } from "react-router"
 import { useUserRole } from "../../hooks/useUserRole"
 import { useRedirectToHomepageForRolesExcept } from "../../hooks/useRedirectToHomepageForRolesExcept"
 import { EquipmentDetailFormData, UserRole } from "../../api/types"
-import { Pages } from "../../router/types"
 import { EquipmentForm } from "./components/EquipmentForm"
 import { convertEquipmentFormData } from "../../utils/utils"
 import { PageTitle } from "../../components/PageTitle"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { useEquipmentForm } from "./hooks/useEquipmentForm"
 import { applicationRoutes } from "../../router/routes"
+import { Pages } from "../../router/constants"
 
 export default function EquipmentCreatePage() {
   const { isAdmin } = useUserRole()
@@ -37,13 +37,12 @@ export default function EquipmentCreatePage() {
     }
 
     await createEquipment(convertEquipmentFormData(data, experiments))
-    navigate(applicationRoutes.equipment.equipment.getPath())
+    navigate(applicationRoutes.equipment.getAll.getPath())
   }
 
   const { onSubmit, register, errors } = useEquipmentForm(onValid)
 
-  const onCancel = () =>
-    navigate(applicationRoutes.equipment.equipment.getPath())
+  const onCancel = () => navigate(applicationRoutes.equipment.getAll.getPath())
 
   if (!experiments) {
     return isLoading ? <Loader /> : <NoContent />
@@ -51,7 +50,7 @@ export default function EquipmentCreatePage() {
 
   return (
     <>
-      <PageTitle pageName={Pages.EQUIPMENT_CREATE} />
+      <PageTitle page={Pages.EQUIPMENT_CREATE} />
 
       <Section>
         <EquipmentForm

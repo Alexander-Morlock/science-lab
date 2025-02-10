@@ -20,11 +20,7 @@ export function AreaOfExpertisePreviewCard({ id, name, onDelete }: Props) {
         <>
           <button
             onClick={() =>
-              navigate(
-                applicationRoutes.areasOfExpertise.areasOfExpertiseEdit.getPath(
-                  id
-                )
-              )
+              navigate(applicationRoutes.areasOfExpertise.edit.getPath(id))
             }
           >
             Edit

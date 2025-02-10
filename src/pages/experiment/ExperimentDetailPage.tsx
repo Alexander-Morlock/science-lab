@@ -4,12 +4,12 @@ import { Loader } from "../../components/Loader.styled"
 import { NoContent } from "../../components/NoContent"
 import { Section } from "../../components/basic/Section"
 import { Container } from "../../components/basic/Container"
-import { Pages } from "../../router/types"
 import { getExperimentDetailFieldPlaceholder as getPlaceholder } from "../../utils/utils"
 import { useUserRole } from "../../hooks/useUserRole"
 import { PageTitle } from "../../components/PageTitle"
 import { useGetExperimentDetailsData } from "./hooks/useGetExperimentDetailsData"
 import { applicationRoutes } from "../../router/routes"
+import { Pages } from "../../router/constants"
 
 export default function ExperimentDetailPage() {
   const { id } = useParams()
@@ -25,7 +25,7 @@ export default function ExperimentDetailPage() {
 
   return (
     <>
-      <PageTitle pageName={Pages.EXPERIMENT_DETAIL} />
+      <PageTitle page={Pages.EXPERIMENT_DETAIL} />
 
       <Section>
         <Container>
@@ -38,9 +38,7 @@ export default function ExperimentDetailPage() {
         {isAllowedToEdit && (
           <button
             onClick={() =>
-              navigate(
-                applicationRoutes.experiments.experimentEdit.getPath(Number(id))
-              )
+              navigate(applicationRoutes.experiments.edit.getPath(Number(id)))
             }
           >
             Edit
