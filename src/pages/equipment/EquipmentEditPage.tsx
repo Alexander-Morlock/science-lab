@@ -8,8 +8,7 @@ import { useNavigate, useParams } from "react-router"
 import { useUserRole } from "../../hooks/useUserRole"
 import { useRedirectToHomepageForRolesExcept } from "../../hooks/useRedirectToHomepageForRolesExcept"
 import { EquipmentDetailFormData, UserRole } from "../../api/types"
-import { getPageRouteDetails } from "../../router/utils"
-import { PageNames } from "../../router/types"
+import { Pages } from "../../router/types"
 import { EquipmentForm } from "./components/EquipmentForm"
 import {
   convertEquipmentFormData,
@@ -18,6 +17,7 @@ import {
 import { PageTitle } from "../../components/PageTitle"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { useEquipmentForm } from "./hooks/useEquipmentForm"
+import { applicationRoutes } from "../../router/routes"
 
 export default function EquipmentEditPage() {
   const { id } = useParams()
@@ -50,14 +50,14 @@ export default function EquipmentEditPage() {
     }
 
     await updateEquipment(convertEquipmentFormData(data, experiments))
-    navigate(getPageRouteDetails(PageNames.EQUIPMENT).route)
+    navigate(applicationRoutes.equipment.equipment.getPath())
   }
 
   const { onSubmit, register, errors, clearErrors, setValue } =
     useEquipmentForm(onValid)
 
   const navigateToEquipmentPage = () =>
-    navigate(getPageRouteDetails(PageNames.EQUIPMENT).route)
+    navigate(applicationRoutes.equipment.equipment.getPath())
 
   const onReset = () => {
     setIsInitialized(false)
@@ -86,7 +86,7 @@ export default function EquipmentEditPage() {
 
   return (
     <>
-      <PageTitle pageName={PageNames.EQUIPMENT_EDIT} />
+      <PageTitle pageName={Pages.EQUIPMENT_EDIT} />
 
       <Section>
         <EquipmentForm

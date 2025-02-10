@@ -1,30 +1,20 @@
-import { JSX } from "react"
+export enum Pages {
+  HOMEPAGE = "homepage",
 
-export type RouteDetail = {
-  route: string
-  getPath: (args?: any) => string
-  title: string
-  element: () => JSX.Element | null
-}
+  EXPERIMENTS = "experiments",
+  EXPERIMENT_DETAIL = "experimentDetail",
+  EXPERIMENT_EDIT = "experimentEdit",
+  EXPERIMENT_CREATE_NEW = "experimentCreateNew",
 
-export enum PageNames {
-  HOMEPAGE = "HOMEPAGE",
-  LOGIN = "LOGIN",
+  EQUIPMENT = "equipment",
+  EQUIPMENT_EDIT = "equipmentEdit",
+  EQUIPMENT_CREATE = "equipmentCreate",
 
-  EXPERIMENTS = "EXPERIMENTS",
-  EXPERIMENT_DETAIL = "EXPERIMENT_DETAIL",
-  EXPERIMENT_EDIT = "EXPERIMENT_EDIT",
-  EXPERIMENT_CREATE_NEW = "EXPERIMENT_CREATE_NEW",
+  AREAS_OF_EXPERTISE = "areasOfExpertise",
+  AREAS_OF_EXPERTISE_CREATE_NEW = "areasOfExpertiseCreateNew",
+  AREAS_OF_EXPERTISE_EDIT = "areasOfExpertiseEdit",
 
-  EQUIPMENT = "EQUIPMENT",
-  EQUIPMENT_EDIT = "EQUIPMENT_EDIT",
-  EQUIPMENT_CREATE = "EQUIPMENT_CREATE",
-
-  AREAS_OF_EXPERTISE = "AREAS_OF_EXPERTISE",
-  AREAS_OF_EXPERTISE_CREATE_NEW = "AREAS_OF_EXPERTISE_CREATE_NEW",
-  AREAS_OF_EXPERTISE_EDIT = "AREAS_OF_EXPERTISE_EDIT",
-
-  USERS = "USERS",
-  USER_EDIT = "USER_EDIT",
-  USER_CREATE = "USER_CREATE",
+  USERS = "users",
+  USER_EDIT = "userEdit",
+  USER_CREATE = "userCreate",
 }

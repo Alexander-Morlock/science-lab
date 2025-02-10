@@ -2,10 +2,9 @@ import React from "react"
 import { Container } from "../../../components/basic/Container"
 import { User } from "../../../api/types"
 import { useNavigate } from "react-router"
-import { getPageRouteDetails } from "../../../router/utils"
-import { PageNames } from "../../../router/types"
 import { useUser } from "../../../hooks/useUser"
 import { useUserRole } from "../../../hooks/useUserRole"
+import { applicationRoutes } from "../../../router/routes"
 
 export function UserDetailPreviewCard({ id, name, email, role }: User) {
   const { isAdmin } = useUserRole()
@@ -14,7 +13,7 @@ export function UserDetailPreviewCard({ id, name, email, role }: User) {
 
   const navigate = useNavigate()
   const navigateToUserEditPage = () =>
-    navigate(getPageRouteDetails(PageNames.USER_EDIT).getPath(id))
+    navigate(applicationRoutes.user.userEdit.getPath(id))
 
   return (
     <Container>

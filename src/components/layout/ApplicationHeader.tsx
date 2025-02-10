@@ -1,34 +1,43 @@
 import React from "react"
 import { NavLink } from "react-router"
 import * as Styled from "./ApplicationLayout.styled"
-import { PageNames } from "../../router/types"
-import { getPageRouteDetails } from "../../router/utils"
+import { Pages } from "../../router/types"
+import { getRouteDetails } from "../../router/utils"
 import { useUserRole } from "../../hooks/useUserRole"
+import { useUser } from "../../hooks/useUser"
 
 export function ApplicationHeader() {
   const { isScientist, isAdmin } = useUserRole()
+  const { user } = useUser()
 
-  const headerNavigationPagenames = [
-    PageNames.HOMEPAGE,
-    ...(isScientist || isAdmin ? [PageNames.EXPERIMENT_CREATE_NEW] : []),
-    PageNames.EQUIPMENT,
-    PageNames.AREAS_OF_EXPERTISE,
-    PageNames.USERS,
+  const headerNavigationPages = [
+    Pages.HOMEPAGE,
+    ...(isScientist || isAdmin ? [Pages.EXPERIMENT_CREATE_NEW] : []),
+    Pages.EQUIPMENT,
+    Pages.AREAS_OF_EXPERTISE,
+    Pages.USERS,
   ]
   return (
-    <Styled.Header>
-      <nav>
-        <Styled.HeaderNavigationList>
-          {headerNavigationPagenames.map((pageName) => {
-            const { route, title } = getPageRouteDetails(pageName)
-            return (
-              <li key={pageName}>
-                <NavLink to={route}>{title}</NavLink>
-              </li>
-            )
-          })}
-        </Styled.HeaderNavigationList>
-      </nav>
-    </Styled.Header>
+    <>
+      {!user?.name && (
+        <Styled.UnauthorizedUserMessage>
+          Unauthorized user (Guest mode)
+        </Styled.UnauthorizedUserMessage>
+      )}
+      <Styled.Header>
+        <nav>
+          <Styled.HeaderNavigationList>
+            {headerNavigationPages.map((pageName) => {
+              const { route, title } = getRouteDetails(pageName)
+              return (
+                <li key={pageName}>
+                  <NavLink to={route}>{title}</NavLink>
+                </li>
+              )
+            })}
+          </Styled.HeaderNavigationList>
+        </nav>
+      </Styled.Header>
+    </>
   )
 }

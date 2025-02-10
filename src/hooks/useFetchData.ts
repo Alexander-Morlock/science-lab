@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
 import { useSnackbar } from "./useSnackbar"
 import { SnackbarMessageType } from "../utils/types"
-import { AxiosResponse } from "axios"
+import { AxiosError, AxiosResponse } from "axios"
 
 export function useFetchData<T, A>(
   apiCallFn: (...args: A[]) => Promise<AxiosResponse<T | undefined>>,
@@ -22,12 +22,18 @@ export function useFetchData<T, A>(
   const { showSnackbar } = useSnackbar()
 
   const handleXhrError = useCallback(
-    (error: unknown) => {
+    (error: AxiosError) => {
       options?.onError?.(error)
       setIsLoading(false)
       setIsFetched(true)
+
+      const statusText = error.response?.statusText
+      const snackBarErrorMessage = statusText
+        ? `${error.message}: ${statusText}`
+        : "Unknown API error"
+
       showSnackbar({
-        message: "Unknown API error",
+        message: snackBarErrorMessage,
         type: SnackbarMessageType.ERROR,
       })
     },

@@ -8,9 +8,9 @@ import { apiClient } from "../../api/apiClient"
 import { EquipmentPreviewCard } from "./components/EquipmentPreviewCard"
 import { useUserRole } from "../../hooks/useUserRole"
 import { useNavigate } from "react-router"
-import { getPageRouteDetails } from "../../router/utils"
-import { PageNames } from "../../router/types"
+import { Pages } from "../../router/types"
 import { PageTitle } from "../../components/PageTitle"
+import { applicationRoutes } from "../../router/routes"
 
 export default function EquipmentPage() {
   const { isAdmin } = useUserRole()
@@ -35,7 +35,7 @@ export default function EquipmentPage() {
 
   return (
     <>
-      <PageTitle pageName={PageNames.EQUIPMENT} />
+      <PageTitle pageName={Pages.EQUIPMENT} />
 
       <Section>
         <Container noPadding autoColumns>
@@ -50,7 +50,7 @@ export default function EquipmentPage() {
         {isAdmin && (
           <button
             onClick={() =>
-              navigate(getPageRouteDetails(PageNames.EQUIPMENT_CREATE).route)
+              navigate(applicationRoutes.equipment.equipmentCreate.getPath())
             }
           >
             Create

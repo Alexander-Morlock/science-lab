@@ -4,16 +4,16 @@ import { apiClient } from "../../api/apiClient"
 import { useFetchData } from "../../hooks/useFetchData"
 import { NoContent } from "../../components/NoContent"
 import { PageTitle } from "../../components/PageTitle"
-import { PageNames } from "../../router/types"
+import { Pages } from "../../router/types"
 import { Section } from "../../components/basic/Section.styled"
 import { Navigate, useNavigate, useParams } from "react-router"
 import { useUser } from "../../hooks/useUser"
 import { useUserRole } from "../../hooks/useUserRole"
-import { getPageRouteDetails } from "../../router/utils"
 import { UserForm } from "./components/UserForm"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { UserFormData } from "../../api/types"
 import { useUserForm } from "./hooks/useUserForm"
+import { applicationRoutes } from "../../router/routes"
 
 export default function UserEditPage() {
   const navigate = useNavigate()
@@ -36,7 +36,7 @@ export default function UserEditPage() {
   )
 
   const navigateToUsersPage = () =>
-    navigate(getPageRouteDetails(PageNames.USERS).route)
+    navigate(applicationRoutes.user.users.getPath())
 
   const onValid = async (data: UserFormData) => {
     await updateUser({ ...data, id: Number(id) })
@@ -67,7 +67,7 @@ export default function UserEditPage() {
   }, [isInitialized, setValue, userDetail])
 
   if (!(isAdmin || isCurrentUser))
-    return <Navigate to={getPageRouteDetails(PageNames.USERS).route} />
+    return <Navigate to={applicationRoutes.user.users.getPath()} />
 
   if (!userDetail) {
     return isLoading ? <Loader /> : <NoContent />
@@ -75,7 +75,7 @@ export default function UserEditPage() {
 
   return (
     <>
-      <PageTitle pageName={PageNames.USER_EDIT} />
+      <PageTitle pageName={Pages.USER_EDIT} />
 
       <Section>
         <UserForm

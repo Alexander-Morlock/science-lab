@@ -2,7 +2,7 @@ import React from "react"
 import { Loader } from "../../components/Loader"
 import { NoContent } from "../../components/NoContent"
 import { ExperimentPreviewCard } from "./components/ExperimentPreviewCard"
-import { PageNames } from "../../router/types"
+import { Pages } from "../../router/types"
 import { Section } from "../../components/basic/Section"
 import { Container } from "../../components/basic/Container"
 import { apiClient } from "../../api/apiClient"
@@ -29,7 +29,7 @@ export default function ExperimentsPage() {
 
   return (
     <>
-      <PageTitle pageName={PageNames.EXPERIMENTS} />
+      <PageTitle pageName={Pages.EXPERIMENTS} />
 
       <Section>
         <Container noPadding autoColumns>
