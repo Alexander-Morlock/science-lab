@@ -5,8 +5,7 @@ import { ExperimentFormData, UserRole } from "../../api/types"
 import { Section } from "../../components/basic/Section"
 import { ExperimentForm } from "./components/ExperimentForm"
 import { useNavigate, useParams } from "react-router"
-import { PageNames } from "../../router/types"
-import { getPageRouteDetails } from "../../router/utils"
+import { Pages } from "../../router/types"
 import { apiClient } from "../../api/apiClient"
 import { useFetchData } from "../../hooks/useFetchData"
 import {
@@ -19,6 +18,7 @@ import { PageTitle } from "../../components/PageTitle"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { useExperimentForm } from "./hooks/useExperimentForm"
 import { useGetExperimentDetailsData } from "./hooks/useGetExperimentDetailsData"
+import { applicationRoutes } from "../../router/routes"
 
 export default function ExperimentEditPage() {
   const { id } = useParams()
@@ -40,12 +40,12 @@ export default function ExperimentEditPage() {
 
   const onValid = async (data: ExperimentFormData) => {
     await updateExperiment(convertExperimentFormData(data))
-    navigate(getPageRouteDetails(PageNames.EXPERIMENT_DETAIL).getPath(data.id))
+    navigate(applicationRoutes.experiments.experimentDetail.getPath(data.id))
   }
 
   const onDelete = async () => {
     await deleteExperiment(Number(id))
-    navigate(getPageRouteDetails(PageNames.HOMEPAGE).route)
+    navigate(applicationRoutes.root.homepage.getPath())
   }
 
   const {
@@ -92,12 +92,12 @@ export default function ExperimentEditPage() {
 
   const onCancel = () =>
     navigate(
-      getPageRouteDetails(PageNames.EXPERIMENT_DETAIL).getPath(experiment.id)
+      applicationRoutes.experiments.experimentDetail.getPath(experiment.id)
     )
 
   return (
     <>
-      <PageTitle pageName={PageNames.EXPERIMENT_EDIT} />
+      <PageTitle pageName={Pages.EXPERIMENT_EDIT} />
 
       <Section>
         <ExperimentForm

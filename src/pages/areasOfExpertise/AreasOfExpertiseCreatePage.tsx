@@ -3,14 +3,14 @@ import { Section } from "../../components/basic/Section"
 import { useFetchData } from "../../hooks/useFetchData"
 import { apiClient } from "../../api/apiClient"
 import { useNavigate } from "react-router"
-import { getPageRouteDetails } from "../../router/utils"
-import { PageNames } from "../../router/types"
+import { Pages } from "../../router/types"
 import { useRedirectToHomepageForRolesExcept } from "../../hooks/useRedirectToHomepageForRolesExcept"
 import { AreaOfExpertiseFromData, UserRole } from "../../api/types"
 import { PageTitle } from "../../components/PageTitle"
 import { AreasOfExpertiseForm } from "./components/AreasOfExpertiseForm"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { useAreasOfExpertiseForm } from "./hooks/useAreasOfExpertiseForm"
+import { applicationRoutes } from "../../router/routes"
 
 export default function AreasOfExpertiseCreatePage() {
   const navigate = useNavigate()
@@ -22,7 +22,7 @@ export default function AreasOfExpertiseCreatePage() {
   )
 
   const onCancel = () =>
-    navigate(getPageRouteDetails(PageNames.AREAS_OF_EXPERTISE).route)
+    navigate(applicationRoutes.areasOfExpertise.areasOfExpertise.getPath())
 
   const onValid = async (data: AreaOfExpertiseFromData) => {
     await createAreaOfExpertise(data.name)
@@ -33,7 +33,7 @@ export default function AreasOfExpertiseCreatePage() {
 
   return (
     <>
-      <PageTitle pageName={PageNames.AREAS_OF_EXPERTISE_EDIT} />
+      <PageTitle pageName={Pages.AREAS_OF_EXPERTISE_EDIT} />
 
       <Section>
         <AreasOfExpertiseForm

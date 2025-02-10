@@ -1,8 +1,7 @@
 import React from "react"
 import { Navigate } from "react-router"
-import { getPageRouteDetails } from "../router/utils"
-import { PageNames } from "../router/types"
+import { applicationRoutes } from "../router/routes"
 
 export default function HomePage() {
-  return <Navigate to={getPageRouteDetails(PageNames.EXPERIMENTS).route} />
+  return <Navigate to={applicationRoutes.experiments.experiments.getPath()} />
 }

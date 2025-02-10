@@ -3,8 +3,7 @@ import { AreaOfExpertise } from "../../../api/types"
 import { Container } from "../../../components/basic/Container"
 import { useUserRole } from "../../../hooks/useUserRole"
 import { useNavigate } from "react-router"
-import { getPageRouteDetails } from "../../../router/utils"
-import { PageNames } from "../../../router/types"
+import { applicationRoutes } from "../../../router/routes"
 
 type Props = AreaOfExpertise & {
   onDelete: (id: number) => void
@@ -22,7 +21,7 @@ export function AreaOfExpertisePreviewCard({ id, name, onDelete }: Props) {
           <button
             onClick={() =>
               navigate(
-                getPageRouteDetails(PageNames.AREAS_OF_EXPERTISE_EDIT).getPath(
+                applicationRoutes.areasOfExpertise.areasOfExpertiseEdit.getPath(
                   id
                 )
               )

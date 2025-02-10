@@ -3,8 +3,7 @@ import { EquipmentDetail } from "../../../api/types"
 import { Container } from "../../../components/basic/Container"
 import { useUserRole } from "../../../hooks/useUserRole"
 import { useNavigate } from "react-router"
-import { getPageRouteDetails } from "../../../router/utils"
-import { PageNames } from "../../../router/types"
+import { applicationRoutes } from "../../../router/routes"
 
 type Props = EquipmentDetail & {
   onDelete: (id: number) => void
@@ -38,9 +37,7 @@ export function EquipmentPreviewCard({
         <>
           <button
             onClick={() =>
-              navigate(
-                getPageRouteDetails(PageNames.EQUIPMENT_EDIT).getPath(id)
-              )
+              navigate(applicationRoutes.equipment.equipmentEdit.getPath(id))
             }
           >
             Edit

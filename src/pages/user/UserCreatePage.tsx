@@ -2,14 +2,14 @@ import React from "react"
 import { apiClient } from "../../api/apiClient"
 import { useFetchData } from "../../hooks/useFetchData"
 import { PageTitle } from "../../components/PageTitle"
-import { PageNames } from "../../router/types"
+import { Pages } from "../../router/types"
 import { Section } from "../../components/basic/Section.styled"
 import { useNavigate } from "react-router"
-import { getPageRouteDetails } from "../../router/utils"
 import { UserForm } from "./components/UserForm"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { UserFormData } from "../../api/types"
 import { useUserForm } from "./hooks/useUserForm"
+import { applicationRoutes } from "../../router/routes"
 
 export default function UserCreatePage() {
   const navigate = useNavigate()
@@ -17,7 +17,7 @@ export default function UserCreatePage() {
   const { fetch: createUser } = useFetchData(apiClient.user.create)
 
   const navigateToUsersPage = () =>
-    navigate(getPageRouteDetails(PageNames.USERS).route)
+    navigate(applicationRoutes.user.users.getPath())
 
   const onValid = async (data: UserFormData) => {
     await createUser(data)
@@ -28,7 +28,7 @@ export default function UserCreatePage() {
 
   return (
     <>
-      <PageTitle pageName={PageNames.USER_EDIT} />
+      <PageTitle pageName={Pages.USER_EDIT} />
 
       <Section>
         <UserForm onSubmit={onSubmit} register={register} errors={errors} />

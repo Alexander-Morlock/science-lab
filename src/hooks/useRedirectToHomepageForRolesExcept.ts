@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router"
 import { UserRole } from "../api/types"
 import { useUser } from "./useUser"
-import { getPageRouteDetails } from "../router/utils"
-import { PageNames } from "../router/types"
 import { useEffect } from "react"
+import { applicationRoutes } from "../router/routes"
 
 export function useRedirectToHomepageForRolesExcept(roles: UserRole[]) {
   const { user } = useUser()
@@ -11,7 +10,7 @@ export function useRedirectToHomepageForRolesExcept(roles: UserRole[]) {
 
   useEffect(() => {
     if (user && !roles.includes(user?.role)) {
-      navigate(getPageRouteDetails(PageNames.HOMEPAGE).route)
+      navigate(applicationRoutes.root.homepage.getPath())
     }
   }, [navigate, roles, user])
 }
