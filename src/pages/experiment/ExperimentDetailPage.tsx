@@ -8,7 +8,7 @@ import { getExperimentDetailFieldPlaceholder as getPlaceholder } from "../../uti
 import { useUserRole } from "../../hooks/useUserRole"
 import { PageTitle } from "../../components/PageTitle"
 import { useGetExperimentDetailsData } from "./hooks/useGetExperimentDetailsData"
-import { applicationRoutes } from "../../router/routes"
+import { applicationPaths } from "../../router/routes"
 import { Pages } from "../../router/constants"
 
 export default function ExperimentDetailPage() {
@@ -38,7 +38,7 @@ export default function ExperimentDetailPage() {
         {isAllowedToEdit && (
           <button
             onClick={() =>
-              navigate(applicationRoutes.experiments.edit.getPath(Number(id)))
+              navigate(applicationPaths.experimentsPaths.edit(Number(id)))
             }
           >
             Edit

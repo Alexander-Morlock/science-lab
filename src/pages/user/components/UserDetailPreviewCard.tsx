@@ -4,7 +4,7 @@ import { User } from "../../../api/types"
 import { useNavigate } from "react-router"
 import { useUser } from "../../../hooks/useUser"
 import { useUserRole } from "../../../hooks/useUserRole"
-import { applicationRoutes } from "../../../router/routes"
+import { applicationPaths } from "../../../router/routes"
 
 export function UserDetailPreviewCard({ id, name, email, role }: User) {
   const { isAdmin } = useUserRole()
@@ -13,7 +13,7 @@ export function UserDetailPreviewCard({ id, name, email, role }: User) {
 
   const navigate = useNavigate()
   const navigateToUserEditPage = () =>
-    navigate(applicationRoutes.user.edit.getPath(id))
+    navigate(applicationPaths.usersPaths.edit(id))
 
   return (
     <Container>

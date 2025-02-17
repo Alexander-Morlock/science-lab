@@ -13,7 +13,7 @@ import { convertEquipmentFormData } from "../../utils/utils"
 import { PageTitle } from "../../components/PageTitle"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { useEquipmentForm } from "./hooks/useEquipmentForm"
-import { applicationRoutes } from "../../router/routes"
+import { applicationPaths } from "../../router/routes"
 import { Pages } from "../../router/constants"
 
 export default function EquipmentCreatePage() {
@@ -37,12 +37,12 @@ export default function EquipmentCreatePage() {
     }
 
     await createEquipment(convertEquipmentFormData(data, experiments))
-    navigate(applicationRoutes.equipment.getAll.getPath())
+    navigate(applicationPaths.equipmentPaths.equipment())
   }
 
   const { onSubmit, register, errors } = useEquipmentForm(onValid)
 
-  const onCancel = () => navigate(applicationRoutes.equipment.getAll.getPath())
+  const onCancel = () => navigate(applicationPaths.equipmentPaths.equipment())
 
   if (!experiments) {
     return isLoading ? <Loader /> : <NoContent />

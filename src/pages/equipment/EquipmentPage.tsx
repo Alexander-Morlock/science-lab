@@ -9,7 +9,7 @@ import { EquipmentPreviewCard } from "./components/EquipmentPreviewCard"
 import { useUserRole } from "../../hooks/useUserRole"
 import { useNavigate } from "react-router"
 import { PageTitle } from "../../components/PageTitle"
-import { applicationRoutes } from "../../router/routes"
+import { applicationPaths } from "../../router/routes"
 import { Pages } from "../../router/constants"
 
 export default function EquipmentPage() {
@@ -49,9 +49,7 @@ export default function EquipmentPage() {
         </Container>
         {isAdmin && (
           <button
-            onClick={() =>
-              navigate(applicationRoutes.equipment.create.getPath())
-            }
+            onClick={() => navigate(applicationPaths.equipmentPaths.create())}
           >
             Create
           </button>

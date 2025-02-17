@@ -12,7 +12,7 @@ import { UserForm } from "./components/UserForm"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { UserFormData } from "../../api/types"
 import { useUserForm } from "./hooks/useUserForm"
-import { applicationRoutes } from "../../router/routes"
+import { applicationPaths } from "../../router/routes"
 import { Pages } from "../../router/constants"
 
 export default function UserEditPage() {
@@ -36,7 +36,7 @@ export default function UserEditPage() {
   )
 
   const navigateToUsersPage = () =>
-    navigate(applicationRoutes.user.getAll.getPath())
+    navigate(applicationPaths.usersPaths.users())
 
   const onValid = async (data: UserFormData) => {
     await updateUser({ ...data, id: Number(id) })
@@ -67,7 +67,7 @@ export default function UserEditPage() {
   }, [isInitialized, setValue, userDetail])
 
   if (!(isAdmin || isCurrentUser))
-    return <Navigate to={applicationRoutes.user.getAll.getPath()} />
+    return <Navigate to={applicationPaths.usersPaths.users()} />
 
   if (!userDetail) {
     return isLoading ? <Loader /> : <NoContent />

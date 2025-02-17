@@ -3,7 +3,7 @@ import { Experiment } from "../../../api/types"
 import { Container } from "../../../components/basic/Container"
 import { getExperimentDetailFieldPlaceholder as getPlaceholder } from "../../../utils/utils"
 import { useNavigate } from "react-router"
-import { applicationRoutes } from "../../../router/routes"
+import { applicationPaths } from "../../../router/routes"
 
 type Props = Pick<
   Experiment,
@@ -22,8 +22,7 @@ export function ExperimentPreviewCard({
 }: Props) {
   const navigate = useNavigate()
 
-  const onClick = () =>
-    navigate(applicationRoutes.experiments.detail.getPath(id))
+  const onClick = () => navigate(applicationPaths.experimentsPaths.detail(id))
 
   return (
     <Container colorizeBackgroundColorOnHover onClick={onClick}>

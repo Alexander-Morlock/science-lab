@@ -1,23 +1,46 @@
+/* eslint-disable no-redeclare */
 import { useCallback, useEffect, useState } from "react"
 import { useSnackbar } from "./useSnackbar"
 import { SnackbarMessageType } from "../utils/types"
 import { AxiosError, AxiosResponse } from "axios"
 
-export function useFetchData<T, A>(
-  apiCallFn: (...args: A[]) => Promise<AxiosResponse<T | undefined>>,
-  options?: {
-    onSuccess?: (response: T | undefined) => void
-    onError?: (error: unknown) => void
-    autofetch?: boolean
-  }
-): {
-  fetch: (...args: A[]) => Promise<T | undefined>
+type useFetchDataOptions<TResponse> = {
+  onSuccess?: (response: TResponse | undefined) => void
+  onError?: (error: unknown) => void
+  autofetch?: boolean
+}
+
+type UseFetchDataOutput<TResponse, TFetch> = {
+  fetch: TFetch
   isLoading: boolean
-  data?: T
-} {
+  data?: TResponse
+}
+
+export function useFetchData<TResponse>(
+  apiCallFn: (
+    params?: undefined
+  ) => Promise<AxiosResponse<TResponse | undefined>>,
+  options?: useFetchDataOptions<TResponse>
+): UseFetchDataOutput<
+  TResponse,
+  (params?: undefined) => Promise<TResponse | undefined>
+>
+export function useFetchData<TResponse, TParams>(
+  apiCallFn: (params: TParams) => Promise<AxiosResponse<TResponse | undefined>>,
+  options?: useFetchDataOptions<TResponse>
+): UseFetchDataOutput<
+  TResponse,
+  (params: TParams) => Promise<TResponse | undefined>
+>
+export function useFetchData<TResponse, TParams>(
+  apiCallFn: (
+    params?: TParams
+  ) => Promise<AxiosResponse<TResponse | undefined>>,
+  options?: useFetchDataOptions<TResponse>
+) {
   const [isLoading, setIsLoading] = useState(false)
   const [isFetched, setIsFetched] = useState(false)
-  const [data, setData] = useState<T | undefined>()
+  const [data, setData] = useState<TResponse | undefined>()
 
   const { showSnackbar } = useSnackbar()
 
@@ -41,12 +64,12 @@ export function useFetchData<T, A>(
   )
 
   const fetch = useCallback(
-    (...args: A[]) => {
+    (params: TParams) => {
       setData(undefined)
       setIsFetched(false)
       setIsLoading(true)
 
-      return apiCallFn(...args)
+      return apiCallFn(params)
         .then(({ data }) => {
           setData(data)
           setIsFetched(true)
@@ -67,7 +90,7 @@ export function useFetchData<T, A>(
       return
     }
 
-    fetch()
+    fetch(undefined as TParams)
   }, [data, fetch, isFetched, isLoading, options?.autofetch])
 
   return { data, isLoading, fetch }

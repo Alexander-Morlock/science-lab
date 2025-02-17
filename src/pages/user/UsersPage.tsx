@@ -9,14 +9,14 @@ import { Section } from "../../components/basic/Section.styled"
 import { UserDetailPreviewCard } from "./components/UserDetailPreviewCard"
 import { useNavigate } from "react-router"
 import { useUserRole } from "../../hooks/useUserRole"
-import { applicationRoutes } from "../../router/routes"
+import { applicationPaths } from "../../router/routes"
 import { Pages } from "../../router/constants"
 
 export default function UsersPage() {
   const { isAdmin } = useUserRole()
   const navigate = useNavigate()
   const navigateToCreateUserPage = () =>
-    navigate(applicationRoutes.user.create.getPath())
+    navigate(applicationPaths.usersPaths.create())
 
   const { data: users, isLoading } = useFetchData(apiClient.user.getAll, {
     autofetch: true,

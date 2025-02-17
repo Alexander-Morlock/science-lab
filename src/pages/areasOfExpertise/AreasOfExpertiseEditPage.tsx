@@ -12,7 +12,7 @@ import { PageTitle } from "../../components/PageTitle"
 import { AreasOfExpertiseForm } from "./components/AreasOfExpertiseForm"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { useAreasOfExpertiseForm } from "./hooks/useAreasOfExpertiseForm"
-import { applicationRoutes } from "../../router/routes"
+import { applicationPaths } from "../../router/routes"
 import { Pages } from "../../router/constants"
 
 export default function AreasOfExpertiseEditPage() {
@@ -38,7 +38,7 @@ export default function AreasOfExpertiseEditPage() {
   )
 
   const navigateToAreasOfExpertisePage = () =>
-    navigate(applicationRoutes.areasOfExpertise.getAll.getPath())
+    navigate(applicationPaths.areasOfExpertisePaths.areasOfExpertise())
 
   const onDelete = async () => {
     await deleteAreaOfExpertise(Number(id))

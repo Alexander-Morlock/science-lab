@@ -16,7 +16,7 @@ import {
 import { PageTitle } from "../../components/PageTitle"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { useEquipmentForm } from "./hooks/useEquipmentForm"
-import { applicationRoutes } from "../../router/routes"
+import { applicationPaths } from "../../router/routes"
 import { Pages } from "../../router/constants"
 
 export default function EquipmentEditPage() {
@@ -50,14 +50,14 @@ export default function EquipmentEditPage() {
     }
 
     await updateEquipment(convertEquipmentFormData(data, experiments))
-    navigate(applicationRoutes.equipment.getAll.getPath())
+    navigate(applicationPaths.equipmentPaths.equipment())
   }
 
   const { onSubmit, register, errors, clearErrors, setValue } =
     useEquipmentForm(onValid)
 
   const navigateToEquipmentPage = () =>
-    navigate(applicationRoutes.equipment.getAll.getPath())
+    navigate(applicationPaths.equipmentPaths.equipment())
 
   const onReset = () => {
     setIsInitialized(false)

@@ -9,7 +9,7 @@ import { useUserRole } from "../../hooks/useUserRole"
 import { useNavigate } from "react-router"
 import { AreaOfExpertisePreviewCard } from "./components/AreaOfExpertisePreviewCard"
 import { PageTitle } from "../../components/PageTitle"
-import { applicationRoutes } from "../../router/routes"
+import { applicationPaths } from "../../router/routes"
 import { Pages } from "../../router/constants"
 
 export default function AreasOfExpertisePage() {
@@ -52,7 +52,7 @@ export default function AreasOfExpertisePage() {
         {isAdmin && (
           <button
             onClick={() =>
-              navigate(applicationRoutes.areasOfExpertise.create.getPath())
+              navigate(applicationPaths.areasOfExpertisePaths.create())
             }
           >
             Create
