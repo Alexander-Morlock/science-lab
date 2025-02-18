@@ -27,3 +27,9 @@ export const areasOfExpertiseRoutes = {
     element: AreasOfExpertiseCreatePage,
   }),
 }
+
+export const areasOfExpertisePaths = {
+  areasOfExpertise: areasOfExpertiseRoutes[Pages.AREAS_OF_EXPERTISE].getPath,
+  edit: areasOfExpertiseRoutes[Pages.AREAS_OF_EXPERTISE_EDIT].getPath,
+  create: areasOfExpertiseRoutes[Pages.AREAS_OF_EXPERTISE_CREATE_NEW].getPath,
+}

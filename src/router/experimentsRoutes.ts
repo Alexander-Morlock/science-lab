@@ -35,3 +35,10 @@ export const experimentsRoutes = {
     element: ExperimentDetailPage,
   }),
 }
+
+export const experimentsPaths = {
+  experiments: experimentsRoutes[Pages.EXPERIMENTS].getPath,
+  detail: experimentsRoutes[Pages.EXPERIMENT_DETAIL].getPath,
+  edit: experimentsRoutes[Pages.EXPERIMENT_EDIT].getPath,
+  create: experimentsRoutes[Pages.EXPERIMENT_CREATE_NEW].getPath,
+}

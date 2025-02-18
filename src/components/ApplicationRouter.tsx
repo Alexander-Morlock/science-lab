@@ -1,7 +1,7 @@
 import React from "react"
 import { BrowserRouter, Routes, Route } from "react-router"
 import { ApplicationLayout } from "./layout/ApplicationLayout"
-import { flattenRoutes } from "../router/routes"
+import { applicationRoutes } from "../router/routes"
 import PageNotFound from "../pages/NotFoundPage"
 import { useUser } from "../hooks/useUser"
 import { apiClient } from "../api/apiClient"
@@ -32,7 +32,7 @@ export function ApplicationRouter() {
     <BrowserRouter>
       <ApplicationLayout>
         <Routes>
-          {Object.entries(flattenRoutes).map(
+          {Object.entries(applicationRoutes).map(
             ([page, { route, element: Element }]) => {
               return <Route key={page} path={route} element={<Element />} />
             }

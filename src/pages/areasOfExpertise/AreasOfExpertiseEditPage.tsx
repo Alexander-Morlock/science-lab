@@ -12,8 +12,8 @@ import { PageTitle } from "../../components/PageTitle"
 import { AreasOfExpertiseForm } from "./components/AreasOfExpertiseForm"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { useAreasOfExpertiseForm } from "./hooks/useAreasOfExpertiseForm"
-import { applicationPaths } from "../../router/routes"
 import { Pages } from "../../router/constants"
+import { areasOfExpertisePaths } from "../../router/areasOfExpertiseRoutes"
 
 export default function AreasOfExpertiseEditPage() {
   const { isAdmin } = useUserRole()
@@ -38,7 +38,7 @@ export default function AreasOfExpertiseEditPage() {
   )
 
   const navigateToAreasOfExpertisePage = () =>
-    navigate(applicationPaths.areasOfExpertisePaths.areasOfExpertise())
+    navigate(areasOfExpertisePaths.areasOfExpertise())
 
   const onDelete = async () => {
     await deleteAreaOfExpertise(Number(id))

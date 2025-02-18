@@ -13,8 +13,8 @@ import { convertEquipmentFormData } from "../../utils/utils"
 import { PageTitle } from "../../components/PageTitle"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { useEquipmentForm } from "./hooks/useEquipmentForm"
-import { applicationPaths } from "../../router/routes"
 import { Pages } from "../../router/constants"
+import { equipmentPaths } from "../../router/equipmentRoutes"
 
 export default function EquipmentCreatePage() {
   const { isAdmin } = useUserRole()
@@ -37,12 +37,12 @@ export default function EquipmentCreatePage() {
     }
 
     await createEquipment(convertEquipmentFormData(data, experiments))
-    navigate(applicationPaths.equipmentPaths.equipment())
+    navigate(equipmentPaths.equipment())
   }
 
   const { onSubmit, register, errors } = useEquipmentForm(onValid)
 
-  const onCancel = () => navigate(applicationPaths.equipmentPaths.equipment())
+  const onCancel = () => navigate(equipmentPaths.equipment())
 
   if (!experiments) {
     return isLoading ? <Loader /> : <NoContent />

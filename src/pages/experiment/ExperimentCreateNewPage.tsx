@@ -12,8 +12,9 @@ import { useRedirectToHomepageForRolesExcept } from "../../hooks/useRedirectToHo
 import { PageTitle } from "../../components/PageTitle"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { useExperimentForm } from "./hooks/useExperimentForm"
-import { applicationPaths } from "../../router/routes"
 import { Pages } from "../../router/constants"
+import { experimentsPaths } from "../../router/experimentsRoutes"
+import { rootPaths } from "../../router/rootRoutes"
 
 export default function ExperimentCreateNewPage() {
   const navigate = useNavigate()
@@ -25,7 +26,7 @@ export default function ExperimentCreateNewPage() {
   const onValid = async (data: ExperimentFormData) => {
     const res = await updateExperiment(convertExperimentFormData(data))
     if (res?.id) {
-      navigate(applicationPaths.experimentsPaths.detail(res.id))
+      navigate(experimentsPaths.detail(res.id))
     }
   }
 
@@ -39,7 +40,7 @@ export default function ExperimentCreateNewPage() {
     equipment,
   } = useExperimentForm(onValid)
 
-  const onCancel = () => navigate(applicationPaths.rootPaths.homepage())
+  const onCancel = () => navigate(rootPaths.homepage())
 
   if (!users || !areasOfExpertise || !equipment) {
     return isLoading ? <Loader /> : <NoContent />

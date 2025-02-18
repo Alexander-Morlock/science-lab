@@ -27,3 +27,9 @@ export const userRoutes = {
     element: UserCreatePage,
   }),
 }
+
+export const userPaths = {
+  users: userRoutes[Pages.USERS].getPath,
+  edit: userRoutes[Pages.USER_EDIT].getPath,
+  create: userRoutes[Pages.USER_CREATE].getPath,
+}

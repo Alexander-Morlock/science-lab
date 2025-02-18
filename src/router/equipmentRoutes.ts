@@ -27,3 +27,9 @@ export const equipmentRoutes = {
     element: EquipmentCreatePage,
   }),
 }
+
+export const equipmentPaths = {
+  equipment: equipmentRoutes[Pages.EQUIPMENT].getPath,
+  edit: equipmentRoutes[Pages.EQUIPMENT_EDIT].getPath,
+  create: equipmentRoutes[Pages.EQUIPMENT_CREATE].getPath,
+}

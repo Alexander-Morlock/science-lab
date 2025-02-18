@@ -3,7 +3,7 @@ import { EquipmentDetail } from "../../../api/types"
 import { Container } from "../../../components/basic/Container"
 import { useUserRole } from "../../../hooks/useUserRole"
 import { useNavigate } from "react-router"
-import { applicationPaths } from "../../../router/routes"
+import { equipmentPaths } from "../../../router/equipmentRoutes"
 
 type Props = EquipmentDetail & {
   onDelete: (id: number) => void
@@ -35,9 +35,7 @@ export function EquipmentPreviewCard({
       </ul>
       {isAdmin && (
         <>
-          <button
-            onClick={() => navigate(applicationPaths.equipmentPaths.edit(id))}
-          >
+          <button onClick={() => navigate(equipmentPaths.edit(id))}>
             Edit
           </button>
           <button onClick={() => onDelete(id)}>Delete</button>

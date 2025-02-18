@@ -8,16 +8,15 @@ import { UserForm } from "./components/UserForm"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { UserFormData } from "../../api/types"
 import { useUserForm } from "./hooks/useUserForm"
-import { applicationPaths } from "../../router/routes"
 import { Pages } from "../../router/constants"
+import { userPaths } from "../../router/userRoutes"
 
 export default function UserCreatePage() {
   const navigate = useNavigate()
 
   const { fetch: createUser } = useFetchData(apiClient.user.create)
 
-  const navigateToUsersPage = () =>
-    navigate(applicationPaths.usersPaths.users())
+  const navigateToUsersPage = () => navigate(userPaths.users())
 
   const onValid = async (data: UserFormData) => {
     await createUser(data)

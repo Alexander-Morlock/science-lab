@@ -9,8 +9,8 @@ import { EquipmentPreviewCard } from "./components/EquipmentPreviewCard"
 import { useUserRole } from "../../hooks/useUserRole"
 import { useNavigate } from "react-router"
 import { PageTitle } from "../../components/PageTitle"
-import { applicationPaths } from "../../router/routes"
 import { Pages } from "../../router/constants"
+import { equipmentPaths } from "../../router/equipmentRoutes"
 
 export default function EquipmentPage() {
   const { isAdmin } = useUserRole()
@@ -48,9 +48,7 @@ export default function EquipmentPage() {
           ))}
         </Container>
         {isAdmin && (
-          <button
-            onClick={() => navigate(applicationPaths.equipmentPaths.create())}
-          >
+          <button onClick={() => navigate(equipmentPaths.create())}>
             Create
           </button>
         )}

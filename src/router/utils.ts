@@ -1,5 +1,5 @@
 import { PageRoute, PageRouteDetails } from "./types"
-import { flattenRoutes } from "./routes"
+import { applicationRoutes } from "./routes"
 import { Pages } from "./constants"
 
 type CreatePageRouteProps<TPages, TGetPathFunc> = {
@@ -27,5 +27,5 @@ export function createPageRoute<
 }
 
 export function getRouteDetails(page: Pages) {
-  return flattenRoutes[page]
+  return applicationRoutes[page]
 }

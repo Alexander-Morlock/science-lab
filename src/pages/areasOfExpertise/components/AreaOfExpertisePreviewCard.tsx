@@ -3,7 +3,7 @@ import { AreaOfExpertise } from "../../../api/types"
 import { Container } from "../../../components/basic/Container"
 import { useUserRole } from "../../../hooks/useUserRole"
 import { useNavigate } from "react-router"
-import { applicationPaths } from "../../../router/routes"
+import { areasOfExpertisePaths } from "../../../router/areasOfExpertiseRoutes"
 
 type Props = AreaOfExpertise & {
   onDelete: (id: number) => void
@@ -18,11 +18,7 @@ export function AreaOfExpertisePreviewCard({ id, name, onDelete }: Props) {
       <h3>{name}</h3>
       {isAdmin && (
         <>
-          <button
-            onClick={() =>
-              navigate(applicationPaths.areasOfExpertisePaths.edit(id))
-            }
-          >
+          <button onClick={() => navigate(areasOfExpertisePaths.edit(id))}>
             Edit
           </button>
           <button onClick={() => onDelete(id)}>Delete</button>

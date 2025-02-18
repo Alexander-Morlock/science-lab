@@ -9,8 +9,8 @@ import { useUserRole } from "../../hooks/useUserRole"
 import { useNavigate } from "react-router"
 import { AreaOfExpertisePreviewCard } from "./components/AreaOfExpertisePreviewCard"
 import { PageTitle } from "../../components/PageTitle"
-import { applicationPaths } from "../../router/routes"
 import { Pages } from "../../router/constants"
+import { areasOfExpertisePaths } from "../../router/areasOfExpertiseRoutes"
 
 export default function AreasOfExpertisePage() {
   const { isAdmin } = useUserRole()
@@ -50,11 +50,7 @@ export default function AreasOfExpertisePage() {
           ))}
         </Container>
         {isAdmin && (
-          <button
-            onClick={() =>
-              navigate(applicationPaths.areasOfExpertisePaths.create())
-            }
-          >
+          <button onClick={() => navigate(areasOfExpertisePaths.create())}>
             Create
           </button>
         )}

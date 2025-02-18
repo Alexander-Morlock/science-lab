@@ -17,8 +17,9 @@ import { PageTitle } from "../../components/PageTitle"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { useExperimentForm } from "./hooks/useExperimentForm"
 import { useGetExperimentDetailsData } from "./hooks/useGetExperimentDetailsData"
-import { applicationPaths } from "../../router/routes"
 import { Pages } from "../../router/constants"
+import { experimentsPaths } from "../../router/experimentsRoutes"
+import { rootPaths } from "../../router/rootRoutes"
 
 export default function ExperimentEditPage() {
   const { id } = useParams()
@@ -40,12 +41,12 @@ export default function ExperimentEditPage() {
 
   const onValid = async (data: ExperimentFormData) => {
     await updateExperiment(convertExperimentFormData(data))
-    navigate(applicationPaths.experimentsPaths.detail(data.id))
+    navigate(experimentsPaths.detail(data.id))
   }
 
   const onDelete = async () => {
     await deleteExperiment(Number(id))
-    navigate(applicationPaths.rootPaths.homepage())
+    navigate(rootPaths.homepage())
   }
 
   const {
@@ -90,8 +91,7 @@ export default function ExperimentEditPage() {
     return isLoading || isLoadingExperiment ? <Loader /> : <NoContent />
   }
 
-  const onCancel = () =>
-    navigate(applicationPaths.experimentsPaths.detail(experiment.id))
+  const onCancel = () => navigate(experimentsPaths.detail(experiment.id))
 
   return (
     <>

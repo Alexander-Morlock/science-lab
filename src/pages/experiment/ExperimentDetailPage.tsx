@@ -8,8 +8,8 @@ import { getExperimentDetailFieldPlaceholder as getPlaceholder } from "../../uti
 import { useUserRole } from "../../hooks/useUserRole"
 import { PageTitle } from "../../components/PageTitle"
 import { useGetExperimentDetailsData } from "./hooks/useGetExperimentDetailsData"
-import { applicationPaths } from "../../router/routes"
 import { Pages } from "../../router/constants"
+import { experimentsPaths } from "../../router/experimentsRoutes"
 
 export default function ExperimentDetailPage() {
   const { id } = useParams()
@@ -36,11 +36,7 @@ export default function ExperimentDetailPage() {
           </ul>
         </Container>
         {isAllowedToEdit && (
-          <button
-            onClick={() =>
-              navigate(applicationPaths.experimentsPaths.edit(Number(id)))
-            }
-          >
+          <button onClick={() => navigate(experimentsPaths.edit(Number(id)))}>
             Edit
           </button>
         )}

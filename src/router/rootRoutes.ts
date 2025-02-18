@@ -11,3 +11,7 @@ export const rootRoutes = {
     element: HomePage,
   }),
 }
+
+export const rootPaths = {
+  homepage: rootRoutes[Pages.HOMEPAGE].getPath,
+}

@@ -9,8 +9,8 @@ import { PageTitle } from "../../components/PageTitle"
 import { AreasOfExpertiseForm } from "./components/AreasOfExpertiseForm"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { useAreasOfExpertiseForm } from "./hooks/useAreasOfExpertiseForm"
-import { applicationPaths } from "../../router/routes"
 import { Pages } from "../../router/constants"
+import { areasOfExpertisePaths } from "../../router/areasOfExpertiseRoutes"
 
 export default function AreasOfExpertiseCreatePage() {
   const navigate = useNavigate()
@@ -21,8 +21,7 @@ export default function AreasOfExpertiseCreatePage() {
     apiClient.areasOfExpertise.create
   )
 
-  const onCancel = () =>
-    navigate(applicationPaths.areasOfExpertisePaths.areasOfExpertise())
+  const onCancel = () => navigate(areasOfExpertisePaths.areasOfExpertise())
 
   const onValid = async (data: AreaOfExpertiseFromData) => {
     await createAreaOfExpertise(data.name)
