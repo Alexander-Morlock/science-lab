@@ -7,7 +7,7 @@ import { Container } from "../../components/basic/Container"
 import { apiClient } from "../../api/apiClient"
 import { useFetchData } from "../../hooks/useFetchData"
 import { PageTitle } from "../../components/PageTitle"
-import { Pages } from "../../router/constants"
+import { Pages } from "../../router/types"
 
 export default function ExperimentsPage() {
   const { data: users, isLoading: isLoadingUsers } = useFetchData(

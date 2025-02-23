@@ -3,7 +3,7 @@ import ExperimentEditPage from "../pages/experiment/ExperimentEditPage"
 import ExperimentDetailPage from "../pages/experiment/ExperimentDetailPage"
 import ExperimentsPage from "../pages/experiment/ExperimentsPage"
 import { createPageRoute } from "./utils"
-import { Pages } from "./constants"
+import { Pages } from "./types"
 
 export const experimentsRoutes = {
   ...createPageRoute({

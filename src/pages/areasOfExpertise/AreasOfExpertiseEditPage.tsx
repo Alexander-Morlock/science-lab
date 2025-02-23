@@ -12,7 +12,7 @@ import { PageTitle } from "../../components/PageTitle"
 import { AreasOfExpertiseForm } from "./components/AreasOfExpertiseForm"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { useAreasOfExpertiseForm } from "./hooks/useAreasOfExpertiseForm"
-import { Pages } from "../../router/constants"
+import { Pages } from "../../router/types"
 import { areasOfExpertisePaths } from "../../router/areasOfExpertiseRoutes"
 
 export default function AreasOfExpertiseEditPage() {

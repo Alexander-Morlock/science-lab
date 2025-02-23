@@ -9,7 +9,7 @@ import { EquipmentPreviewCard } from "./components/EquipmentPreviewCard"
 import { useUserRole } from "../../hooks/useUserRole"
 import { useNavigate } from "react-router"
 import { PageTitle } from "../../components/PageTitle"
-import { Pages } from "../../router/constants"
+import { Pages } from "../../router/types"
 import { equipmentPaths } from "../../router/equipmentRoutes"
 
 export default function EquipmentPage() {

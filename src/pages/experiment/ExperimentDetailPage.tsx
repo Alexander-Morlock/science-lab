@@ -8,7 +8,7 @@ import { getExperimentDetailFieldPlaceholder as getPlaceholder } from "../../uti
 import { useUserRole } from "../../hooks/useUserRole"
 import { PageTitle } from "../../components/PageTitle"
 import { useGetExperimentDetailsData } from "./hooks/useGetExperimentDetailsData"
-import { Pages } from "../../router/constants"
+import { Pages } from "../../router/types"
 import { experimentsPaths } from "../../router/experimentsRoutes"
 
 export default function ExperimentDetailPage() {

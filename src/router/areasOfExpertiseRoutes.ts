@@ -1,7 +1,7 @@
 import AreasOfExpertiseCreatePage from "../pages/areasOfExpertise/AreasOfExpertiseCreatePage"
 import AreasOfExpertiseEditPage from "../pages/areasOfExpertise/AreasOfExpertiseEditPage"
 import AreasOfExpertisePage from "../pages/areasOfExpertise/AreasOfExpertisePage"
-import { Pages } from "./constants"
+import { Pages } from "./types"
 import { createPageRoute } from "./utils"
 
 export const areasOfExpertiseRoutes = {

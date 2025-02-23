@@ -1,5 +1,5 @@
 import HomePage from "../pages/HomePage"
-import { Pages } from "./constants"
+import { Pages } from "./types"
 import { createPageRoute } from "./utils"
 
 export const rootRoutes = {

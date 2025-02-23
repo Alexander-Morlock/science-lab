@@ -12,7 +12,7 @@ import { useRedirectToHomepageForRolesExcept } from "../../hooks/useRedirectToHo
 import { PageTitle } from "../../components/PageTitle"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { useExperimentForm } from "./hooks/useExperimentForm"
-import { Pages } from "../../router/constants"
+import { Pages } from "../../router/types"
 import { experimentsPaths } from "../../router/experimentsRoutes"
 import { rootPaths } from "../../router/rootRoutes"
 

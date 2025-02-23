@@ -9,7 +9,7 @@ import { useUserRole } from "../../hooks/useUserRole"
 import { useNavigate } from "react-router"
 import { AreaOfExpertisePreviewCard } from "./components/AreaOfExpertisePreviewCard"
 import { PageTitle } from "../../components/PageTitle"
-import { Pages } from "../../router/constants"
+import { Pages } from "../../router/types"
 import { areasOfExpertisePaths } from "../../router/areasOfExpertiseRoutes"
 
 export default function AreasOfExpertisePage() {

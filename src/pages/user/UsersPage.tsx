@@ -9,7 +9,7 @@ import { Section } from "../../components/basic/Section.styled"
 import { UserDetailPreviewCard } from "./components/UserDetailPreviewCard"
 import { useNavigate } from "react-router"
 import { useUserRole } from "../../hooks/useUserRole"
-import { Pages } from "../../router/constants"
+import { Pages } from "../../router/types"
 import { userPaths } from "../../router/userRoutes"
 
 export default function UsersPage() {

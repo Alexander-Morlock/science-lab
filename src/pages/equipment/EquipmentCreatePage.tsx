@@ -13,7 +13,7 @@ import { convertEquipmentFormData } from "../../utils/utils"
 import { PageTitle } from "../../components/PageTitle"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { useEquipmentForm } from "./hooks/useEquipmentForm"
-import { Pages } from "../../router/constants"
+import { Pages } from "../../router/types"
 import { equipmentPaths } from "../../router/equipmentRoutes"
 
 export default function EquipmentCreatePage() {

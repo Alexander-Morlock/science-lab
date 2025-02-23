@@ -8,7 +8,7 @@ import { UserForm } from "./components/UserForm"
 import { FormPageFooter } from "../../components/FormPageFooter"
 import { UserFormData } from "../../api/types"
 import { useUserForm } from "./hooks/useUserForm"
-import { Pages } from "../../router/constants"
+import { Pages } from "../../router/types"
 import { userPaths } from "../../router/userRoutes"
 
 export default function UserCreatePage() {

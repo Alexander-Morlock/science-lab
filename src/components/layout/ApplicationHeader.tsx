@@ -4,7 +4,7 @@ import * as Styled from "./ApplicationLayout.styled"
 import { getRouteDetails } from "../../router/utils"
 import { useUserRole } from "../../hooks/useUserRole"
 import { useUser } from "../../hooks/useUser"
-import { Pages } from "../../router/constants"
+import { Pages } from "../../router/types"
 
 export function ApplicationHeader() {
   const { isScientist, isAdmin } = useUserRole()

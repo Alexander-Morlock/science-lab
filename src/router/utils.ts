@@ -1,6 +1,6 @@
 import { PageRoute, PageRouteDetails } from "./types"
 import { applicationRoutes } from "./routes"
-import { Pages } from "./constants"
+import { Pages } from "./types"
 
 type CreatePageRouteProps<TPages, TGetPathFunc> = {
   page: TPages
