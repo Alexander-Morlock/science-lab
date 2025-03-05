@@ -5,6 +5,7 @@ import ErrorBoundary from "./ErrorBoundary"
 import { SnackbarContextProvider } from "./providers/SnackbarContextProvider"
 import { TanStackQueryClientProvider as QueryClientProvider } from "./providers/TanStackQueryClientProvider"
 import { QueryClient } from "@tanstack/react-query"
+import { ApplicationInitializer } from "./ApplicationInitializer"
 
 const queryClient = new QueryClient()
 
@@ -14,7 +15,9 @@ export default function Application() {
       <QueryClientProvider queryClient={queryClient}>
         <SnackbarContextProvider>
           <UserContextProvider>
-            <ApplicationRouter />
+            <ApplicationInitializer>
+              <ApplicationRouter />
+            </ApplicationInitializer>
           </UserContextProvider>
         </SnackbarContextProvider>
       </QueryClientProvider>
