@@ -11,6 +11,7 @@ import { AreaOfExpertisePreviewCard } from "./components/AreaOfExpertisePreviewC
 import { PageTitle } from "../../components/PageTitle"
 import { Pages } from "../../router/types"
 import { areasOfExpertisePaths } from "../../router/areasOfExpertiseRoutes"
+import { useQuery } from "@tanstack/react-query"
 
 export default function AreasOfExpertisePage() {
   const { isAdmin } = useUserRole()
@@ -19,8 +20,11 @@ export default function AreasOfExpertisePage() {
   const {
     data: areasOfExpertise,
     isLoading,
-    fetch: refetchAreasOfExpertise,
-  } = useFetchData(apiClient.areasOfExpertise.getAll, { autofetch: true })
+    refetch: refetchAreasOfExpertise,
+  } = useQuery({
+    queryKey: ["areasOfExpertise.getAll"],
+    queryFn: apiClient.areasOfExpertise.getAll,
+  })
 
   const { fetch: deleteAreaOfExpertise } = useFetchData(
     apiClient.areasOfExpertise.delete

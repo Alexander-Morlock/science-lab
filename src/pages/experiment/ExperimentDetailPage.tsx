@@ -12,7 +12,8 @@ import { Pages } from "../../router/types"
 import { experimentsPaths } from "../../router/experimentsRoutes"
 
 export default function ExperimentDetailPage() {
-  const { id } = useParams()
+  const id = Number(useParams().id)
+
   const navigate = useNavigate()
   const { isAdmin, isScientist, isLabTechnician } = useUserRole()
   const isAllowedToEdit = isAdmin || isScientist || isLabTechnician
@@ -36,7 +37,7 @@ export default function ExperimentDetailPage() {
           </ul>
         </Container>
         {isAllowedToEdit && (
-          <button onClick={() => navigate(experimentsPaths.edit(Number(id)))}>
+          <button onClick={() => navigate(experimentsPaths.edit(id))}>
             Edit
           </button>
         )}

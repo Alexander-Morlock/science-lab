@@ -1,8 +1,8 @@
 import React, { useState, PropsWithChildren } from "react"
-import { UserContext } from "../context/userContext"
-import { User } from "../api/types"
+import { UserContext } from "../../context/userContext"
+import { User } from "../../api/types"
 
-export function UserContextProvider({ children }: PropsWithChildren) {
+export function UserContextProvider({ children }: PropsWithChildren<{}>) {
   const [user, setUser] = useState<User>()
 
   return (

@@ -11,6 +11,7 @@ import { useNavigate } from "react-router"
 import { PageTitle } from "../../components/PageTitle"
 import { Pages } from "../../router/types"
 import { equipmentPaths } from "../../router/equipmentRoutes"
+import { useQuery } from "@tanstack/react-query"
 
 export default function EquipmentPage() {
   const { isAdmin } = useUserRole()
@@ -19,8 +20,11 @@ export default function EquipmentPage() {
   const {
     data: equipment,
     isLoading,
-    fetch: refetchEquipment,
-  } = useFetchData(apiClient.equipment.getAll, { autofetch: true })
+    refetch: refetchEquipment,
+  } = useQuery({
+    queryKey: ["equipment.getAll"],
+    queryFn: apiClient.equipment.getAll,
+  })
 
   const { fetch: deleteEquipment } = useFetchData(apiClient.equipment.delete)
 

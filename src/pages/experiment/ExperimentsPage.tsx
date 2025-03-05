@@ -5,20 +5,20 @@ import { ExperimentPreviewCard } from "./components/ExperimentPreviewCard"
 import { Section } from "../../components/basic/Section"
 import { Container } from "../../components/basic/Container"
 import { apiClient } from "../../api/apiClient"
-import { useFetchData } from "../../hooks/useFetchData"
 import { PageTitle } from "../../components/PageTitle"
 import { Pages } from "../../router/types"
+import { useQuery } from "@tanstack/react-query"
 
 export default function ExperimentsPage() {
-  const { data: users, isLoading: isLoadingUsers } = useFetchData(
-    apiClient.user.getAll,
-    { autofetch: true }
-  )
+  const { data: users, isLoading: isLoadingUsers } = useQuery({
+    queryKey: ["users.getAll"],
+    queryFn: apiClient.user.getAll,
+  })
 
-  const { data: experiments, isLoading: isLoadingExperiments } = useFetchData(
-    () => apiClient.experiments.getAll(),
-    { autofetch: true }
-  )
+  const { data: experiments, isLoading: isLoadingExperiments } = useQuery({
+    queryKey: ["experiments.getAll"],
+    queryFn: apiClient.experiments.getAll,
+  })
 
   if (!experiments || !users) {
     return isLoadingUsers || isLoadingExperiments ? <Loader /> : <NoContent />

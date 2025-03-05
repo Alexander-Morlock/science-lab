@@ -1,8 +1,10 @@
+import { useQuery } from "@tanstack/react-query"
 import { apiClient } from "../../../api/apiClient"
-import { useFetchData } from "../../../hooks/useFetchData"
 
-export function useGetExperimentDetailsData(id?: number | string) {
-  return useFetchData(() => apiClient.experiments.get(Number(id)), {
-    autofetch: true,
+export function useGetExperimentDetailsData(id?: number) {
+  return useQuery({
+    queryKey: ["experiments.get", id],
+    queryFn: () => apiClient.experiments.get(Number(id)),
+    enabled: id !== undefined,
   })
 }

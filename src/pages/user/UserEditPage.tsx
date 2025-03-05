@@ -14,11 +14,12 @@ import { UserFormData } from "../../api/types"
 import { useUserForm } from "./hooks/useUserForm"
 import { Pages } from "../../router/types"
 import { userPaths } from "../../router/userRoutes"
+import { useQuery } from "@tanstack/react-query"
 
 export default function UserEditPage() {
   const navigate = useNavigate()
   const { user } = useUser()
-  const { id } = useParams()
+  const id = Number(useParams().id)
   const { isAdmin } = useUserRole()
   const isCurrentUser = user?.id === Number(id)
 
@@ -28,12 +29,10 @@ export default function UserEditPage() {
 
   const { fetch: updateUser } = useFetchData(apiClient.user.update)
 
-  const { data: userDetail, isLoading } = useFetchData(
-    () => apiClient.user.get(Number(id)),
-    {
-      autofetch: id !== undefined,
-    }
-  )
+  const { data: userDetail, isLoading } = useQuery({
+    queryKey: ["users.get", id],
+    queryFn: () => apiClient.user.get(id),
+  })
 
   const navigateToUsersPage = () => navigate(userPaths.users())
 
@@ -51,7 +50,7 @@ export default function UserEditPage() {
   }
 
   const onDelete = async () => {
-    await deleteUser(Number(id))
+    await deleteUser(id)
     navigateToUsersPage()
   }
 

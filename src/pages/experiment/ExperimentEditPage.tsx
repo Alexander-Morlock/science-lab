@@ -22,7 +22,7 @@ import { experimentsPaths } from "../../router/experimentsRoutes"
 import { rootPaths } from "../../router/rootRoutes"
 
 export default function ExperimentEditPage() {
-  const { id } = useParams()
+  const id = Number(useParams().id)
   const [isInitialized, setIsInitialized] = useState(false)
 
   const { isAdmin, isScientist } = useUserRole()
@@ -45,7 +45,7 @@ export default function ExperimentEditPage() {
   }
 
   const onDelete = async () => {
-    await deleteExperiment(Number(id))
+    await deleteExperiment(id)
     navigate(rootPaths.homepage())
   }
 

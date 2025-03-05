@@ -11,14 +11,16 @@ import { useNavigate } from "react-router"
 import { useUserRole } from "../../hooks/useUserRole"
 import { Pages } from "../../router/types"
 import { userPaths } from "../../router/userRoutes"
+import { useQuery } from "@tanstack/react-query"
 
 export default function UsersPage() {
   const { isAdmin } = useUserRole()
   const navigate = useNavigate()
   const navigateToCreateUserPage = () => navigate(userPaths.create())
 
-  const { data: users, isLoading } = useFetchData(apiClient.user.getAll, {
-    autofetch: true,
+  const { data: users, isLoading } = useQuery({
+    queryKey: ["users.getAll"],
+    queryFn: apiClient.user.getAll,
   })
 
   if (!users) {

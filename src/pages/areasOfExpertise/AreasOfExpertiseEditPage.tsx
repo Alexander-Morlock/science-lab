@@ -14,24 +14,24 @@ import { FormPageFooter } from "../../components/FormPageFooter"
 import { useAreasOfExpertiseForm } from "./hooks/useAreasOfExpertiseForm"
 import { Pages } from "../../router/types"
 import { areasOfExpertisePaths } from "../../router/areasOfExpertiseRoutes"
+import { useQuery } from "@tanstack/react-query"
 
 export default function AreasOfExpertiseEditPage() {
   const { isAdmin } = useUserRole()
-  const { id } = useParams()
+  const id = Number(useParams().id)
   const navigate = useNavigate()
   const [isInitialized, setIsInitialized] = useState(false)
 
   useRedirectToHomepageForRolesExcept([UserRole.ADMIN])
 
-  const { data: detail, isLoading } = useFetchData(
-    () => apiClient.areasOfExpertise.get(Number(id)),
-    {
-      autofetch: id !== undefined && isAdmin,
-    }
-  )
+  const { data: detail, isLoading } = useQuery({
+    queryKey: ["areasOfExpertise.get", id],
+    queryFn: () => apiClient.areasOfExpertise.get(id),
+    enabled: id !== undefined && isAdmin,
+  })
 
   const { fetch: updateAreaOfExpertise } = useFetchData((name: string) =>
-    apiClient.areasOfExpertise.update(Number(id), name)
+    apiClient.areasOfExpertise.update(id, name)
   )
   const { fetch: deleteAreaOfExpertise } = useFetchData(
     apiClient.areasOfExpertise.delete
@@ -41,7 +41,7 @@ export default function AreasOfExpertiseEditPage() {
     navigate(areasOfExpertisePaths.areasOfExpertise())
 
   const onDelete = async () => {
-    await deleteAreaOfExpertise(Number(id))
+    await deleteAreaOfExpertise(id)
     navigateToAreasOfExpertisePage()
   }
 

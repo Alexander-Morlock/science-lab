@@ -4,7 +4,7 @@ import { ApplicationFooter } from "./ApplicationFooter"
 import * as Styled from "./ApplicationLayout.styled"
 import { useSnackbar } from "../../hooks/useSnackbar"
 
-export function ApplicationLayout({ children }: PropsWithChildren) {
+export function ApplicationLayout({ children }: PropsWithChildren<{}>) {
   const { snackbar } = useSnackbar()
 
   return (

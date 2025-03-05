@@ -4,9 +4,9 @@ import React, {
   useEffect,
   useCallback,
 } from "react"
-import { SnackbarContext } from "../context/snackbarContext"
-import { SnackbarMessageType, SnackBarType } from "../utils/types"
-import { DEFAULT_SNACKBAR_TIME_DURATION_MS } from "../utils/constants"
+import { SnackbarContext } from "../../context/snackbarContext"
+import { SnackbarMessageType, SnackBarType } from "../../utils/types"
+import { DEFAULT_SNACKBAR_TIME_DURATION_MS } from "../../utils/constants"
 
 export function SnackbarContextProvider({ children }: PropsWithChildren) {
   const [snackbar, setSnackbar] = useState<SnackBarType>()

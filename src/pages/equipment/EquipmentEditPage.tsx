@@ -18,9 +18,10 @@ import { FormPageFooter } from "../../components/FormPageFooter"
 import { useEquipmentForm } from "./hooks/useEquipmentForm"
 import { Pages } from "../../router/types"
 import { equipmentPaths } from "../../router/equipmentRoutes"
+import { useQuery } from "@tanstack/react-query"
 
 export default function EquipmentEditPage() {
-  const { id } = useParams()
+  const id = Number(useParams().id)
   const { isAdmin } = useUserRole()
   const navigate = useNavigate()
 
@@ -28,17 +29,17 @@ export default function EquipmentEditPage() {
 
   const [isInitialized, setIsInitialized] = useState(false)
 
-  const { data: detail, isLoading } = useFetchData(
-    () => apiClient.equipment.get(Number(id)),
-    { autofetch: id !== undefined && isAdmin }
-  )
+  const { data: detail, isLoading } = useQuery({
+    queryKey: ["equipment.get", id],
+    queryFn: () => apiClient.equipment.get(id),
+    enabled: id !== undefined && isAdmin,
+  })
 
-  const { data: experiments, isLoading: isLoadingExperiments } = useFetchData(
-    apiClient.experiments.getAll,
-    {
-      autofetch: isAdmin,
-    }
-  )
+  const { data: experiments, isLoading: isLoadingExperiments } = useQuery({
+    queryKey: ["experiments.getAll"],
+    queryFn: apiClient.experiments.getAll,
+    enabled: isAdmin,
+  })
 
   const { fetch: deleteEquipment } = useFetchData(apiClient.equipment.delete)
 
@@ -64,7 +65,7 @@ export default function EquipmentEditPage() {
   }
 
   const onDelete = async () => {
-    await deleteEquipment(Number(id))
+    await deleteEquipment(id)
     navigateToEquipmentPage()
   }
 

@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from "react"
 import { useSnackbar } from "./useSnackbar"
 import { SnackbarMessageType } from "../utils/types"
-import { AxiosError, AxiosResponse } from "axios"
+import { AxiosError } from "axios"
 
 type useFetchDataOptions<TResponse> = {
   onSuccess?: (response: TResponse | undefined) => void
@@ -16,26 +16,23 @@ type UseFetchDataOutput<TResponse, TFetch> = {
   data?: TResponse
 }
 
+/** Lightweight version of useQuery-like hook, no caching */
 export function useFetchData<TResponse>(
-  apiCallFn: (
-    params?: undefined
-  ) => Promise<AxiosResponse<TResponse | undefined>>,
+  apiCallFn: (params?: undefined) => Promise<TResponse | undefined>,
   options?: useFetchDataOptions<TResponse>
 ): UseFetchDataOutput<
   TResponse,
   (params?: undefined) => Promise<TResponse | undefined>
 >
 export function useFetchData<TResponse, TParams>(
-  apiCallFn: (params: TParams) => Promise<AxiosResponse<TResponse | undefined>>,
+  apiCallFn: (params: TParams) => Promise<TResponse | undefined>,
   options?: useFetchDataOptions<TResponse>
 ): UseFetchDataOutput<
   TResponse,
   (params: TParams) => Promise<TResponse | undefined>
 >
 export function useFetchData<TResponse, TParams>(
-  apiCallFn: (
-    params?: TParams
-  ) => Promise<AxiosResponse<TResponse | undefined>>,
+  apiCallFn: (params?: TParams) => Promise<TResponse | undefined>,
   options?: useFetchDataOptions<TResponse>
 ) {
   const [isLoading, setIsLoading] = useState(false)
@@ -70,7 +67,7 @@ export function useFetchData<TResponse, TParams>(
       setIsLoading(true)
 
       return apiCallFn(params)
-        .then(({ data }) => {
+        .then((data) => {
           setData(data)
           setIsFetched(true)
           options?.onSuccess?.(data)

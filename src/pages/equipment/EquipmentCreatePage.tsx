@@ -15,6 +15,7 @@ import { FormPageFooter } from "../../components/FormPageFooter"
 import { useEquipmentForm } from "./hooks/useEquipmentForm"
 import { Pages } from "../../router/types"
 import { equipmentPaths } from "../../router/equipmentRoutes"
+import { useQuery } from "@tanstack/react-query"
 
 export default function EquipmentCreatePage() {
   const { isAdmin } = useUserRole()
@@ -22,12 +23,11 @@ export default function EquipmentCreatePage() {
 
   useRedirectToHomepageForRolesExcept([UserRole.ADMIN])
 
-  const { data: experiments, isLoading } = useFetchData(
-    apiClient.experiments.getAll,
-    {
-      autofetch: isAdmin,
-    }
-  )
+  const { data: experiments, isLoading } = useQuery({
+    queryKey: ["experiments.getAll"],
+    queryFn: apiClient.experiments.getAll,
+    enabled: isAdmin,
+  })
 
   const { fetch: createEquipment } = useFetchData(apiClient.equipment.create)
 

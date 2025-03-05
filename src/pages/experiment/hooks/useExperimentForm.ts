@@ -1,24 +1,27 @@
 import { useForm } from "react-hook-form"
 import { apiClient } from "../../../api/apiClient"
 import { ExperimentFormData } from "../../../api/types"
-import { useFetchData } from "../../../hooks/useFetchData"
 import { useShowSnackbarMessageOnInvalidFormSubmit } from "../../../hooks/useShowSnackbarMessageOnInvalidFormSubmit"
+import { useQuery } from "@tanstack/react-query"
 
 export function useExperimentForm(
   onValid: (data: ExperimentFormData) => Promise<void>
 ) {
-  const { data: users, isLoading: isLoadingUsers } = useFetchData(
-    apiClient.user.getAll,
-    { autofetch: true }
-  )
+  const { data: users, isLoading: isLoadingUsers } = useQuery({
+    queryKey: ["user.getAll"],
+    queryFn: apiClient.user.getAll,
+  })
 
   const { data: areasOfExpertise, isLoading: isLoadingAreasOfExpertise } =
-    useFetchData(apiClient.areasOfExpertise.getAll, { autofetch: true })
+    useQuery({
+      queryKey: ["areasOfExpertise.getAll"],
+      queryFn: apiClient.areasOfExpertise.getAll,
+    })
 
-  const { data: equipment, isLoading: isLoadingEquipment } = useFetchData(
-    apiClient.equipment.getAll,
-    { autofetch: true }
-  )
+  const { data: equipment, isLoading: isLoadingEquipment } = useQuery({
+    queryKey: ["equipment.getAll"],
+    queryFn: apiClient.equipment.getAll,
+  })
 
   const { showSnackbarMessageOnInvalid } =
     useShowSnackbarMessageOnInvalidFormSubmit()
