@@ -3,6 +3,7 @@ import {
   EquipmentDetail,
   Experiment,
   User,
+  UserRole,
 } from "../api/types"
 
 export const MOBILE_DEVICE_MAX_WIDTH_PX = 640
@@ -64,3 +65,10 @@ export const UserFieldsDescription: Record<keyof User, string> = {
 }
 
 export const DEFAULT_SNACKBAR_TIME_DURATION_MS = 2000
+
+export const guestUser: User = {
+  id: -1,
+  name: "",
+  email: "",
+  role: UserRole.GUEST,
+}

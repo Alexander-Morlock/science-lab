@@ -1,7 +1,6 @@
 import React from "react"
 import { Loader } from "../../components/Loader"
 import { apiClient } from "../../api/apiClient"
-import { useFetchData } from "../../hooks/useFetchData"
 import { NoContent } from "../../components/NoContent"
 import { PageTitle } from "../../components/PageTitle"
 import { Container } from "../../components/basic/Container"

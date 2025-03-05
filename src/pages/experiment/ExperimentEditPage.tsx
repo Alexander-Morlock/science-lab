@@ -6,7 +6,6 @@ import { Section } from "../../components/basic/Section"
 import { ExperimentForm } from "./components/ExperimentForm"
 import { useNavigate, useParams } from "react-router"
 import { apiClient } from "../../api/apiClient"
-import { useFetchData } from "../../hooks/useFetchData"
 import {
   convertExperimentFormData,
   convertExperimentToFormData,
@@ -20,6 +19,7 @@ import { useGetExperimentDetailsData } from "./hooks/useGetExperimentDetailsData
 import { Pages } from "../../router/types"
 import { experimentsPaths } from "../../router/experimentsRoutes"
 import { rootPaths } from "../../router/rootRoutes"
+import { useMutation } from "@tanstack/react-query"
 
 export default function ExperimentEditPage() {
   const id = Number(useParams().id)
@@ -36,8 +36,12 @@ export default function ExperimentEditPage() {
   const { data: experiment, isLoading: isLoadingExperiment } =
     useGetExperimentDetailsData(id)
 
-  const { fetch: updateExperiment } = useFetchData(apiClient.experiments.update)
-  const { fetch: deleteExperiment } = useFetchData(apiClient.experiments.delete)
+  const { mutate: updateExperiment } = useMutation({
+    mutationFn: apiClient.experiments.update,
+  })
+  const { mutate: deleteExperiment } = useMutation({
+    mutationFn: apiClient.experiments.delete,
+  })
 
   const onValid = async (data: ExperimentFormData) => {
     await updateExperiment(convertExperimentFormData(data))

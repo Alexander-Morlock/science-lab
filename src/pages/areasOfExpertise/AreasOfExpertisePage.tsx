@@ -3,7 +3,6 @@ import { Loader } from "../../components/Loader"
 import { NoContent } from "../../components/NoContent"
 import { Section } from "../../components/basic/Section"
 import { Container } from "../../components/basic/Container"
-import { useFetchData } from "../../hooks/useFetchData"
 import { apiClient } from "../../api/apiClient"
 import { useUserRole } from "../../hooks/useUserRole"
 import { useNavigate } from "react-router"
@@ -11,7 +10,7 @@ import { AreaOfExpertisePreviewCard } from "./components/AreaOfExpertisePreviewC
 import { PageTitle } from "../../components/PageTitle"
 import { Pages } from "../../router/types"
 import { areasOfExpertisePaths } from "../../router/areasOfExpertiseRoutes"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 
 export default function AreasOfExpertisePage() {
   const { isAdmin } = useUserRole()
@@ -26,9 +25,9 @@ export default function AreasOfExpertisePage() {
     queryFn: apiClient.areasOfExpertise.getAll,
   })
 
-  const { fetch: deleteAreaOfExpertise } = useFetchData(
-    apiClient.areasOfExpertise.delete
-  )
+  const { mutate: deleteAreaOfExpertise } = useMutation({
+    mutationFn: apiClient.areasOfExpertise.delete,
+  })
 
   const onDelete = async (id: number) => {
     await deleteAreaOfExpertise(id)

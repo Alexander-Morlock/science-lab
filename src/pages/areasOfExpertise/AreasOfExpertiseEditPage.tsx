@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react"
 import { Loader } from "../../components/Loader"
 import { NoContent } from "../../components/NoContent"
 import { Section } from "../../components/basic/Section"
-import { useFetchData } from "../../hooks/useFetchData"
 import { apiClient } from "../../api/apiClient"
 import { useUserRole } from "../../hooks/useUserRole"
 import { useNavigate, useParams } from "react-router"
@@ -14,7 +13,7 @@ import { FormPageFooter } from "../../components/FormPageFooter"
 import { useAreasOfExpertiseForm } from "./hooks/useAreasOfExpertiseForm"
 import { Pages } from "../../router/types"
 import { areasOfExpertisePaths } from "../../router/areasOfExpertiseRoutes"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 
 export default function AreasOfExpertiseEditPage() {
   const { isAdmin } = useUserRole()
@@ -30,12 +29,12 @@ export default function AreasOfExpertiseEditPage() {
     enabled: id !== undefined && isAdmin,
   })
 
-  const { fetch: updateAreaOfExpertise } = useFetchData((name: string) =>
-    apiClient.areasOfExpertise.update(id, name)
-  )
-  const { fetch: deleteAreaOfExpertise } = useFetchData(
-    apiClient.areasOfExpertise.delete
-  )
+  const { mutate: updateAreaOfExpertise } = useMutation({
+    mutationFn: (name: string) => apiClient.areasOfExpertise.update(id, name),
+  })
+  const { mutate: deleteAreaOfExpertise } = useMutation({
+    mutationFn: apiClient.areasOfExpertise.delete,
+  })
 
   const navigateToAreasOfExpertisePage = () =>
     navigate(areasOfExpertisePaths.areasOfExpertise())

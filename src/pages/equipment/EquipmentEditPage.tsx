@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react"
 import { Loader } from "../../components/Loader"
 import { NoContent } from "../../components/NoContent"
 import { Section } from "../../components/basic/Section"
-import { useFetchData } from "../../hooks/useFetchData"
 import { apiClient } from "../../api/apiClient"
 import { useNavigate, useParams } from "react-router"
 import { useUserRole } from "../../hooks/useUserRole"
@@ -18,7 +17,7 @@ import { FormPageFooter } from "../../components/FormPageFooter"
 import { useEquipmentForm } from "./hooks/useEquipmentForm"
 import { Pages } from "../../router/types"
 import { equipmentPaths } from "../../router/equipmentRoutes"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 
 export default function EquipmentEditPage() {
   const id = Number(useParams().id)
@@ -41,9 +40,13 @@ export default function EquipmentEditPage() {
     enabled: isAdmin,
   })
 
-  const { fetch: deleteEquipment } = useFetchData(apiClient.equipment.delete)
+  const { mutate: deleteEquipment } = useMutation({
+    mutationFn: apiClient.equipment.delete,
+  })
 
-  const { fetch: updateEquipment } = useFetchData(apiClient.equipment.update)
+  const { mutate: updateEquipment } = useMutation({
+    mutationFn: apiClient.equipment.update,
+  })
 
   const onValid = async (data: EquipmentDetailFormData) => {
     if (!experiments) {

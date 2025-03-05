@@ -3,7 +3,6 @@ import { Loader } from "../../components/Loader"
 import { NoContent } from "../../components/NoContent"
 import { Section } from "../../components/basic/Section"
 import { Container } from "../../components/basic/Container"
-import { useFetchData } from "../../hooks/useFetchData"
 import { apiClient } from "../../api/apiClient"
 import { EquipmentPreviewCard } from "./components/EquipmentPreviewCard"
 import { useUserRole } from "../../hooks/useUserRole"
@@ -11,7 +10,7 @@ import { useNavigate } from "react-router"
 import { PageTitle } from "../../components/PageTitle"
 import { Pages } from "../../router/types"
 import { equipmentPaths } from "../../router/equipmentRoutes"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 
 export default function EquipmentPage() {
   const { isAdmin } = useUserRole()
@@ -26,7 +25,9 @@ export default function EquipmentPage() {
     queryFn: apiClient.equipment.getAll,
   })
 
-  const { fetch: deleteEquipment } = useFetchData(apiClient.equipment.delete)
+  const { mutate: deleteEquipment } = useMutation({
+    mutationFn: apiClient.equipment.delete,
+  })
 
   const onDelete = async (id: number) => {
     await deleteEquipment(id)

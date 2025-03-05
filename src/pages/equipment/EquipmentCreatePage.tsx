@@ -2,7 +2,6 @@ import React from "react"
 import { Loader } from "../../components/Loader"
 import { NoContent } from "../../components/NoContent"
 import { Section } from "../../components/basic/Section"
-import { useFetchData } from "../../hooks/useFetchData"
 import { apiClient } from "../../api/apiClient"
 import { useNavigate } from "react-router"
 import { useUserRole } from "../../hooks/useUserRole"
@@ -15,7 +14,7 @@ import { FormPageFooter } from "../../components/FormPageFooter"
 import { useEquipmentForm } from "./hooks/useEquipmentForm"
 import { Pages } from "../../router/types"
 import { equipmentPaths } from "../../router/equipmentRoutes"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 
 export default function EquipmentCreatePage() {
   const { isAdmin } = useUserRole()
@@ -29,7 +28,9 @@ export default function EquipmentCreatePage() {
     enabled: isAdmin,
   })
 
-  const { fetch: createEquipment } = useFetchData(apiClient.equipment.create)
+  const { mutate: createEquipment } = useMutation({
+    mutationFn: apiClient.equipment.create,
+  })
 
   const onValid = async (data: EquipmentDetailFormData) => {
     if (!experiments) {

@@ -1,6 +1,5 @@
 import React from "react"
 import { Section } from "../../components/basic/Section"
-import { useFetchData } from "../../hooks/useFetchData"
 import { apiClient } from "../../api/apiClient"
 import { useNavigate } from "react-router"
 import { useRedirectToHomepageForRolesExcept } from "../../hooks/useRedirectToHomepageForRolesExcept"
@@ -11,15 +10,16 @@ import { FormPageFooter } from "../../components/FormPageFooter"
 import { useAreasOfExpertiseForm } from "./hooks/useAreasOfExpertiseForm"
 import { Pages } from "../../router/types"
 import { areasOfExpertisePaths } from "../../router/areasOfExpertiseRoutes"
+import { useMutation } from "@tanstack/react-query"
 
 export default function AreasOfExpertiseCreatePage() {
   const navigate = useNavigate()
 
   useRedirectToHomepageForRolesExcept([UserRole.ADMIN])
 
-  const { fetch: createAreaOfExpertise } = useFetchData(
-    apiClient.areasOfExpertise.create
-  )
+  const { mutate: createAreaOfExpertise } = useMutation({
+    mutationFn: apiClient.areasOfExpertise.create,
+  })
 
   const onCancel = () => navigate(areasOfExpertisePaths.areasOfExpertise())
 

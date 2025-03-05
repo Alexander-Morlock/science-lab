@@ -1,6 +1,5 @@
 import React from "react"
 import { apiClient } from "../../api/apiClient"
-import { useFetchData } from "../../hooks/useFetchData"
 import { PageTitle } from "../../components/PageTitle"
 import { Section } from "../../components/basic/Section.styled"
 import { useNavigate } from "react-router"
@@ -10,11 +9,14 @@ import { UserFormData } from "../../api/types"
 import { useUserForm } from "./hooks/useUserForm"
 import { Pages } from "../../router/types"
 import { userPaths } from "../../router/userRoutes"
+import { useMutation } from "@tanstack/react-query"
 
 export default function UserCreatePage() {
   const navigate = useNavigate()
 
-  const { fetch: createUser } = useFetchData(apiClient.user.create)
+  const { mutate: createUser } = useMutation({
+    mutationFn: apiClient.user.create,
+  })
 
   const navigateToUsersPage = () => navigate(userPaths.users())
 

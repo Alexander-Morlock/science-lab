@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Loader } from "../../components/Loader"
 import { apiClient } from "../../api/apiClient"
-import { useFetchData } from "../../hooks/useFetchData"
 import { NoContent } from "../../components/NoContent"
 import { PageTitle } from "../../components/PageTitle"
 import { Section } from "../../components/basic/Section.styled"
@@ -14,7 +13,7 @@ import { UserFormData } from "../../api/types"
 import { useUserForm } from "./hooks/useUserForm"
 import { Pages } from "../../router/types"
 import { userPaths } from "../../router/userRoutes"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 
 export default function UserEditPage() {
   const navigate = useNavigate()
@@ -25,9 +24,13 @@ export default function UserEditPage() {
 
   const [isInitialized, setIsInitialized] = useState(false)
 
-  const { fetch: deleteUser } = useFetchData(apiClient.user.delete)
+  const { mutate: deleteUser } = useMutation({
+    mutationFn: apiClient.user.delete,
+  })
 
-  const { fetch: updateUser } = useFetchData(apiClient.user.update)
+  const { mutate: updateUser } = useMutation({
+    mutationFn: apiClient.user.update,
+  })
 
   const { data: userDetail, isLoading } = useQuery({
     queryKey: ["users.get", id],

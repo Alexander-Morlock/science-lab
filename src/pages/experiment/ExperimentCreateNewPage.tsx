@@ -1,7 +1,6 @@
 import React from "react"
 import { Section } from "../../components/basic/Section"
 import { ExperimentForm } from "./components/ExperimentForm"
-import { useFetchData } from "../../hooks/useFetchData"
 import { apiClient } from "../../api/apiClient"
 import { Loader } from "../../components/Loader"
 import { useNavigate } from "react-router"
@@ -15,13 +14,16 @@ import { useExperimentForm } from "./hooks/useExperimentForm"
 import { Pages } from "../../router/types"
 import { experimentsPaths } from "../../router/experimentsRoutes"
 import { rootPaths } from "../../router/rootRoutes"
+import { useMutation } from "@tanstack/react-query"
 
 export default function ExperimentCreateNewPage() {
   const navigate = useNavigate()
 
   useRedirectToHomepageForRolesExcept([UserRole.ADMIN, UserRole.SCIENTIST])
 
-  const { fetch: updateExperiment } = useFetchData(apiClient.experiments.create)
+  const { mutateAsync: updateExperiment } = useMutation({
+    mutationFn: apiClient.experiments.create,
+  })
 
   const onValid = async (data: ExperimentFormData) => {
     const res = await updateExperiment(convertExperimentFormData(data))
