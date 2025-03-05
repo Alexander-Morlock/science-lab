@@ -27,24 +27,27 @@ type Xhr = {
   ): Promise<T>
 }
 
-async function extractData<T>(request: Promise<AxiosResponse<T>>) {
-  const { data } = await request
-  return data
+async function overrideAxiosResponse<T>(
+  request: Promise<AxiosResponse<T>>,
+  responseField: keyof AxiosResponse<T> = "data"
+) {
+  const response = await request
+  return response[responseField]
 }
 
 export const xhr: Xhr = {
   get: <T, D>(url: string, config?: AxiosRequestConfig<D>) =>
-    extractData<T>(axios.get(url, config)),
+    overrideAxiosResponse<T>(axios.get(url, config)),
 
   post: <T, D>(url: string, data?: D, config?: AxiosRequestConfig<D>) =>
-    extractData<T>(axios.post(url, data, config)),
+    overrideAxiosResponse<T>(axios.post(url, data, config)),
 
   put: <T, D>(url: string, data?: D, config?: AxiosRequestConfig<D>) =>
-    extractData<T>(axios.put(url, data, config)),
+    overrideAxiosResponse<T>(axios.put(url, data, config)),
 
   patch: <T, D>(url: string, data?: D, config?: AxiosRequestConfig<D>) =>
-    extractData<T>(axios.patch(url, data, config)),
+    overrideAxiosResponse<T>(axios.patch(url, data, config)),
 
   delete: <T, D>(url: string, config?: AxiosRequestConfig<D>) =>
-    extractData<T>(axios.delete(url, config)),
+    overrideAxiosResponse<T>(axios.delete(url, config)),
 }
