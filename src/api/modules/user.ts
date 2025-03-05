@@ -1,5 +1,5 @@
 import { User, UserFormData, UserRole } from "../types"
-import { xhr } from "./xhr"
+import { xhr } from "../xhr"
 
 export const user = {
   /** Get a specific user by ID */

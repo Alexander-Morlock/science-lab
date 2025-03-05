@@ -1,5 +1,5 @@
 import { EquipmentDetail } from "../types"
-import { xhr } from "./xhr"
+import { xhr } from "../xhr"
 
 export const equipment = {
   /** Get a specific equipment by ID */

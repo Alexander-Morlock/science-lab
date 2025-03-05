@@ -1,5 +1,5 @@
 import { AreaOfExpertise } from "../types"
-import { xhr } from "./xhr"
+import { xhr } from "../xhr"
 
 export const areasOfExpertise = {
   /** Get a specific area of expertise by ID */

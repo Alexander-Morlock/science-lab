@@ -1,5 +1,5 @@
 import { Experiment, ExperimentState, LabPerson } from "../types"
-import { xhr } from "./xhr"
+import { xhr } from "../xhr"
 
 export const experiments = {
   /** Get a specific experiment by ID */

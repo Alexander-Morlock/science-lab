@@ -1,4 +1,4 @@
-import { xhr } from "./xhr"
+import { xhr } from "../xhr"
 
 export const labPerson = {
   /** Add a participant experiment to a lab person. (Admin, Scientist) */
