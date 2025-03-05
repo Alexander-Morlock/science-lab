@@ -27,8 +27,9 @@ type Xhr = {
   ): Promise<T>
 }
 
-function extractData<T>(request: Promise<AxiosResponse<T>>) {
-  return request.then(({ data }) => data)
+async function extractData<T>(request: Promise<AxiosResponse<T>>) {
+  const { data } = await request
+  return data
 }
 
 export const xhr: Xhr = {
